@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class TowerBehaviourScript : MonoBehaviour
 {
-    private int health_point;
+    private static readonly int MaxHealthPoint = 100;
+    private static readonly int MinHealthPoint = 0;
+    private int _healthPoint;
 
     // Start is called before the first frame update
     void Start()
     {
-        health_point = 0;
+        // initialize tower HP to the max value
+        _healthPoint = MaxHealthPoint;
     }
 
     // Update is called once per frame
