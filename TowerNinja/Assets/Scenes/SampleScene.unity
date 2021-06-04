@@ -462,7 +462,6 @@ GameObject:
   m_Component:
   - component: {fileID: 857270923}
   - component: {fileID: 857270922}
-  - component: {fileID: 857270924}
   m_Layer: 0
   m_Name: EnemySpawn
   m_TagString: Untagged
@@ -479,10 +478,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 857270921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f5cd9a4a1555464598a8d3e2cf8e0d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f58fcf5df3a845ce8055f35a8cb78c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5428522582276746141, guid: 7ac4117caaf2543599990b3910959531, type: 3}
+  prefab: {fileID: 5428522582276746141, guid: e085a6577945c48f2b0dcad72045ed12, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   enemy: {fileID: 0}
   go: {fileID: 0}
@@ -500,27 +499,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &857270924
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857270921}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1041537375
 GameObject:
   m_ObjectHideFlags: 0
