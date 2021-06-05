@@ -11,6 +11,7 @@ public class TowerBehaviourScript : MonoBehaviour
     private GameObject[] _levels;
     private GameObject _leftTurret;
     private GameObject _rightTurret;
+    private BoxCollider2D _towerBoxCollider;
 
     // Start is called before the first frame update
     public void Start()
@@ -36,6 +37,9 @@ public class TowerBehaviourScript : MonoBehaviour
         _rightTurret = _tower.transform.Find("RightTurret").gameObject;
         if (_rightTurret == null) Debug.LogError("Can't find RightTurret");
 
+        // Add towerBoxCollider
+        _towerBoxCollider = gameObject.AddComponent<BoxCollider2D>();
+
         Debug.Log("Tower initialized");
     }
 
@@ -50,6 +54,15 @@ public class TowerBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             ResetTower();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.name == "Fireball")
+        {
+            Debug.Log("Tower collided with a Fireball");
+            DamageTower(10);
         }
     }
 
