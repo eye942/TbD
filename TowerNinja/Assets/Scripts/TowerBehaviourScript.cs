@@ -57,14 +57,12 @@ public class TowerBehaviourScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.name == "Fireball")
         {
-            Debug.Log("Tower collided with a Fireball");
-            DamageTower(10);
-            DamageTower(10);
-            DamageTower(10);
+            Debug.Log($"Tower collided with a Fireball");
+            DamageTower(50);
         }
     }
 
@@ -97,49 +95,25 @@ public class TowerBehaviourScript : MonoBehaviour
     {
         int hpFloored = _healthPoint / 10;
 
-        switch (hpFloored)
+        if (hpFloored == 10)
         {
-            case 10:
-                _leftTurret.SetActive(true);
-                _rightTurret.SetActive(true);
-                foreach (GameObject level in _levels)
-                {
-                    level.SetActive(true);
-                }
-                break;
-            case 9:
-                _leftTurret.SetActive(false);
-                break;
-            case 8:
-                _rightTurret.SetActive(false);
-                break;
-            case 7:
-                _levels[7].SetActive(false);
-                break;
-            case 6:
-                _levels[6].SetActive(false);
-                break;
-            case 5:
-                _levels[5].SetActive(false);
-                break;
-            case 4:
-                _levels[4].SetActive(false);
-                break;
-            case 3:
-                _levels[3].SetActive(false);
-                break;
-            case 2:
-                _levels[2].SetActive(false);
-                break;
-            case 1:
-                _levels[1].SetActive(false);
-                break;
-            case 0:
-                _levels[0].SetActive(false);
-                break;
-            default:
-                break;
+            _leftTurret.SetActive(true);
+            _rightTurret.SetActive(true);
+            foreach (GameObject level in _levels)
+            {
+                level.SetActive(true);
+            }
         }
+        if (hpFloored < 10) _leftTurret.SetActive(false);
+        if (hpFloored < 9) _rightTurret.SetActive(false);
+        if (hpFloored < 8) _levels[7].SetActive(false);
+        if (hpFloored < 7) _levels[6].SetActive(false);
+        if (hpFloored < 6) _levels[5].SetActive(false);
+        if (hpFloored < 5) _levels[4].SetActive(false);
+        if (hpFloored < 4) _levels[3].SetActive(false);
+        if (hpFloored < 3) _levels[2].SetActive(false);
+        if (hpFloored < 2) _levels[1].SetActive(false);
+        if (hpFloored < 1) _levels[0].SetActive(false);
     }
 
 }

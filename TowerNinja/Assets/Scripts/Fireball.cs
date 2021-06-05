@@ -44,7 +44,7 @@ public class Fireball : MonoBehaviour
         // f_k = -k * dX
         var forceY = -k * dy;
         forceX *= Random.Range(0.001f, 0.005f);
-        Debug.Log($"{dy},{forceY}");
+        // Debug.Log($"{dy},{forceY}");
 
         rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Force);
     }
