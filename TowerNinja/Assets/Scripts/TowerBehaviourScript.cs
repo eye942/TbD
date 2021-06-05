@@ -20,7 +20,7 @@ public class TowerBehaviourScript : MonoBehaviour
         _healthPoint = MaxHealthPoint;
 
         // Find tower game object
-        _tower = GameObject.Find("Tower");
+        _tower = gameObject;// GameObject.Find("Tower");
         if (_tower == null) Debug.LogError("Can't find tower");
 
         // Find levels
@@ -37,8 +37,8 @@ public class TowerBehaviourScript : MonoBehaviour
         _rightTurret = _tower.transform.Find("RightTurret").gameObject;
         if (_rightTurret == null) Debug.LogError("Can't find RightTurret");
 
-        // Add towerBoxCollider
-        _towerBoxCollider = gameObject.AddComponent<BoxCollider2D>();
+        // Get towerBoxCollider
+        _towerBoxCollider = gameObject.GetComponent<BoxCollider2D>();
 
         Debug.Log("Tower initialized");
     }
@@ -62,6 +62,8 @@ public class TowerBehaviourScript : MonoBehaviour
         if (other.gameObject.name == "Fireball")
         {
             Debug.Log("Tower collided with a Fireball");
+            DamageTower(10);
+            DamageTower(10);
             DamageTower(10);
         }
     }
