@@ -8,24 +8,24 @@ public class Fireball : MonoBehaviour
     private Rigidbody2D rigidBody;
     // spring constant
     private float k;
-    
+
     private float forceX = 0f;
     private int health;
 
     private int damage;
-    
+
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         // TODO revise spring constant based on difficulty
-        k = Random.Range(1,5);
+        k = Random.Range(1, 5);
 
-        var vX = Random.Range(1,5);
+        var vX = Random.Range(1, 5);
         // v = sqrt(2 / m * (-1/2) k x^2)
         var vY = -Mathf.Sqrt(1 / rigidBody.mass * k * 5 * 5);
         rigidBody.velocity = new Vector2(vX, vY);
         initialPosition = transform.position;
-        rigidBody.AddForce(new Vector2(forceX,0),ForceMode2D.Force);
+        rigidBody.AddForce(new Vector2(forceX, 0), ForceMode2D.Force);
 
         // TODO revise max and min based on difficulty
         health = Random.Range(1, 3);
@@ -42,11 +42,11 @@ public class Fireball : MonoBehaviour
         // k *= Random.Range(1.0f, 1.3f);
         // k = k <= 0.01 ? k : 0.01f;
         // f_k = -k * dX
-        var forceY = - k * dy;
+        var forceY = -k * dy;
         forceX *= Random.Range(0.001f, 0.005f);
         Debug.Log($"{dy},{forceY}");
 
-        rigidBody.AddForce(new Vector2(forceX,forceY),ForceMode2D.Force);
+        rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Force);
     }
 
     // Click on fireball to decrease health
@@ -73,12 +73,12 @@ public class Fireball : MonoBehaviour
     private void OnMouseOver()
     {
         Debug.Log("Mouse Over");
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        other.gameObject.SendMessage("ReceiveDamage",damage);
+        other.gameObject.SendMessage("ReceiveDamage", damage);
         Die();
     }
 
@@ -86,5 +86,16 @@ public class Fireball : MonoBehaviour
     {
         Debug.Log("Killed enemy");
         Destroy(this);
+    }
+
+    // add explosion effect
+    public GameObject explosion;
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("Hit Detected");
+        GameObject e = Instantiate(explosion) as GameObject;
+        e.transform.position = transform.position;
+        Destroy(this);
+        this.gameObject.SetActive(false);
     }
 }
