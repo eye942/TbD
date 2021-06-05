@@ -295,6 +295,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2316777159651940799, guid: 02eec6c7bbcf8a14891b61eaeef7816a, type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 139366, guid: cb09f222648f84a609f842fee8d3231f, type: 3}
+    - target: {fileID: 3926978729216297281, guid: 02eec6c7bbcf8a14891b61eaeef7816a, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7573883483337754737, guid: 02eec6c7bbcf8a14891b61eaeef7816a, type: 3}
       propertyPath: m_Name
       value: Fireball
