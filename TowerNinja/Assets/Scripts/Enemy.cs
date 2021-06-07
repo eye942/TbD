@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
         velocity.z = 0;
 
         enemy = Instantiate(prefab, new Vector3(-5, -3, 0), Quaternion.identity);
+        Debug.Log("lets go");
         go = enemy.gameObject;
         go.AddComponent<Rigidbody2D>();
         go.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -28,10 +29,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
     	//transform.Translate(velocity*Time.deltaTime, Space.World);
+        /*
     	if (enemy.position.x >= 5) {
     		go.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     	}
+        */
     }
+
+
 }
 
 
