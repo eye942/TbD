@@ -78,8 +78,11 @@ public class Fireball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        other.gameObject.SendMessage("ReceiveDamage", damage);
-        Die();
+        if (other.gameObject.tag == "friendly")
+        {
+            other.gameObject.SendMessage("ReceiveDamage", damage);
+            Die();
+        }
     }
 
     private void Die()
