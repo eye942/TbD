@@ -23,7 +23,7 @@ public class Fireball : MonoBehaviour
         var vX = Random.Range(1, 5);
         // v = sqrt(2 / m * (-1/2) k x^2)
         var vY = -Mathf.Sqrt(1 / rigidBody.mass * k * 5 * 5);
-        rigidBody.velocity = new Vector2(vX, vY);
+        rigidBody.velocity = new Vector2(vX, vY/1.5f);
         initialPosition = transform.position;
         rigidBody.AddForce(new Vector2(forceX, 0), ForceMode2D.Force);
 
