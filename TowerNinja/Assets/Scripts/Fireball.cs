@@ -105,9 +105,11 @@ public class Fireball : MonoBehaviour
         Debug.Log("Fireball - OnTriggerEnter2D");
         if (other.gameObject.tag == "friendly")
         {
+            //var delay = 2.0;
             GameObject e = Instantiate(explosion) as GameObject;
             e.transform.position = transform.position;
-            
+            //yield WaitForSeconds(delay);
+            Destroy(e, 1.0f);
         }
     }
     
