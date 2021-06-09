@@ -95,6 +95,8 @@ public class TowerBehaviourScript : MonoBehaviour
     {
         int hpFloored = _healthPoint / 10;
 
+
+        // set visibility of each level
         if (hpFloored == 10)
         {
             _leftTurret.SetActive(true);
@@ -114,6 +116,21 @@ public class TowerBehaviourScript : MonoBehaviour
         if (hpFloored < 3) _levels[2].SetActive(false);
         if (hpFloored < 2) _levels[1].SetActive(false);
         if (hpFloored < 1) _levels[0].SetActive(false);
+
+        // adjust collider shape
+        if (hpFloored >= 9) UpdateTowerColliderShape(9, -3);
+        else UpdateTowerColliderShape(hpFloored, -3.0f - 0.5f * (9 - hpFloored));
+    }
+
+    private void UpdateTowerColliderShape(int sizeY, float offsetY)
+    {
+        _towerBoxCollider.size = new Vector2(3, sizeY);
+        _towerBoxCollider.offset = new Vector2(-1, offsetY);
+    }
+
+    public int GetHealthPoint()
+    {
+        return _healthPoint;
     }
 
 }
