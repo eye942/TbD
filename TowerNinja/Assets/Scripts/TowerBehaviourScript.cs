@@ -122,10 +122,10 @@ public class TowerBehaviourScript : MonoBehaviour
         else UpdateTowerColliderShape(hpFloored, -3.0f - 0.5f * (9 - hpFloored));
     }
 
-    private void UpdateTowerColliderShape(int offsetY, float sizeY)
+    private void UpdateTowerColliderShape(int sizeY, float offsetY)
     {
-        _towerBoxCollider.size = new Vector2(3, offsetY);
-        _towerBoxCollider.offset = new Vector2(-1, sizeY);
+        _towerBoxCollider.size = new Vector2(3, sizeY);
+        _towerBoxCollider.offset = new Vector2(-1, offsetY);
     }
 
     public int GetHealthPoint()
