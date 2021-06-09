@@ -90,7 +90,7 @@ public class FireballSpawn : MonoBehaviour
 	{
 		// Sets the color to red
 		Gizmos.color = gizmoColor;
-		//draws a small cube at the location of the gam object that the script is attached to
+		//draws a small cube at the location of the game object that the script is attached to
 		Gizmos.DrawCube(transform.position, new Vector3 (0.5f,0.5f,0.5f));
 	}
 	void Update ()

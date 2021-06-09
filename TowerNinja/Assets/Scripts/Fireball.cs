@@ -86,7 +86,7 @@ public class Fireball : MonoBehaviour
         if (other.gameObject.tag == "friendly")
         {
             other.gameObject.SendMessage("ReceiveDamage", damage);
-            Die();
+            
         }
     }
 
@@ -103,9 +103,12 @@ public class Fireball : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Fireball - OnTriggerEnter2D");
-        GameObject e = Instantiate(explosion) as GameObject;
-        e.transform.position = transform.position;
-        Die();
+        if (other.gameObject.tag == "friendly")
+        {
+            GameObject e = Instantiate(explosion) as GameObject;
+            e.transform.position = transform.position;
+            
+        }
     }
     
     // this gets called in the beginning when it is created by the spawner script
