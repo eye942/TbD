@@ -87,7 +87,8 @@ public class Fireball : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Killed enemy");
+        Debug.Log("Fireball - Die()");
+        this.gameObject.SetActive(false);
         Destroy(this);
     }
 
@@ -95,10 +96,10 @@ public class Fireball : MonoBehaviour
     public GameObject explosion;
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Hit Detected");
+        Debug.Log("Fireball - OnTriggerEnter2D");
         GameObject e = Instantiate(explosion) as GameObject;
         e.transform.position = transform.position;
-        Destroy(this);
         this.gameObject.SetActive(false);
+        Destroy(this);
     }
 }
