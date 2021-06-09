@@ -116,4 +116,9 @@ public class TowerBehaviourScript : MonoBehaviour
         if (hpFloored < 1) _levels[0].SetActive(false);
     }
 
+    public int GetHealthPoint()
+    {
+        return _healthPoint;
+    }
+
 }
