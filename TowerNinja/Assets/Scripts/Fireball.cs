@@ -4,6 +4,9 @@ using Random = UnityEngine.Random;
 
 public class Fireball : MonoBehaviour
 {
+    private GameObject spawner;
+    private int spawnerID;
+
     private Vector2 initialPosition;
     private Rigidbody2D rigidBody;
     // spring constant
@@ -16,6 +19,8 @@ public class Fireball : MonoBehaviour
 
     private void Start()
     {
+        spawner = GameObject.FindWithTag("fireball_spawn");
+        
         rigidBody = GetComponent<Rigidbody2D>();
         // TODO revise spring constant based on difficulty
         k = Random.Range(1, 5);
@@ -81,15 +86,16 @@ public class Fireball : MonoBehaviour
         if (other.gameObject.tag == "friendly")
         {
             other.gameObject.SendMessage("ReceiveDamage", damage);
-            Die();
+            
         }
     }
 
     private void Die()
     {
+        spawner.BroadcastMessage("killEnemy", spawnerID);
         Debug.Log("Fireball - Die()");
-        this.gameObject.SetActive(false);
-        Destroy(this);
+        //this.gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     // add explosion effect
@@ -97,9 +103,19 @@ public class Fireball : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("Fireball - OnTriggerEnter2D");
-        GameObject e = Instantiate(explosion) as GameObject;
-        e.transform.position = transform.position;
-        this.gameObject.SetActive(false);
-        Destroy(this);
+        if (other.gameObject.tag == "friendly")
+        {
+            //var delay = 2.0;
+            GameObject e = Instantiate(explosion) as GameObject;
+            e.transform.position = transform.position;
+            //yield WaitForSeconds(delay);
+            Destroy(e, 1.0f);
+        }
+    }
+    
+    // this gets called in the beginning when it is created by the spawner script
+    void setName(int sName)
+    {
+        spawnerID = sName;
     }
 }

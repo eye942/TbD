@@ -6,6 +6,7 @@ TagManager:
   tags:
   - friendly
   - enemy
+  - fireball_spawn
   layers:
   - Default
   - TransparentFX
