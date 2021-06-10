@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Instantiate a rigidbody then set the velocity
 
-public class ExampleClass : MonoBehaviour
+public class EnemySpawn : MonoBehaviour
 {
     public Transform prefab;
     void Start()
