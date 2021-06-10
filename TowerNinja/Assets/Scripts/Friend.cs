@@ -18,13 +18,13 @@ public class Friend : MonoBehaviour
         velocity.x = -1.5f;
         velocity.y = 0;
         velocity.z = 0;
-
+        /*
         friend = Instantiate(prefab, this.transform.position, Quaternion.identity) ;
         Debug.Log("lets go");
         go = friend.gameObject;
         go.GetComponent<Rigidbody2D>().gravityScale = 0;
         go.GetComponent<Rigidbody2D>().velocity = velocity;
-
+        */
         //enemy.rigidbody.velocity = velocity;
     }
     void Update()
@@ -35,6 +35,14 @@ public class Friend : MonoBehaviour
     		go.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     	}
         */
+        if (Input.GetKeyDown("space"))
+        {
+            friend = Instantiate(prefab, this.transform.position, Quaternion.identity);
+            Debug.Log("lets go");
+            go = friend.gameObject;
+            go.GetComponent<Rigidbody2D>().gravityScale = 0;
+            go.GetComponent<Rigidbody2D>().velocity = velocity;
+        }
     }
 
 }

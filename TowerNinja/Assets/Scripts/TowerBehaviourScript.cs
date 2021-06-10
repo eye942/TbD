@@ -115,8 +115,12 @@ public class TowerBehaviourScript : MonoBehaviour
         if (hpFloored < 4) _levels[3].SetActive(false);
         if (hpFloored < 3) _levels[2].SetActive(false);
         if (hpFloored < 2) _levels[1].SetActive(false);
-        if (hpFloored < 1) _levels[0].SetActive(false);
-
+        if (hpFloored < 1)
+        {
+            //changed this part
+            Destroy(this.gameObject);
+            _levels[0].SetActive(false);
+        }
         // adjust collider shape
         if (hpFloored >= 9) UpdateTowerColliderShape(9, -3);
         else UpdateTowerColliderShape(hpFloored, -3.0f - 0.5f * (9 - hpFloored));
