@@ -81,12 +81,18 @@ public class Fireball : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "friendly")
+        Debug.Log("Fireball collision");
+        
+        if (other.gameObject.CompareTag("friendly"))
         {
-            other.gameObject.SendMessage("ReceiveDamage", damage);
-            
+            other.gameObject.SendMessage("DamageTower", damage);
+            GameObject e = Instantiate(explosion) as GameObject;
+            e.transform.position = transform.position;
+            //yield WaitForSeconds(delay);
+            Destroy(e, 1.0f);
+            Die();
         }
     }
 
@@ -100,19 +106,7 @@ public class Fireball : MonoBehaviour
 
     // add explosion effect
     public GameObject explosion;
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Fireball - OnTriggerEnter2D");
-        if (other.gameObject.tag == "friendly")
-        {
-            //var delay = 2.0;
-            GameObject e = Instantiate(explosion) as GameObject;
-            e.transform.position = transform.position;
-            //yield WaitForSeconds(delay);
-            Destroy(e, 1.0f);
-        }
-    }
-    
+
     // this gets called in the beginning when it is created by the spawner script
     void setName(int sName)
     {
