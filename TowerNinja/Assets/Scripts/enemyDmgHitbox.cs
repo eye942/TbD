@@ -64,21 +64,35 @@ public class enemyDmgHitbox : MonoBehaviour
     {
         //Debug.Log("stay");
         //Debug.Log(damageTimer);
+        if (collision.tag == "friendly")
+        {
+            Debug.Log(collision.gameObject);
+            Debug.Log(damageTimer);
+            damageBool = true; 
+        }
         if (damageTimer >= damageTime) // && collision.tag == "friendly"
         {
+            if (collision.tag == "friendly")
+            {
+                damageTimer = 0;
 
-            damageTimer = 0;
-            collision.gameObject.SendMessage("DamageTower", damage);
-            Debug.Log(collision.gameObject);
-            Debug.Log(collision.gameObject.transform.parent);
-            Debug.Log(damage);
-            collision.gameObject.transform.parent.SendMessage("DamageFriendly", 10);
+                Debug.Log(collision.gameObject);
+                /*
+                Debug.Log(collision.gameObject.transform.parent);
+                */
+                collision.gameObject.SendMessage("DamageTower", damage);
+
+                Debug.Log(damage);
+                collision.gameObject.transform.parent.SendMessage("DamageFriendly", 10);
+            }
+            
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "friendly")
         {
+            damageTimer = 0;
             Debug.Log("leave");
             damageBool = false;
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(1.5f, 0.0f);
