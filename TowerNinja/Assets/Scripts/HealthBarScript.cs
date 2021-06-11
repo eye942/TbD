@@ -6,7 +6,7 @@ public class HealthBarScript : MonoBehaviour
 {
 
 	private TowerBehaviourScript tbs;
-	private int _healthPoints;
+	private int _healthPoints; 
     // Start is called before the first frame update
     public void Start()
     {
@@ -18,7 +18,10 @@ public class HealthBarScript : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        float _fullHealth = 100;
+
         _healthPoints = tbs.getHealthPoint();
-        GetComponent<Renderer>().material.color = new Color(_healthPoints*2,_healthPoints,_healthPoints);
+        Debug.Log("health=" + _healthPoints/_fullHealth);
+        GetComponent<Renderer>().material.color = new Color(_healthPoints/_fullHealth, 0, 0);
     }	
 }
