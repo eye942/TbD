@@ -11,7 +11,7 @@ public class Friend : MonoBehaviour
     public Vector3 velocity;
     public Transform friend;
     public GameObject go;
-
+    public KeyCode activateKey;
     void Start()
     {
         
@@ -35,7 +35,7 @@ public class Friend : MonoBehaviour
     		go.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     	}
         */
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(activateKey))
         {
             friend = Instantiate(prefab, this.transform.position, Quaternion.identity);
             Debug.Log("lets go");
