@@ -15,13 +15,14 @@ public class friendDmgHitbox : MonoBehaviour
     public int damage;
     //checks if the enemy is doing damage
     private bool damageBool = false;
-
+    private Vector2 velocity;
     void Start()
     {
         _healthPoint = MaxHealthPoint;
         damage = 10;
         damageTime = 1.5f;
         damageTimer = 0.0f;
+        velocity = this.GetComponent<Rigidbody2D>().velocity;
     }
     void Update()
     {
@@ -74,7 +75,7 @@ public class friendDmgHitbox : MonoBehaviour
         {
             Debug.Log("leave");
             damageBool = false;
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(-1.5f, 0.0f);
+            this.GetComponent<Rigidbody2D>().velocity = velocity;
         }
         
     }

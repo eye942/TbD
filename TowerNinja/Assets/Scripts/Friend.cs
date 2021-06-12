@@ -15,9 +15,7 @@ public class Friend : MonoBehaviour
     void Start()
     {
         
-        velocity.x = -1.5f;
-        velocity.y = 0;
-        velocity.z = 0;
+
         /*
         friend = Instantiate(prefab, this.transform.position, Quaternion.identity) ;
         Debug.Log("lets go");
