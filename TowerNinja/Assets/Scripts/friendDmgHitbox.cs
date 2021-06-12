@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class friendDmgHitbox : MonoBehaviour
 {
-    private static readonly int MaxHealthPoint = 50;
+    public int MaxHealthPoint = 50;
     private static readonly int MinHealthPoint = 0;
     private int _healthPoint;
     //public GameObject parentOfHitbox;
