@@ -51,10 +51,10 @@ public class enemyDmgHitbox : MonoBehaviour
         Debug.Log(collision.tag);
         if (collision.tag == "friendly")
         {
-            Debug.Log("proc");
+            //Debug.Log("proc");
             damageBool = true;
-            Debug.Log(collision.gameObject);
-            Debug.Log(collision.gameObject.transform.parent);
+            //Debug.Log(collision.gameObject);
+            //Debug.Log(collision.gameObject.transform.parent);
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
         }
             //Die();
@@ -66,8 +66,8 @@ public class enemyDmgHitbox : MonoBehaviour
         //Debug.Log(damageTimer);
         if (collision.tag == "friendly")
         {
-            Debug.Log(collision.gameObject);
-            Debug.Log(damageTimer);
+            //Debug.Log(collision.gameObject);
+            //Debug.Log(damageTimer);
             damageBool = true; 
         }
         if (damageTimer >= damageTime) // && collision.tag == "friendly"
@@ -75,9 +75,8 @@ public class enemyDmgHitbox : MonoBehaviour
             if (collision.tag == "friendly")
             {
                 damageTimer = 0;
-
-                Debug.Log(collision.gameObject);
                 /*
+                Debug.Log(collision.gameObject);
                 Debug.Log(collision.gameObject.transform.parent);
                 */
                 collision.gameObject.SendMessage("DamageTower", damage);
@@ -93,7 +92,7 @@ public class enemyDmgHitbox : MonoBehaviour
         if (collision.tag == "friendly")
         {
             damageTimer = 0;
-            Debug.Log("leave");
+            //Debug.Log("leave");
             damageBool = false;
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(1.5f, 0.0f);
         }
