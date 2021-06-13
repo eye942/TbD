@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TowerBehaviourScript : MonoBehaviour
 {
@@ -72,7 +73,11 @@ public class TowerBehaviourScript : MonoBehaviour
     /// <param name="damage"></param>
     public void DamageTower(int damage)
     {
-        if (_healthPoint - damage < MinHealthPoint) return;
+        if (_healthPoint - damage <= 10)
+        {
+            GameOver();
+            Debug.Log("GameOver");
+        }
         _healthPoint -= damage;
         Debug.Log($"Tower took damage {damage}, HP becomes {_healthPoint}");
         UpdateTowerAppearance();
@@ -135,6 +140,11 @@ public class TowerBehaviourScript : MonoBehaviour
     public int GetHealthPoint()
     {
         return _healthPoint;
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOverScreen");
     }
 
 }
