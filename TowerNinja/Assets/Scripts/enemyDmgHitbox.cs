@@ -16,8 +16,11 @@ public class enemyDmgHitbox : MonoBehaviour
     //checks if the enemy is doing damage
     private bool damageBool = false;
     private Vector2 velocity;
+    private int totalCollisions;
+
     void Start()
     {
+        totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
         damage = 10;
         damageTime = 1.5f;
@@ -38,6 +41,12 @@ public class enemyDmgHitbox : MonoBehaviour
         {
             damageTimer = 0;
         }
+
+        if (totalCollisions == 0)
+        {
+            damageBool = false;
+            this.GetComponent<Rigidbody2D>().velocity = velocity;
+        }
         //transform.Translate(velocity*Time.deltaTime, Space.World);
         /*
         if (enemy.position.x >= 5)
@@ -52,6 +61,7 @@ public class enemyDmgHitbox : MonoBehaviour
         Debug.Log(collision.tag);
         if (collision.tag == "friendly")
         {
+            totalCollisions++;
             //Debug.Log("proc");
             damageBool = true;
             //Debug.Log(collision.gameObject);
@@ -65,6 +75,7 @@ public class enemyDmgHitbox : MonoBehaviour
     {
         //Debug.Log("stay");
         //Debug.Log(damageTimer);
+        /*
         if (collision.tag == "friendly")
         {
             //Debug.Log(collision.gameObject);
@@ -76,10 +87,10 @@ public class enemyDmgHitbox : MonoBehaviour
             if (collision.tag == "friendly")
             {
                 damageTimer = 0;
-                /*
+                
                 Debug.Log(collision.gameObject);
                 Debug.Log(collision.gameObject.transform.parent);
-                */
+                
                 collision.gameObject.SendMessage("DamageTower", damage);
 
                 Debug.Log(damage);
@@ -87,12 +98,21 @@ public class enemyDmgHitbox : MonoBehaviour
             }
             
         }
+        */
+        if (damageTimer >= damageTime && totalCollisions > 0)
+        {
+            damageBool = true;
+            damageTimer = 0;
+            collision.gameObject.SendMessage("DamageTower", damage);
+            collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "friendly")
         {
-            damageTimer = 0;
+            totalCollisions--;
+            //damageTimer = 0;
             //Debug.Log("leave");
             damageBool = false;
             this.GetComponent<Rigidbody2D>().velocity = velocity;

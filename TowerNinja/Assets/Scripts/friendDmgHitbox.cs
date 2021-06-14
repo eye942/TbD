@@ -16,8 +16,10 @@ public class friendDmgHitbox : MonoBehaviour
     //checks if the enemy is doing damage
     private bool damageBool = false;
     private Vector2 velocity;
+    private int totalCollisions;
     void Start()
     {
+        totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
         damage = 10;
         damageTime = 1.5f;
@@ -37,6 +39,12 @@ public class friendDmgHitbox : MonoBehaviour
         {
             damageTimer = 0;
         }
+
+        if (totalCollisions == 0)
+        {
+            damageBool = false;
+            this.GetComponent<Rigidbody2D>().velocity = velocity;
+        }
         //transform.Translate(velocity*Time.deltaTime, Space.World);
         /*
         if (enemy.position.x >= 5)
@@ -51,6 +59,7 @@ public class friendDmgHitbox : MonoBehaviour
         
         if (collision.tag == "enemy")
         {
+            totalCollisions++;
             Debug.Log("proc");
             damageBool = true;
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
@@ -62,8 +71,9 @@ public class friendDmgHitbox : MonoBehaviour
     {
         //Debug.Log("stay");
         //Debug.Log(damageTimer);
-        if (damageTimer >= damageTime && collision.tag == "enemy")
+        if (damageTimer >= damageTime && totalCollisions > 0)
         {
+            damageBool = true;
             damageTimer = 0;
             collision.gameObject.SendMessage("DamageTower", damage);
             collision.gameObject.transform.parent.SendMessage("DamageEnemy", damage);
@@ -73,6 +83,7 @@ public class friendDmgHitbox : MonoBehaviour
     {
         if (collision.tag == "enemy")
         {
+            totalCollisions--;
             Debug.Log("leave");
             damageBool = false;
             this.GetComponent<Rigidbody2D>().velocity = velocity;
