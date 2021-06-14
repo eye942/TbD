@@ -75,7 +75,7 @@ public class friendDmgHitbox : MonoBehaviour
         {
             damageBool = true;
             damageTimer = 0;
-            collision.gameObject.SendMessage("DamageTower", damage);
+            //collision.gameObject.SendMessage("DamageTower", damage);
             collision.gameObject.transform.parent.SendMessage("DamageEnemy", damage);
         }
     }
