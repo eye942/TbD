@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+public class Bomb : MonoBehaviour
 {
     private static readonly float ForceX = 0.0f;
     private static readonly float ForceY = 0.0f;
-    private static readonly float VelocityX = -7.0f;
-    private static readonly float VelocityY = 4.0f;
+    private static readonly float VelocityX = -3.0f;
+    private static readonly float VelocityY = 0.0f;
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
 
