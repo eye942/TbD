@@ -99,12 +99,15 @@ public class enemyDmgHitbox : MonoBehaviour
             
         }
         */
-        if (damageTimer >= damageTime && totalCollisions > 0)
+        if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "friendly")
         {
             damageBool = true;
             damageTimer = 0;
-            collision.gameObject.SendMessage("DamageTower", damage);
-            collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+            //if (collision.gameObject.tag == "friendly")
+            //{
+                collision.gameObject.SendMessage("DamageTower", damage);
+                collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+            //}
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

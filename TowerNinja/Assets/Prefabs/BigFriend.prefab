@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6489104055688382193}
   - component: {fileID: 6489104055688382206}
   - component: {fileID: 4057988897558883964}
+  - component: {fileID: 2582142726877671138}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: friendly
@@ -208,6 +209,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!50 &2582142726877671138
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6489104055688382192}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!1 &6489104057373868826
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,9 +277,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealthPoint: 150
-  damageTime: 3
+  damageTime: 1.5
   damageTimer: 0
-  damage: 10
+  damage: 20
 --- !u!50 &8145642244275150256
 Rigidbody2D:
   serializedVersion: 4

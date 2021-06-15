@@ -72,12 +72,13 @@ public class friendDmgHitbox : MonoBehaviour
     {
         //Debug.Log("stay");
         //Debug.Log(damageTimer);
-        if (damageTimer >= damageTime && totalCollisions > 0)
+        if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "enemy")
         {
             damageBool = true;
             damageTimer = 0;
             Debug.Log(collision.gameObject);
             //collision.gameObject.SendMessage("DamageTower", damage);
+            //if (collision.gameObject.tag == "enemy") 
             collision.gameObject.transform.parent.SendMessage("DamageEnemy", damage);
         }
     }
