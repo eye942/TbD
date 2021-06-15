@@ -17,14 +17,16 @@ public class friendDmgHitbox : MonoBehaviour
     private bool damageBool = false;
     private Vector2 velocity;
     private int totalCollisions;
+    private Rigidbody2D unitRigidBody;
     void Start()
     {
+        unitRigidBody = this.GetComponent<Rigidbody2D>();
         totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
         damage = 10;
         damageTime = 1.5f;
         damageTimer = 0.0f;
-        velocity = this.GetComponent<Rigidbody2D>().velocity;
+        velocity = unitRigidBody.velocity;
     }
     void Update()
     {
@@ -44,7 +46,7 @@ public class friendDmgHitbox : MonoBehaviour
         if (totalCollisions == 0)
         {
             damageBool = false;
-            this.GetComponent<Rigidbody2D>().velocity = velocity;
+            unitRigidBody.velocity = velocity;
         }
         //transform.Translate(velocity*Time.deltaTime, Space.World);
         /*
@@ -63,7 +65,7 @@ public class friendDmgHitbox : MonoBehaviour
             totalCollisions++;
             //Debug.Log("proc");
             damageBool = true;
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+            unitRigidBody.velocity = new Vector2(0.0f, 0.0f);
         }
         //Die();
     }
@@ -92,7 +94,7 @@ public class friendDmgHitbox : MonoBehaviour
             if (totalCollisions == 0)
             {
                 damageBool = false;
-                this.GetComponent<Rigidbody2D>().velocity = velocity;
+                unitRigidBody.velocity = velocity;
             }
         }
         

@@ -163,15 +163,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 265953435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a37ee69b5246f0c4984405d3fe65eef5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f53a0b79f66b994993372392ea3f9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 3519400628805009339, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
-  velocity: {x: 0.6, y: 0, z: 0}
+  velocity: {x: 0.75, y: 0, z: 0}
   enemy: {fileID: 3519400628805009339, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
   go: {fileID: 3519400628805009338, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
-  spawnNum: 3
-  spawnTimer: 10
+  spawnNum: 10
+  spawnTimer: 3
 --- !u!1 &389252193
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,11 +472,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1409291792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a37ee69b5246f0c4984405d3fe65eef5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f53a0b79f66b994993372392ea3f9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 7159664208758710219, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
-  velocity: {x: 1, y: 0, z: 0}
+  velocity: {x: 1.25, y: 0, z: 0}
   enemy: {fileID: 7159664208758710219, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
   go: {fileID: 7159664208758710218, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
   spawnNum: 3
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 6489104057373868827, guid: 916a8bd7af689a74087417397ee87647, type: 3}
-  velocity: {x: -0.6, y: 0, z: 0}
+  velocity: {x: -0.75, y: 0, z: 0}
   friend: {fileID: 6489104057373868827, guid: 916a8bd7af689a74087417397ee87647, type: 3}
   go: {fileID: 6489104057373868826, guid: 916a8bd7af689a74087417397ee87647, type: 3}
   activateKey: 119
@@ -688,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 4578063422005607031, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
-  velocity: {x: -1, y: 0, z: 0}
+  velocity: {x: -1.25, y: 0, z: 0}
   friend: {fileID: 4578063422005607031, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
   go: {fileID: 4578063422005607030, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
   activateKey: 113

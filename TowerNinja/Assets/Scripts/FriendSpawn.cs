@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Instantiate a rigidbody then set the velocity
 
-public class Friend : MonoBehaviour
+public class FriendSpawn : MonoBehaviour
 {
     
     public Transform prefab;
