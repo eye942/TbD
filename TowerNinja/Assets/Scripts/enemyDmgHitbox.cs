@@ -114,8 +114,11 @@ public class enemyDmgHitbox : MonoBehaviour
             totalCollisions--;
             //damageTimer = 0;
             //Debug.Log("leave");
-            damageBool = false;
-            this.GetComponent<Rigidbody2D>().velocity = velocity;
+            if (totalCollisions == 0)
+            {
+                damageBool = false;
+                this.GetComponent<Rigidbody2D>().velocity = velocity;
+            }
         }
     }
 
@@ -126,6 +129,7 @@ public class enemyDmgHitbox : MonoBehaviour
         Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
+            Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
         }
     }

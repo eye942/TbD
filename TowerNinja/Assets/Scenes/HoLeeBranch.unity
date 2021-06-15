@@ -170,7 +170,7 @@ MonoBehaviour:
   velocity: {x: 0.6, y: 0, z: 0}
   enemy: {fileID: 3519400628805009339, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
   go: {fileID: 3519400628805009338, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
-  spawnNum: 3
+  spawnNum: 1
   spawnTimer: 10
 --- !u!1 &389252193
 GameObject:
@@ -479,7 +479,7 @@ MonoBehaviour:
   velocity: {x: 1, y: 0, z: 0}
   enemy: {fileID: 7159664208758710219, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
   go: {fileID: 7159664208758710218, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
-  spawnNum: 6
+  spawnNum: 2
   spawnTimer: 5
 --- !u!4 &1409291794
 Transform:
@@ -760,6 +760,10 @@ PrefabInstance:
     - target: {fileID: 4898923805116428930, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
       propertyPath: m_Name
       value: Fireball_Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898923805116428930, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}

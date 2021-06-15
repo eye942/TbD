@@ -28,6 +28,7 @@ public class friendDmgHitbox : MonoBehaviour
     }
     void Update()
     {
+        Debug.Log("Total Collisions: " + totalCollisions);
 
         if (damageBool)
         {
@@ -85,8 +86,12 @@ public class friendDmgHitbox : MonoBehaviour
         {
             totalCollisions--;
             Debug.Log("leave");
-            damageBool = false;
-            this.GetComponent<Rigidbody2D>().velocity = velocity;
+            //set collision check
+            if (totalCollisions == 0)
+            {
+                damageBool = false;
+                this.GetComponent<Rigidbody2D>().velocity = velocity;
+            }
         }
         
     }
@@ -98,6 +103,7 @@ public class friendDmgHitbox : MonoBehaviour
         Debug.Log($"Friendly took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
+            Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
         }
     }
