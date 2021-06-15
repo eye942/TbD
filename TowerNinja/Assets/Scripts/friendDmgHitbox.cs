@@ -61,7 +61,7 @@ public class friendDmgHitbox : MonoBehaviour
         if (collision.tag == "enemy")
         {
             totalCollisions++;
-            Debug.Log("proc");
+            //Debug.Log("proc");
             damageBool = true;
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
         }
@@ -76,6 +76,7 @@ public class friendDmgHitbox : MonoBehaviour
         {
             damageBool = true;
             damageTimer = 0;
+            Debug.Log(collision.gameObject);
             //collision.gameObject.SendMessage("DamageTower", damage);
             collision.gameObject.transform.parent.SendMessage("DamageEnemy", damage);
         }

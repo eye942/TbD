@@ -36,7 +36,7 @@ public class Friend : MonoBehaviour
         if (Input.GetKeyDown(activateKey))
         {
             friend = Instantiate(prefab, this.transform.position, Quaternion.identity);
-            Debug.Log("lets go");
+            //Debug.Log("lets go");
             go = friend.gameObject;
             go.GetComponent<Rigidbody2D>().gravityScale = 0;
             go.GetComponent<Rigidbody2D>().velocity = velocity;
