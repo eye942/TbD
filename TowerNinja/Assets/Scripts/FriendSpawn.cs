@@ -4,20 +4,18 @@ using UnityEngine;
 
 // Instantiate a rigidbody then set the velocity
 
-public class Friend : MonoBehaviour
+public class FriendSpawn : MonoBehaviour
 {
     
     public Transform prefab;
     public Vector3 velocity;
     public Transform friend;
     public GameObject go;
-
+    public KeyCode activateKey;
     void Start()
     {
         
-        velocity.x = -1.5f;
-        velocity.y = 0;
-        velocity.z = 0;
+
         /*
         friend = Instantiate(prefab, this.transform.position, Quaternion.identity) ;
         Debug.Log("lets go");
@@ -35,10 +33,10 @@ public class Friend : MonoBehaviour
     		go.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     	}
         */
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(activateKey))
         {
             friend = Instantiate(prefab, this.transform.position, Quaternion.identity);
-            Debug.Log("lets go");
+            //Debug.Log("lets go");
             go = friend.gameObject;
             go.GetComponent<Rigidbody2D>().gravityScale = 0;
             go.GetComponent<Rigidbody2D>().velocity = velocity;
