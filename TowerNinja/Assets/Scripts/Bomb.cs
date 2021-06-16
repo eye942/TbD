@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -29,7 +27,7 @@ public class Bomb : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Arrow - Die()");
+        // Debug.Log("Arrow - Die()");
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
