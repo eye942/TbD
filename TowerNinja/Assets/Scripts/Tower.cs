@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class TowerBehaviourScript : MonoBehaviour
+public class Tower : MonoBehaviour
 {
     private static readonly int MaxHealthPoint = 100;
     private static readonly int MinHealthPoint = 0;
@@ -11,6 +12,7 @@ public class TowerBehaviourScript : MonoBehaviour
     private GameObject[] _levels;
     private GameObject _leftTurret;
     private GameObject _rightTurret;
+    private GameObject _passiveAttackSpawn;
     private BoxCollider2D _towerBoxCollider;
 
     // Start is called before the first frame update
@@ -39,6 +41,9 @@ public class TowerBehaviourScript : MonoBehaviour
 
         // Get towerBoxCollider
         _towerBoxCollider = gameObject.GetComponent<BoxCollider2D>();
+
+        // Get passiveAttackSpawn
+        _passiveAttackSpawn = _tower.transform.Find("PassiveAttackSpawn").gameObject;
 
         Debug.Log("Tower initialized");
     }
@@ -72,7 +77,11 @@ public class TowerBehaviourScript : MonoBehaviour
     /// <param name="damage"></param>
     public void DamageTower(int damage)
     {
-        if (_healthPoint - damage < MinHealthPoint) return;
+        if (_healthPoint - damage < 10)
+        {
+            GameOver();
+            Debug.Log("GameOver");
+        }
         _healthPoint -= damage;
         Debug.Log($"Tower took damage {damage}, HP becomes {_healthPoint}");
         UpdateTowerAppearance();
@@ -95,7 +104,6 @@ public class TowerBehaviourScript : MonoBehaviour
     {
         int hpFloored = _healthPoint / 10;
 
-
         // set visibility of each level
         if (hpFloored == 10)
         {
@@ -105,13 +113,23 @@ public class TowerBehaviourScript : MonoBehaviour
             {
                 level.SetActive(true);
             }
+            _passiveAttackSpawn.SendMessage("EnableArrowSpawn");
+            _passiveAttackSpawn.SendMessage("EnableBombSpawn");
         }
         if (hpFloored < 10) _leftTurret.SetActive(false);
         if (hpFloored < 9) _rightTurret.SetActive(false);
-        if (hpFloored < 8) _levels[7].SetActive(false);
+        if (hpFloored < 8)
+        {
+            _levels[7].SetActive(false);
+            _passiveAttackSpawn.SendMessage("DisableArrowSpawn");
+        }
         if (hpFloored < 7) _levels[6].SetActive(false);
         if (hpFloored < 6) _levels[5].SetActive(false);
-        if (hpFloored < 5) _levels[4].SetActive(false);
+        if (hpFloored < 5)
+        {
+            _levels[4].SetActive(false);
+            _passiveAttackSpawn.SendMessage("DisableBombSpawn");
+        }
         if (hpFloored < 4) _levels[3].SetActive(false);
         if (hpFloored < 3) _levels[2].SetActive(false);
         if (hpFloored < 2) _levels[1].SetActive(false);
@@ -135,6 +153,11 @@ public class TowerBehaviourScript : MonoBehaviour
     public int GetHealthPoint()
     {
         return _healthPoint;
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("GameOverScreen");
     }
 
 }
