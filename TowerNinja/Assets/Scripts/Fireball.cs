@@ -23,11 +23,11 @@ public class Fireball : MonoBehaviour
         
         rigidBody = GetComponent<Rigidbody2D>();
         // TODO revise spring constant based on difficulty
-        k = Random.Range(1, 5);
+        k = Random.Range(2, 5);
 
-        var vX = Random.Range(1, 5);
+        var vX = Random.Range(3, 6);
         // v = sqrt(2 / m * (-1/2) k x^2)
-        var vY = -Mathf.Sqrt(1 / rigidBody.mass * k * 5 * 5);
+        var vY = -Mathf.Sqrt(1 / rigidBody.mass * k * 3 * 3);
         rigidBody.velocity = new Vector2(vX, vY/1.5f);
         initialPosition = transform.position;
         rigidBody.AddForce(new Vector2(forceX, 0), ForceMode2D.Force);
