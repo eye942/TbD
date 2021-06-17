@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -62,29 +60,21 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.name == "Fireball")
-        {
-            Debug.Log($"Tower collided with a Fireball");
-            DamageTower(50);
-        }
-    }
-
     /// <summary>
     /// Decrease tower HP. Call by the enemy units and enemy projectile objects
     /// </summary>
     /// <param name="damage"></param>
     public void DamageTower(int damage)
     {
-        if (_healthPoint - damage < 10)
+        _healthPoint -= damage;
+        UpdateTowerAppearance();
+        Debug.Log($"Tower took damage {damage}, HP becomes {_healthPoint}");
+
+        if (_healthPoint <= MinHealthPoint)
         {
             GameOver();
             Debug.Log("GameOver");
         }
-        _healthPoint -= damage;
-        Debug.Log($"Tower took damage {damage}, HP becomes {_healthPoint}");
-        UpdateTowerAppearance();
     }
 
     /// <summary>
@@ -102,10 +92,8 @@ public class Tower : MonoBehaviour
     /// </summary>
     private void UpdateTowerAppearance()
     {
-        int hpFloored = _healthPoint / 10;
-
         // set visibility of each level
-        if (hpFloored == 10)
+        if (_healthPoint > 90)
         {
             _leftTurret.SetActive(true);
             _rightTurret.SetActive(true);
@@ -113,35 +101,63 @@ public class Tower : MonoBehaviour
             {
                 level.SetActive(true);
             }
+            UpdateTowerColliderShape(9, -3f);
             _passiveAttackSpawn.SendMessage("EnableArrowSpawn");
             _passiveAttackSpawn.SendMessage("EnableBombSpawn");
         }
-        if (hpFloored < 10) _leftTurret.SetActive(false);
-        if (hpFloored < 9) _rightTurret.SetActive(false);
-        if (hpFloored < 8)
+        if (_healthPoint <= 90)
+        {
+            _leftTurret.SetActive(false);
+            UpdateTowerColliderShape(9, -3f);
+        }
+        if (_healthPoint <= 80)
+        {
+            _rightTurret.SetActive(false);
+            UpdateTowerColliderShape(8, -3.5f);
+        }
+        if (_healthPoint <= 70)
         {
             _levels[7].SetActive(false);
+            UpdateTowerColliderShape(7, -4f);
             _passiveAttackSpawn.SendMessage("DisableArrowSpawn");
         }
-        if (hpFloored < 7) _levels[6].SetActive(false);
-        if (hpFloored < 6) _levels[5].SetActive(false);
-        if (hpFloored < 5)
+        if (_healthPoint <= 60)
+        {
+            _levels[6].SetActive(false);
+            UpdateTowerColliderShape(6, -4.5f);
+        }
+        if (_healthPoint <= 50)
+        {
+            _levels[5].SetActive(false);
+            UpdateTowerColliderShape(5, -5f);
+        }
+        if (_healthPoint <= 40)
         {
             _levels[4].SetActive(false);
+            UpdateTowerColliderShape(4, -5.5f);
             _passiveAttackSpawn.SendMessage("DisableBombSpawn");
         }
-        if (hpFloored < 4) _levels[3].SetActive(false);
-        if (hpFloored < 3) _levels[2].SetActive(false);
-        if (hpFloored < 2) _levels[1].SetActive(false);
-        if (hpFloored < 1)
+        if (_healthPoint <= 30)
         {
-            //changed this part
-            Destroy(this.gameObject);
-            _levels[0].SetActive(false);
+            _levels[3].SetActive(false);
+            UpdateTowerColliderShape(3, -6f);
         }
-        // adjust collider shape
-        if (hpFloored >= 9) UpdateTowerColliderShape(9, -3);
-        else UpdateTowerColliderShape(hpFloored, -3.0f - 0.5f * (9 - hpFloored));
+        if (_healthPoint <= 20)
+        {
+            _levels[2].SetActive(false);
+            UpdateTowerColliderShape(2, -6.5f);
+        }
+        if (_healthPoint <= 10)
+        {
+            _levels[1].SetActive(false);
+            UpdateTowerColliderShape(1, -7f);
+        }
+        if (_healthPoint <= 0)
+        {
+            _levels[0].SetActive(false);
+            UpdateTowerColliderShape(0, -7.5f);
+            Destroy(this.gameObject);
+        }
     }
 
     private void UpdateTowerColliderShape(int sizeY, float offsetY)
