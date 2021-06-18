@@ -15,7 +15,9 @@ public class Bomb : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody2D>();
         _initialPosition = transform.position;
 
-        _rigidBody.velocity = new Vector2(VelocityX, VelocityY);
+        float randomOffsetVelocityX = Random.Range(-2, 2);
+
+        _rigidBody.velocity = new Vector2(VelocityX + randomOffsetVelocityX, VelocityY);
         _rigidBody.AddForce(new Vector2(ForceX, ForceY), ForceMode2D.Force);
     }
 
