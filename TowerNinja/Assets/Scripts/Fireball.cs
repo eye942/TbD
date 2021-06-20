@@ -1,11 +1,14 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public class Fireball : MonoBehaviour
 {
     private GameObject spawner;
     private int spawnerID;
+    public Color color = Color.green;
 
     private Vector2 initialPosition;
     private Rigidbody2D rigidBody;
@@ -33,7 +36,8 @@ public class Fireball : MonoBehaviour
         rigidBody.AddForce(new Vector2(forceX, 0), ForceMode2D.Force);
 
         // TODO revise max and min based on difficulty
-        health = Random.Range(1, 3);
+        //health = Random.Range(1, 3);
+        health = 2;
 
         // TODO revise max and min based on difficulty
         damage = Random.Range(1, 3);
@@ -52,6 +56,8 @@ public class Fireball : MonoBehaviour
         // Debug.Log($"{dy},{forceY}");
 
         rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Force);
+
+
     }
 
     // Click on fireball to decrease health
@@ -59,27 +65,26 @@ public class Fireball : MonoBehaviour
     {
         Debug.Log("Click event");
         health -= 1;
+
+        if (health == 1)
+        {
+
+
+            //GetComponent<Renderer>().material.color = new Color(255, 99, 71);128,0, 255, 51
+           // gameObject.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
+            gameObject.GetComponent<Renderer>().material.color = new Color32(255, 99, 71, 150);
+
+        }
+
         if (health <= 0)
         {
             Die();
         }
     }
 
-    private void OnMouseDrag()
-    {
-        Debug.Log("Drag event");
-        health -= 1;
-        if (health <= 0)
-        {
-            Die();
-        }
-    }
 
-    private void OnMouseOver()
-    {
-        Debug.Log("Mouse Over");
 
-    }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -112,4 +117,12 @@ public class Fireball : MonoBehaviour
     {
         spawnerID = sName;
     }
+    void OnBecameInvisible()
+    {
+        //Destroy(gameObject);
+        enabled = false;
+        this.gameObject.SetActive(false);
+        Die();
+    }
+
 }
