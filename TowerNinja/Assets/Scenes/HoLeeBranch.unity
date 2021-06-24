@@ -161,7 +161,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265953435}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f53a0b79f66b994993372392ea3f9e4, type: 3}
   m_Name: 
@@ -181,6 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 389252194}
+  - component: {fileID: 389252195}
   m_Layer: 0
   m_Name: EnemySpawners
   m_TagString: Untagged
@@ -204,6 +205,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389252195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389252193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335894bfe5488374caacc82bd4b553c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gizmoColor: {r: 1, g: 0, b: 0, a: 1}
+  enemyLevel: 0
+  MiniEnemy: {fileID: 7159664208758710218, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
+  BigEnemy: {fileID: 3519400628805009338, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
+  Slinger: {fileID: 3065122155297073270, guid: 7516c975d6f68574b98db3de29a6d8c4, type: 3}
+  totalEnemy: 10
+  Spawn: 1
+  spawnType: 0
+  totalWaves: 5
 --- !u!1001 &565060106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -470,7 +492,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409291792}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f53a0b79f66b994993372392ea3f9e4, type: 3}
   m_Name: 

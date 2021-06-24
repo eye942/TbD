@@ -17,7 +17,7 @@ public class enemyDmgHitbox : MonoBehaviour
     private bool damageBool = false;
     private Vector2 velocity;
     private int totalCollisions;
-
+    public float Velocity;
     void Start()
     {
         totalCollisions = 0;
@@ -25,7 +25,7 @@ public class enemyDmgHitbox : MonoBehaviour
         damage = 10;
         damageTime = 1.5f;
         damageTimer = 0.0f;
-        velocity = this.GetComponent<Rigidbody2D>().velocity;
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
     }
     void Update()
     {
@@ -45,7 +45,7 @@ public class enemyDmgHitbox : MonoBehaviour
         if (totalCollisions == 0)
         {
             damageBool = false;
-            this.GetComponent<Rigidbody2D>().velocity = velocity;
+            this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
         }
         //transform.Translate(velocity*Time.deltaTime, Space.World);
         /*
@@ -120,7 +120,7 @@ public class enemyDmgHitbox : MonoBehaviour
             if (totalCollisions == 0)
             {
                 damageBool = false;
-                this.GetComponent<Rigidbody2D>().velocity = velocity;
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
             }
         }
     }
@@ -132,6 +132,7 @@ public class enemyDmgHitbox : MonoBehaviour
         Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
+            EnemyWave.spawnedEnemy--;
             Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
         }

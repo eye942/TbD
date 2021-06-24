@@ -1,65 +1,64 @@
 using UnityEngine;
 using System.Collections.Generic;
- 
-public class FireballSpawn : MonoBehaviour
+
+public class EnemyWave : MonoBehaviour
 {
 	// Color of the gizmo
 	public Color gizmoColor = Color.red;
- 
+
 	//-----------------------------------
 	// All the Enums
 	//-----------------------------------
 	// Spawn types
 	public enum SpawnTypes
-    {
+	{
 		Normal,
 		Once,
 		Wave,
 		TimedWave
-    }
+	}
 	// The different Enemy levels
 	public enum EnemyLevels
-    {
+	{
 		Easy,
 		Medium,
 		Hard,
 		Boss
-    }
+	}
 	//---------------------------------
 	// End of the Enums
 	//---------------------------------
- 
+
 	// Enemy level to be spawnedEnemy
 	public EnemyLevels enemyLevel = EnemyLevels.Easy;
- 
+
 	//----------------------------------
 	// Enemy Prefabs
 	//----------------------------------
-	public GameObject EasyEnemy;
-	public GameObject MediumEnemy;
-	public GameObject HardEnemy;
-	public GameObject BossEnemy;
-	private Dictionary<EnemyLevels, GameObject> Enemies = new Dictionary<EnemyLevels, GameObject>(4);
+	public GameObject MiniEnemy;
+	public GameObject BigEnemy;
+	public GameObject Slinger;
+	private Dictionary<EnemyLevels, GameObject> Enemies = new Dictionary<EnemyLevels, GameObject>(3);
 
 	private float lastSpawnTime;
 	//----------------------------------
 	// End of Enemy Prefabs
 	//----------------------------------
- 
+
 	//----------------------------------
 	// Enemies and how many have been created and how many are to be created
 	//----------------------------------
 	public int totalEnemy = 10;
 	private int numEnemy = 0;
-	private int spawnedEnemy = 0;
+	public static int spawnedEnemy = 0;
 	//----------------------------------
 	// End of Enemy Settings
 	//----------------------------------
- 
- 
+
+
 	// The ID of the spawner
 	private int SpawnID;
- 
+
 	//----------------------------------
 	// Different Spawn states and ways of doing them
 	//----------------------------------
@@ -67,24 +66,27 @@ public class FireballSpawn : MonoBehaviour
 	public bool Spawn = true;
 	public SpawnTypes spawnType = SpawnTypes.Normal;
 	// timed wave controls
-	public float waveTimer = 30.0f;
+	//public float waveTimer = 30.0f;
 	private float timeTillWave = 0.0f;
+	private float timer = 0.0f;
 	//Wave controls
 	public int totalWaves = 5;
-	private int numWaves = 0;
-
+	private int numWaves = 1;
+	private bool clusterMode = false;
+	private int totalNonClusterSpawned = 0;
+	private int repetitions = 0; 
 	//----------------------------------
 	// End of Different Spawn states and ways of doing them
 	//----------------------------------
 	void Start()
 	{
 		// sets a random number for the id of the spawner
-		SpawnID = Random.Range(1, 500);
-		Enemies.Add(EnemyLevels.Easy, EasyEnemy);
-		Enemies.Add(EnemyLevels.Boss, BossEnemy);
-		Enemies.Add(EnemyLevels.Medium, MediumEnemy);
-		Enemies.Add(EnemyLevels.Hard, HardEnemy);
-		lastSpawnTime = 3f;
+		//SpawnID = Random.Range(1, 500);
+		//Enemies.Add(EnemyLevels.Easy, EasyEnemy);
+		//Enemies.Add(EnemyLevels.Boss, BossEnemy);
+		//Enemies.Add(EnemyLevels.Medium, MediumEnemy);
+		//Enemies.Add(EnemyLevels.Hard, HardEnemy);
+		//lastSpawnTime = 3f;
 	}
 	// Draws a cube to show where the spawn point is... Useful if you don't have a object that show the spawn point
 	void OnDrawGizmos()
@@ -92,19 +94,70 @@ public class FireballSpawn : MonoBehaviour
 		// Sets the color to red
 		Gizmos.color = gizmoColor;
 		//draws a small cube at the location of the game object that the script is attached to
-		Gizmos.DrawCube(transform.position, new Vector3 (0.5f,0.5f,0.5f));
+		Gizmos.DrawCube(transform.position, new Vector3(0.5f, 0.5f, 0.5f));
 	}
-	void Update ()
+	void Update()
 	{
-		if(Spawn)
+		timer += Time.deltaTime;
+		if (numWaves == 1)
 		{
-			
+
+			//Loop below thrice then increment wave counter
+			// 5 minis
+			if ((timer >= 4.0f) && (5 > totalNonClusterSpawned) && (clusterMode == false))
+			{
+				totalNonClusterSpawned++;
+				Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+				Debug.Log("lets go");
+				timer = 0.0f;
+				//go = enemy.gameObject;
+				//go.GetComponent<Rigidbody2D>().gravityScale = 0;
+				//go.GetComponent<Rigidbody2D>().velocity = velocity;
+			}
+			else if ((clusterMode == false) && (5 <= totalNonClusterSpawned))
+			{
+				//the clustermode changes so that we start spawning the cluster, switch back after cluster is spawned
+				clusterMode = true;
+			}
+
+			if ((timer >= 4.0f) && (clusterMode == true))
+			{
+				timer = 0.0f;
+				Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+				Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+				Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+				Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+				Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+				clusterMode = false;
+				totalNonClusterSpawned = 0;
+				// cluster
+			}
+		}
+		else if (numWaves == 2)
+		{
+
+		}
+		else if (numWaves == 3)
+		{
+
+		}
+		else if (numWaves == 4)
+		{
+
+		}
+		else if (numWaves == 5)
+		{
+
+		}
+		else
+		{
+
 		}
 	}
 	// spawns an enemy based on the enemy level that you selected
 	private void spawnEnemy()
 	{
-		GameObject Enemy = (GameObject) Instantiate(Enemies[enemyLevel], gameObject.transform.position, Quaternion.identity);
+		GameObject Enemy = (GameObject)Instantiate(Enemies[enemyLevel], gameObject.transform.position, Quaternion.identity);
 		Enemy.SendMessage("setName", SpawnID);
 		// Increase the total number of enemies spawned and the number of spawned enemies
 		numEnemy++;
@@ -130,7 +183,7 @@ public class FireballSpawn : MonoBehaviour
 	//disable the spawner based on spawnerID
 	public void disableSpawner(int sID)
 	{
-		if(SpawnID == sID)
+		if (SpawnID == sID)
 		{
 			Spawn = false;
 		}
