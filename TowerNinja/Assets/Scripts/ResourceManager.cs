@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
+
 
 public class ResourceManager : MonoBehaviour
 {
@@ -31,6 +33,8 @@ public class ResourceManager : MonoBehaviour
         {
             GameObject elapsedTime = GameObject.Find("ElapsedTime").gameObject;
             _elapsedTimeText = elapsedTime.GetComponent<Text>();
+            ReportElapsedTime((int)_elapsedTime);
+            ReportRemainingMana(_currentManaNumber);
             UpdateElapsedTimeDisplay();
         }
     }
@@ -86,6 +90,24 @@ public class ResourceManager : MonoBehaviour
     private void UpdateElapsedTimeDisplay()
     {
         _elapsedTimeText.text = $"Elapsed Time: {(int)_elapsedTime}";
+    }
+
+    public void ReportElapsedTime(int elapsedTime)
+    {
+        AnalyticsEvent.Custom("elapsed_time", new Dictionary<string, object>
+        {
+            { "elapsed_time", elapsedTime }
+        });
+        Debug.Log("Analytics - ReportElapsedTime()");
+    }
+
+    public void ReportRemainingMana(int number)
+    {
+        AnalyticsEvent.Custom("remaining_mana", new Dictionary<string, object>
+        {
+            { "remaining_mana", number }
+        });
+        Debug.Log("Analytics - ReportRemainingMana()");
     }
 
 }
