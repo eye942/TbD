@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 // Instantiate a rigidbody then set the velocity
 
 public class enemyDmgHitbox : MonoBehaviour
 {
-    public  int MaxHealthPoint = 50;
+    public int MaxHealthPoint = 50;
     private static readonly int MinHealthPoint = 0;
     private int _healthPoint;
     //public GameObject parentOfHitbox;
     public float damageTime;
     public float damageTimer;
+    public float _elapsedTime;
     public int damage;
     //checks if the enemy is doing damage
     private bool damageBool = false;
@@ -22,6 +24,7 @@ public class enemyDmgHitbox : MonoBehaviour
     {
         totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
+        _elapsedTime = 0.0f;
         damage = 10;
         damageTime = 1.5f;
         damageTimer = 0.0f;
@@ -29,13 +32,14 @@ public class enemyDmgHitbox : MonoBehaviour
     }
     void Update()
     {
+        _elapsedTime += Time.deltaTime;
 
         if (damageBool)
         {
             //Debug.Log(damageTime);
             //Debug.Log(damageTimer);
             damageTimer += Time.deltaTime;
-            
+
         }
         else
         {
@@ -68,7 +72,7 @@ public class enemyDmgHitbox : MonoBehaviour
             //Debug.Log(collision.gameObject.transform.parent);
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
         }
-            //Die();
+        //Die();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -105,8 +109,8 @@ public class enemyDmgHitbox : MonoBehaviour
             damageTimer = 0;
             //if (collision.gameObject.tag == "friendly")
             //{
-                collision.gameObject.SendMessage("DamageTower", damage);
-                collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+            collision.gameObject.SendMessage("DamageTower", damage);
+            collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
             //}
         }
     }
@@ -133,7 +137,16 @@ public class enemyDmgHitbox : MonoBehaviour
         if (_healthPoint <= MinHealthPoint)
         {
             Debug.Log(this.gameObject + "is destroyed.");
+            Debug.Log("Position of Death: " + this.gameObject.transform.position.x);
+            int timeOfDeath = (int)_elapsedTime % 60;
+            Debug.Log($"Time of Death: {timeOfDeath}");
+
             Destroy(this.gameObject);
+            Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
+            {
+                { "EnemyDiedPosition", this.gameObject.transform.position},
+                { "TimeOfDeath", timeOfDeath }
+            });
         }
     }
 }
