@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
+
 
 public class ResourceManager : MonoBehaviour
 {
     private static readonly int MaxManaNumber = 999;
     private static readonly int MinManaNumber = 0;
     private static int _currentManaNumber;
+    private static int _consumedManaNumber;
+
     private static float _elapsedTime; // in seconds
+    private static float _elapsedTime75; // in seconds
+    private static float _elapsedTime50; // in seconds
+    private static float _elapsedTime25; // in seconds
+
+    private Tower _tower;
+    private bool _tower75HPflag;
+    private bool _tower50HPflag;
+    private bool _tower25HPflag;
+
     private Text _manaCounterText;
     private Text _timeCounterText;
     private Text _elapsedTimeText; // gameover screen
@@ -21,16 +34,29 @@ public class ResourceManager : MonoBehaviour
         {
             _elapsedTime = 0;
             _currentManaNumber = MinManaNumber;
+            _consumedManaNumber = 0;
             GameObject manaCounter = GameObject.Find("ManaCounter").gameObject;
             _manaCounterText = manaCounter.GetComponent<Text>();
             GameObject timeCounter = GameObject.Find("TimeCounter").gameObject;
             _timeCounterText = timeCounter.GetComponent<Text>();
             UpdateManaCounterDisplay();
+
+            GameObject towerObject = GameObject.Find("Tower");
+            _tower = towerObject.GetComponent<Tower>();
+            _tower75HPflag = false;
+            _tower50HPflag = false;
+            _tower25HPflag = false;
+            _elapsedTime75 = 0;
+            _elapsedTime50 = 0;
+            _elapsedTime25 = 0;
         }
         else if (SceneManager.GetActiveScene().name == "GameOverScreen")
         {
             GameObject elapsedTime = GameObject.Find("ElapsedTime").gameObject;
             _elapsedTimeText = elapsedTime.GetComponent<Text>();
+            ReportElapsedTime();
+            ReportRemainingMana(_currentManaNumber);
+            ReportConsumedMana(_consumedManaNumber);
             UpdateElapsedTimeDisplay();
         }
     }
@@ -42,6 +68,24 @@ public class ResourceManager : MonoBehaviour
         {
             _elapsedTime += Time.deltaTime;
             UpdateTimeCounterDisplay();
+
+            // check tower health for analytics
+            int towerHP = _tower.GetHealthPoint();
+            if (towerHP <= 75 && _tower75HPflag == false)
+            {
+                _tower75HPflag = true;
+                _elapsedTime75 = _elapsedTime;
+            }
+            if (towerHP <= 50 && _tower50HPflag == false)
+            {
+                _tower50HPflag = true;
+                _elapsedTime50 = _elapsedTime;
+            }
+            if (towerHP <= 25 && _tower25HPflag == false)
+            {
+                _tower25HPflag = true;
+                _elapsedTime25 = _elapsedTime;
+            }
         }
 
         // check keyboard input. for testing
@@ -69,6 +113,7 @@ public class ResourceManager : MonoBehaviour
         if ((_currentManaNumber - number) >= MinManaNumber)
         {
             _currentManaNumber -= number;
+            _consumedManaNumber += number;
             UpdateManaCounterDisplay();
         }
     }
@@ -86,6 +131,36 @@ public class ResourceManager : MonoBehaviour
     private void UpdateElapsedTimeDisplay()
     {
         _elapsedTimeText.text = $"Elapsed Time: {(int)_elapsedTime}";
+    }
+
+    public void ReportElapsedTime()
+    {
+        AnalyticsEvent.Custom("elapsed_times", new Dictionary<string, object>
+        {
+            { "elapsed_time0", _elapsedTime },
+            { "elapsed_time75", _elapsedTime75 },
+            { "elapsed_time50", _elapsedTime50 },
+            { "elapsed_time25", _elapsedTime25 }
+        });
+        Debug.Log("Analytics - ReportElapsedTime()");
+    }
+
+    public void ReportRemainingMana(int number)
+    {
+        AnalyticsEvent.Custom("remaining_mana", new Dictionary<string, object>
+        {
+            { "remaining_mana", number }
+        });
+        Debug.Log("Analytics - ReportRemainingMana()");
+    }
+
+    public void ReportConsumedMana(int number)
+    {
+        AnalyticsEvent.Custom("consumed_mana", new Dictionary<string, object>
+        {
+            { "consumed_mana", number }
+        });
+        Debug.Log("Analytics - ReportConsumedMana()");
     }
 
 }
