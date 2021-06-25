@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class friendDmgHitbox : MonoBehaviour
 {
+    private Rigidbody2D thisRB;
     public int MaxHealthPoint = 50;
     private static readonly int MinHealthPoint = 0;
     private int _healthPoint;
@@ -17,16 +18,14 @@ public class friendDmgHitbox : MonoBehaviour
     private bool damageBool = false;
     private Vector2 velocity;
     private int totalCollisions;
-    private Rigidbody2D unitRigidBody;
+    
     void Start()
     {
-        unitRigidBody = this.GetComponent<Rigidbody2D>();
+        thisRB = this.GetComponent<Rigidbody2D>();
         totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
-        damage = 10;
-        damageTime = 1.5f;
         damageTimer = 0.0f;
-        velocity = unitRigidBody.velocity;
+        velocity = thisRB.velocity;
     }
     void Update()
     {
@@ -34,7 +33,6 @@ public class friendDmgHitbox : MonoBehaviour
 
         if (damageBool)
         {
-            //Debug.Log(damageTimer);
             damageTimer += Time.deltaTime;
 
         }
@@ -46,15 +44,8 @@ public class friendDmgHitbox : MonoBehaviour
         if (totalCollisions == 0)
         {
             damageBool = false;
-            unitRigidBody.velocity = velocity;
+            thisRB.velocity = velocity;
         }
-        //transform.Translate(velocity*Time.deltaTime, Space.World);
-        /*
-        if (enemy.position.x >= 5)
-        {
-            go.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        }
-        */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -63,24 +54,18 @@ public class friendDmgHitbox : MonoBehaviour
         if (collision.tag == "enemy")
         {
             totalCollisions++;
-            //Debug.Log("proc");
             damageBool = true;
-            unitRigidBody.velocity = new Vector2(0.0f, 0.0f);
+            thisRB.velocity = new Vector2(0.0f, 0.0f);
         }
-        //Die();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        //Debug.Log("stay");
-        //Debug.Log(damageTimer);
         if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "enemy")
         {
             damageBool = true;
             damageTimer = 0;
             Debug.Log(collision.gameObject);
-            //collision.gameObject.SendMessage("DamageTower", damage);
-            //if (collision.gameObject.tag == "enemy") 
             collision.gameObject.transform.parent.SendMessage("DamageEnemy", damage);
         }
     }
@@ -94,7 +79,7 @@ public class friendDmgHitbox : MonoBehaviour
             if (totalCollisions == 0)
             {
                 damageBool = false;
-                unitRigidBody.velocity = velocity;
+                thisRB.velocity = velocity;
             }
         }
         
