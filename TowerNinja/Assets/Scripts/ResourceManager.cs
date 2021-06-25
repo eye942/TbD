@@ -11,7 +11,9 @@ public class ResourceManager : MonoBehaviour
     private static readonly int MaxManaNumber = 999;
     private static readonly int MinManaNumber = 0;
     private static int _currentManaNumber;
+    private static int _consumedManaNumber;
     private static float _elapsedTime; // in seconds
+
     private Text _manaCounterText;
     private Text _timeCounterText;
     private Text _elapsedTimeText; // gameover screen
@@ -23,6 +25,7 @@ public class ResourceManager : MonoBehaviour
         {
             _elapsedTime = 0;
             _currentManaNumber = MinManaNumber;
+            _consumedManaNumber = 0;
             GameObject manaCounter = GameObject.Find("ManaCounter").gameObject;
             _manaCounterText = manaCounter.GetComponent<Text>();
             GameObject timeCounter = GameObject.Find("TimeCounter").gameObject;
@@ -35,6 +38,7 @@ public class ResourceManager : MonoBehaviour
             _elapsedTimeText = elapsedTime.GetComponent<Text>();
             ReportElapsedTime((int)_elapsedTime);
             ReportRemainingMana(_currentManaNumber);
+            ReportConsumedMana(_consumedManaNumber);
             UpdateElapsedTimeDisplay();
         }
     }
@@ -73,6 +77,7 @@ public class ResourceManager : MonoBehaviour
         if ((_currentManaNumber - number) >= MinManaNumber)
         {
             _currentManaNumber -= number;
+            _consumedManaNumber += number;
             UpdateManaCounterDisplay();
         }
     }
@@ -108,6 +113,15 @@ public class ResourceManager : MonoBehaviour
             { "remaining_mana", number }
         });
         Debug.Log("Analytics - ReportRemainingMana()");
+    }
+
+    public void ReportConsumedMana(int number)
+    {
+        AnalyticsEvent.Custom("consumed_mana", new Dictionary<string, object>
+        {
+            { "consumed_mana", number }
+        });
+        Debug.Log("Analytics - ReportConsumedMana()");
     }
 
 }
