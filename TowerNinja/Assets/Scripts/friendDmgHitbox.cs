@@ -23,8 +23,8 @@ public class friendDmgHitbox : MonoBehaviour
         unitRigidBody = this.GetComponent<Rigidbody2D>();
         totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
-        damage = 10;
-        damageTime = 1.5f;
+        //damage = 10;
+        //damageTime = 1.5f;
         damageTimer = 0.0f;
         velocity = unitRigidBody.velocity;
     }

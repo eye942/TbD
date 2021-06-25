@@ -71,7 +71,7 @@ public class EnemyWave : MonoBehaviour
 	private float timer = 0.0f;
 	//Wave controls
 	public int totalWaves = 5;
-	private int numWaves = 1;
+	public static int numWaves = 1;
 	private int waveReps = 0;
 	private bool clusterMode = false;
 	private int totalNonClusterSpawned = 0;
@@ -320,7 +320,45 @@ public class EnemyWave : MonoBehaviour
 		}
 		else
 		{
+			if (waveReps != 3)
+			{
+				//Loop below thrice then increment wave counter
+				// 5 minis
+				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				{
+					totalNonClusterSpawned++;
+					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Debug.Log("lets go");
+					timer = 0.0f;
+					//go = enemy.gameObject;
+					//go.GetComponent<Rigidbody2D>().gravityScale = 0;
+					//go.GetComponent<Rigidbody2D>().velocity = velocity;
+				}
+				else if ((clusterMode == false) && (3 <= totalNonClusterSpawned))
+				{
+					//the clustermode changes so that we start spawning the cluster, switch back after cluster is spawned
+					clusterMode = true;
+				}
 
+				if ((timer >= 5.5f) && (clusterMode == true))
+				{
+					timer = 0.0f;
+					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(Slinger, new Vector3(-9f, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					clusterMode = false;
+					totalNonClusterSpawned = 0;
+					waveReps++;
+					// cluster
+				}
+			}
+			else
+			{
+				numWaves++;
+				waveReps = 0;
+			}
 		}
 	}
 	// spawns an enemy based on the enemy level that you selected

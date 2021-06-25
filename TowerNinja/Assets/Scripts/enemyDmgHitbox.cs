@@ -21,9 +21,16 @@ public class enemyDmgHitbox : MonoBehaviour
     void Start()
     {
         totalCollisions = 0;
-        _healthPoint = MaxHealthPoint;
-        damage = 10;
-        damageTime = 1.5f;
+        if (EnemyWave.numWaves > 5)
+        {
+            _healthPoint = Mathf.RoundToInt(MaxHealthPoint * (EnemyWave.numWaves - 5) * 1.1f);
+            damage = Mathf.RoundToInt(damage * (EnemyWave.numWaves - 5) * 1.1f);
+        }
+        else
+        {
+            _healthPoint = MaxHealthPoint;
+        }
+        //damageTime = 1.5f;
         damageTimer = 0.0f;
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
         EnemyWave.spawnedEnemy++;
