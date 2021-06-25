@@ -12,7 +12,16 @@ public class ResourceManager : MonoBehaviour
     private static readonly int MinManaNumber = 0;
     private static int _currentManaNumber;
     private static int _consumedManaNumber;
+
     private static float _elapsedTime; // in seconds
+    private static float _elapsedTime75; // in seconds
+    private static float _elapsedTime50; // in seconds
+    private static float _elapsedTime25; // in seconds
+
+    private Tower _tower;
+    private bool _tower75HPflag;
+    private bool _tower50HPflag;
+    private bool _tower25HPflag;
 
     private Text _manaCounterText;
     private Text _timeCounterText;
@@ -31,12 +40,21 @@ public class ResourceManager : MonoBehaviour
             GameObject timeCounter = GameObject.Find("TimeCounter").gameObject;
             _timeCounterText = timeCounter.GetComponent<Text>();
             UpdateManaCounterDisplay();
+
+            GameObject towerObject = GameObject.Find("Tower");
+            _tower = towerObject.GetComponent<Tower>();
+            _tower75HPflag = false;
+            _tower50HPflag = false;
+            _tower25HPflag = false;
+            _elapsedTime75 = 0;
+            _elapsedTime50 = 0;
+            _elapsedTime25 = 0;
         }
         else if (SceneManager.GetActiveScene().name == "GameOverScreen")
         {
             GameObject elapsedTime = GameObject.Find("ElapsedTime").gameObject;
             _elapsedTimeText = elapsedTime.GetComponent<Text>();
-            ReportElapsedTime((int)_elapsedTime);
+            ReportElapsedTime();
             ReportRemainingMana(_currentManaNumber);
             ReportConsumedMana(_consumedManaNumber);
             UpdateElapsedTimeDisplay();
@@ -50,6 +68,24 @@ public class ResourceManager : MonoBehaviour
         {
             _elapsedTime += Time.deltaTime;
             UpdateTimeCounterDisplay();
+
+            // check tower health for analytics
+            int towerHP = _tower.GetHealthPoint();
+            if (towerHP <= 75 && _tower75HPflag == false)
+            {
+                _tower75HPflag = true;
+                _elapsedTime75 = _elapsedTime;
+            }
+            if (towerHP <= 50 && _tower50HPflag == false)
+            {
+                _tower50HPflag = true;
+                _elapsedTime50 = _elapsedTime;
+            }
+            if (towerHP <= 25 && _tower25HPflag == false)
+            {
+                _tower25HPflag = true;
+                _elapsedTime25 = _elapsedTime;
+            }
         }
 
         // check keyboard input. for testing
@@ -97,11 +133,14 @@ public class ResourceManager : MonoBehaviour
         _elapsedTimeText.text = $"Elapsed Time: {(int)_elapsedTime}";
     }
 
-    public void ReportElapsedTime(int elapsedTime)
+    public void ReportElapsedTime()
     {
-        AnalyticsEvent.Custom("elapsed_time", new Dictionary<string, object>
+        AnalyticsEvent.Custom("elapsed_times", new Dictionary<string, object>
         {
-            { "elapsed_time", elapsedTime }
+            { "elapsed_time0", _elapsedTime },
+            { "elapsed_time75", _elapsedTime75 },
+            { "elapsed_time50", _elapsedTime50 },
+            { "elapsed_time25", _elapsedTime25 }
         });
         Debug.Log("Analytics - ReportElapsedTime()");
     }
