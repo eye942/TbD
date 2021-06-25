@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class enemyDmgHitbox : MonoBehaviour
 {
+    private Rigidbody2D thisRB;
     public  int MaxHealthPoint = 50;
     private static readonly int MinHealthPoint = 0;
     private int _healthPoint;
@@ -18,6 +19,7 @@ public class enemyDmgHitbox : MonoBehaviour
     private Vector2 velocity;
     private int totalCollisions;
     public float Velocity;
+    
     void Start()
     {
         totalCollisions = 0;
@@ -32,7 +34,8 @@ public class enemyDmgHitbox : MonoBehaviour
         }
         //damageTime = 1.5f;
         damageTimer = 0.0f;
-        this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
+        thisRB = this.GetComponent<Rigidbody2D>();
+        thisRB.velocity = new Vector2(Velocity, 0);
         EnemyWave.spawnedEnemy++;
     }
     void Update()
@@ -53,7 +56,7 @@ public class enemyDmgHitbox : MonoBehaviour
         if (totalCollisions == 0)
         {
             damageBool = false;
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
+            thisRB.velocity = new Vector2(Velocity, 0);
         }
         //transform.Translate(velocity*Time.deltaTime, Space.World);
         /*
@@ -70,52 +73,19 @@ public class enemyDmgHitbox : MonoBehaviour
         if (collision.tag == "friendly")
         {
             totalCollisions++;
-            //Debug.Log("proc");
             damageBool = true;
-            //Debug.Log(collision.gameObject);
-            //Debug.Log(collision.gameObject.transform.parent);
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+            thisRB.velocity = new Vector2(0.0f, 0.0f);
         }
-            //Die();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        //Debug.Log("stay");
-        //Debug.Log(damageTimer);
-        /*
-        if (collision.tag == "friendly")
-        {
-            //Debug.Log(collision.gameObject);
-            //Debug.Log(damageTimer);
-            damageBool = true; 
-        }
-        if (damageTimer >= damageTime) // && collision.tag == "friendly"
-        {
-            if (collision.tag == "friendly")
-            {
-                damageTimer = 0;
-                
-                Debug.Log(collision.gameObject);
-                Debug.Log(collision.gameObject.transform.parent);
-                
-                collision.gameObject.SendMessage("DamageTower", damage);
-
-                Debug.Log(damage);
-                collision.gameObject.transform.parent.SendMessage("DamageFriendly", 10);
-            }
-            
-        }
-        */
         if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "friendly")
         {
             damageBool = true;
             damageTimer = 0;
-            //if (collision.gameObject.tag == "friendly")
-            //{
-                collision.gameObject.SendMessage("DamageTower", damage);
-                collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
-            //}
+            collision.gameObject.SendMessage("DamageTower", damage);
+            collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -123,12 +93,10 @@ public class enemyDmgHitbox : MonoBehaviour
         if (collision.tag == "friendly")
         {
             totalCollisions--;
-            //damageTimer = 0;
-            //Debug.Log("leave");
             if (totalCollisions == 0)
             {
                 damageBool = false;
-                this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
+                thisRB.velocity = new Vector2(Velocity, 0);
             }
         }
     }
