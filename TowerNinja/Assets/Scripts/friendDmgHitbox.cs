@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 // Instantiate a rigidbody then set the velocity
 
@@ -50,7 +51,7 @@ public class friendDmgHitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
         if (collision.tag == "enemy")
         {
             totalCollisions++;
@@ -82,19 +83,30 @@ public class friendDmgHitbox : MonoBehaviour
                 thisRB.velocity = velocity;
             }
         }
-        
+
     }
 
     public void DamageFriendly(int damage)
     {
-        
+
         _healthPoint -= damage;
         Debug.Log($"Friendly took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
             Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
+            ReportFriendlyDeath();
         }
+    }
+
+    public void ReportFriendlyDeath()
+    {
+        Analytics.CustomEvent("FriendlyDiedPosition", new Dictionary<string, object>
+            {
+                { "FriendlyDiedPosition", this.gameObject.transform.position.x.ToString("F")},
+            });
+        Debug.Log("Friendly Position of Death: " + this.gameObject.transform.position.x.ToString("F"));
+
     }
 }
 

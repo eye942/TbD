@@ -1,27 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 // Instantiate a rigidbody then set the velocity
 
 public class enemyDmgHitbox : MonoBehaviour
 {
     private Rigidbody2D thisRB;
-    public  int MaxHealthPoint = 50;
+    public int MaxHealthPoint = 50;
     private static readonly int MinHealthPoint = 0;
     private int _healthPoint;
     //public GameObject parentOfHitbox;
     public float damageTime;
     public float damageTimer;
+    public float _elapsedTime;
     public int damage;
     //checks if the enemy is doing damage
     private bool damageBool = false;
     private Vector2 velocity;
     private int totalCollisions;
     public float Velocity;
-    
+
     void Start()
     {
+        _elapsedTime += Time.deltaTime;
+
         totalCollisions = 0;
         if (EnemyWave.numWaves > 5)
         {
@@ -40,13 +44,14 @@ public class enemyDmgHitbox : MonoBehaviour
     }
     void Update()
     {
+        _elapsedTime += Time.deltaTime;
 
         if (damageBool)
         {
             //Debug.Log(damageTime);
             //Debug.Log(damageTimer);
             damageTimer += Time.deltaTime;
-            
+
         }
         else
         {
@@ -111,7 +116,20 @@ public class enemyDmgHitbox : MonoBehaviour
             EnemyWave.spawnedEnemy--;
             //Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
+            ReportEnemyDeath();
         }
+    }
+
+    public void ReportEnemyDeath()
+    {
+        int timeOfDeath = (int)_elapsedTime % 60;
+        Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
+        {
+            { "EnemyDiedPosition", this.gameObject.transform.position.x.ToString("F")},
+            { "TimeOfDeath", timeOfDeath }
+        });
+        Debug.Log("Enemy Position of Death: " + this.gameObject.transform.position.x.ToString("F"));
+        Debug.Log("Enemy Time of Death: " + timeOfDeath);
     }
 }
 
