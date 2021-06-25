@@ -26,6 +26,7 @@ public class enemyDmgHitbox : MonoBehaviour
         damageTime = 1.5f;
         damageTimer = 0.0f;
         this.GetComponent<Rigidbody2D>().velocity = new Vector2(Velocity, 0);
+        EnemyWave.spawnedEnemy++;
     }
     void Update()
     {
@@ -58,7 +59,7 @@ public class enemyDmgHitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.tag);
+        //Debug.Log(collision.tag);
         if (collision.tag == "friendly")
         {
             totalCollisions++;
@@ -129,11 +130,11 @@ public class enemyDmgHitbox : MonoBehaviour
     {
 
         _healthPoint -= damage;
-        Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
+        //Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
             EnemyWave.spawnedEnemy--;
-            Debug.Log(this.gameObject + "is destroyed.");
+            //Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
         }
     }

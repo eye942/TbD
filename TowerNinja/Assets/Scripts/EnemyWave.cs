@@ -99,6 +99,7 @@ public class EnemyWave : MonoBehaviour
 	}
 	void Update()
 	{
+		Debug.Log("Wave Number: " + numWaves);
 		timer += Time.deltaTime;
 		if (numWaves == 1)
 		{
@@ -141,6 +142,13 @@ public class EnemyWave : MonoBehaviour
 				numWaves++;
 				waveReps = 0;
 			}
+			/*
+			else if (spawnedEnemy == 0)
+			{
+				numWaves++;
+				waveReps = 0;
+			}
+			*/
 		}
 		else if (numWaves == 2)
 		{
