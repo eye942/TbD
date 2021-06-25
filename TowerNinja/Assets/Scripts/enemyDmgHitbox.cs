@@ -137,17 +137,21 @@ public class enemyDmgHitbox : MonoBehaviour
         if (_healthPoint <= MinHealthPoint)
         {
             Debug.Log(this.gameObject + "is destroyed.");
-            Debug.Log("Position of Death: " + this.gameObject.transform.position.x);
-            int timeOfDeath = (int)_elapsedTime % 60;
-            Debug.Log($"Time of Death: {timeOfDeath}");
-
             Destroy(this.gameObject);
-            Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
-            {
-                { "EnemyDiedPosition", this.gameObject.transform.position},
-                { "TimeOfDeath", timeOfDeath }
-            });
+            ReportEnemyDeath();
         }
+    }
+
+    public void ReportEnemyDeath()
+    {
+        int timeOfDeath = (int)_elapsedTime % 60;
+        Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
+        {
+            { "EnemyDiedPosition", this.gameObject.transform.position.x.ToString("F")},
+            { "TimeOfDeath", timeOfDeath }
+        });
+        Debug.Log("Enemy Position of Death: " + this.gameObject.transform.position.x.ToString("F"));
+        Debug.Log("Enemy Time of Death: " + timeOfDeath);
     }
 }
 
