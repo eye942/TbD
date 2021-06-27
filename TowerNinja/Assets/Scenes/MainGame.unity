@@ -482,6 +482,7 @@ MonoBehaviour:
   friend: {fileID: 6489104057373868827, guid: 916a8bd7af689a74087417397ee87647, type: 3}
   go: {fileID: 6489104057373868826, guid: 916a8bd7af689a74087417397ee87647, type: 3}
   activateKey: 119
+  FriendManaCost: 25
 --- !u!1001 &692013427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1062,6 +1063,7 @@ MonoBehaviour:
   friend: {fileID: 4578063422005607031, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
   go: {fileID: 4578063422005607030, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
   activateKey: 113
+  FriendManaCost: 15
 --- !u!1001 &2885048333828472654
 PrefabInstance:
   m_ObjectHideFlags: 0
