@@ -27,6 +27,16 @@ public class Bomb : MonoBehaviour
         if (transform.position.y < -4.5) Die();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            Debug.LogError("Enemy Collision");
+            Debug.Log(collision.gameObject);
+            collision.gameObject.transform.parent.SendMessage("DamageEnemy", 5);
+        }
+    }
+    
     private void Die()
     {
         // Debug.Log("Arrow - Die()");
