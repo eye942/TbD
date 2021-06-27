@@ -17,6 +17,8 @@ public class Fireball : MonoBehaviour
 
     private int damage;
 
+    private static readonly int FireballManaReward = 2;
+
     private void Start()
     {
         spawner = GameObject.FindWithTag("fireball_spawn");
@@ -61,6 +63,7 @@ public class Fireball : MonoBehaviour
         health -= 1;
         if (health <= 0)
         {
+            GiveManaReward();
             Die();
         }
     }
@@ -71,6 +74,7 @@ public class Fireball : MonoBehaviour
         health -= 1;
         if (health <= 0)
         {
+            GiveManaReward();
             Die();
         }
     }
@@ -102,6 +106,13 @@ public class Fireball : MonoBehaviour
         Debug.Log("Fireball - Die()");
         //this.gameObject.SetActive(false);
         Destroy(gameObject);
+    }
+
+    private void GiveManaReward()
+    {
+        GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
+        ResourceManager resourceManager = resourceManagerObject.GetComponent<ResourceManager>();
+        resourceManager.IncreaseMana(FireballManaReward);
     }
 
     // add explosion effect
