@@ -6,6 +6,8 @@ public class Arrow : MonoBehaviour
     private static readonly float ForceY = 0.0f;
     private static readonly float VelocityX = -7.0f;
     private static readonly float VelocityY = 4.0f;
+    public int damage = 25;
+    
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
 
@@ -26,6 +28,21 @@ public class Arrow : MonoBehaviour
     void Update()
     {
         if (transform.position.y < -4.5) Die();
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            var managerObject = GameObject.Find("ResourceManager").gameObject;
+            var manager = managerObject.GetComponent<ResourceManager>();
+            Debug.LogError("Enemy Collision");
+            Debug.Log(collision.gameObject);
+            var parent = collision.gameObject.transform.parent;
+            parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(damage);
+            manager.UpdateProjectileDamage(this.GetType().Name,damage);
+            Die();
+        }
     }
 
     private void Die()

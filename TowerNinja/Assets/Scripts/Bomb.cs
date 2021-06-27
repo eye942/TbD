@@ -6,6 +6,7 @@ public class Bomb : MonoBehaviour
     private static readonly float ForceY = 0.0f;
     private static readonly float VelocityX = -3.0f;
     private static readonly float VelocityY = 0.0f;
+    public int damage = 50;
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
 
@@ -27,6 +28,20 @@ public class Bomb : MonoBehaviour
         if (transform.position.y < -4.5) Die();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            var managerObject = GameObject.Find("ResourceManager").gameObject;
+            var manager = managerObject.GetComponent<ResourceManager>();
+            Debug.LogError("Enemy Collision");
+            Debug.Log(collision.gameObject);
+            collision.gameObject.SendMessage("DamageEnemy", damage);
+            manager.UpdateProjectileDamage(this.GetType().Name,damage);
+            Die();
+        }
+    }
+    
     private void Die()
     {
         // Debug.Log("Arrow - Die()");
