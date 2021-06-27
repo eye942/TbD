@@ -28,7 +28,7 @@ public class ResourceManager : MonoBehaviour
     private Text _timeCounterText;
     private Text _elapsedTimeText; // gameover screen
 
-    private Dictionary<string, int> _projectileDamage;
+    private readonly Dictionary<string, int> _projectileDamage = new Dictionary<string, int>();
 
     // Start is called before the first frame update
     void Start()
