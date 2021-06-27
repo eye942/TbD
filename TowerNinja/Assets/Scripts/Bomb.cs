@@ -32,11 +32,12 @@ public class Bomb : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            var manager = FindObjectOfType<ResourceManager>();
+            var managerObject = GameObject.Find("ResourceManager").gameObject;
+            var manager = managerObject.GetComponent<ResourceManager>();
             Debug.LogError("Enemy Collision");
             Debug.Log(collision.gameObject);
             collision.gameObject.SendMessage("DamageEnemy", damage);
-            manager.UpdateProjectileDamage("arrow",damage);
+            manager.UpdateProjectileDamage(this.GetType().Name,damage);
             Die();
         }
     }
