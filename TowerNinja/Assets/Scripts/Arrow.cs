@@ -6,6 +6,8 @@ public class Arrow : MonoBehaviour
     private static readonly float ForceY = 0.0f;
     private static readonly float VelocityX = -7.0f;
     private static readonly float VelocityY = 4.0f;
+    public int damage = 25;
+    
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
 
@@ -34,7 +36,10 @@ public class Arrow : MonoBehaviour
         {
             Debug.LogError("Enemy Collision");
             Debug.Log(collision.gameObject);
-            collision.gameObject.transform.parent.SendMessage("DamageEnemy", 2);
+            var parent = collision.gameObject.transform.parent;
+            parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(damage);
+            FindObjectOfType<ResourceManager>().UpdateProjectileDamage("arrow",damage);
+            Die();
         }
     }
 
