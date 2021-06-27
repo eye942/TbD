@@ -207,7 +207,7 @@ public class Tower : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("GameOverScreen");
+        SceneChanger.GameOver();
     }
 
 }
