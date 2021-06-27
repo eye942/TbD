@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Analytics;
 
@@ -7,6 +9,7 @@ using UnityEngine.Analytics;
 
 public class friendDmgHitbox : MonoBehaviour
 {
+    public string friendType;
     private Rigidbody2D thisRB;
     public int MaxHealthPoint = 50;
     private static readonly int MinHealthPoint = 0;
@@ -22,6 +25,7 @@ public class friendDmgHitbox : MonoBehaviour
     
     void Start()
     {
+        AnalyticsEvent.ItemAcquired(AcquisitionType.Soft,"Mana Store",1, friendType, "Unit", $"{Time.fixedTime}");
         thisRB = this.GetComponent<Rigidbody2D>();
         totalCollisions = 0;
         _healthPoint = MaxHealthPoint;
@@ -94,6 +98,7 @@ public class friendDmgHitbox : MonoBehaviour
         if (_healthPoint <= MinHealthPoint)
         {
             Debug.Log(this.gameObject + "is destroyed.");
+            AnalyticsEvent.ItemSpent(AcquisitionType.Soft,"Mana Store",1, friendType, "Unit", $"{Time.fixedTime}");
             Destroy(this.gameObject);
             ReportFriendlyDeath();
         }
