@@ -17,7 +17,7 @@ public class Fireball : MonoBehaviour
 
     private int damage;
 
-    private static readonly int FireballManaReward = 2;
+    public int FireballManaReward;
 
     private void Start()
     {

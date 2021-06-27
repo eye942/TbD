@@ -22,8 +22,7 @@ public class enemyDmgHitbox : MonoBehaviour
     private int totalCollisions;
     public float Velocity;
 
-    private static readonly int BigEnemyManaReward = 20;
-    private static readonly int EnemyManaReward = 10;
+    public int EnemyManaReward;
 
     void Start()
     {
@@ -132,14 +131,7 @@ public class enemyDmgHitbox : MonoBehaviour
         GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
         ResourceManager resourceManager = resourceManagerObject.GetComponent<ResourceManager>();
 
-        if (gameObject.name.StartsWith("Big"))
-        {
-            resourceManager.IncreaseMana(BigEnemyManaReward);
-        }
-        else
-        {
-            resourceManager.IncreaseMana(EnemyManaReward);
-        }
+        resourceManager.IncreaseMana(EnemyManaReward);
     }
 
     public void ReportEnemyDeath()
