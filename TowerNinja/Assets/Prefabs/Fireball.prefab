@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c6aede40341858605755245e002ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FireballManaReward: 2
   explosion: {fileID: 139366, guid: cb09f222648f84a609f842fee8d3231f, type: 3}
 --- !u!58 &3926978729216297281
 CircleCollider2D:
