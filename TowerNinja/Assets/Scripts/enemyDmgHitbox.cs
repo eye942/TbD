@@ -22,6 +22,8 @@ public class enemyDmgHitbox : MonoBehaviour
     private int totalCollisions;
     public float Velocity;
 
+    public int EnemyManaReward;
+
     void Start()
     {
         _elapsedTime += Time.deltaTime;
@@ -114,10 +116,22 @@ public class enemyDmgHitbox : MonoBehaviour
         if (_healthPoint <= MinHealthPoint)
         {
             EnemyWave.spawnedEnemy--;
+
+            // give mana reward
+            GiveManaReward();
+
             //Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
             ReportEnemyDeath();
         }
+    }
+
+    private void GiveManaReward()
+    {
+        GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
+        ResourceManager resourceManager = resourceManagerObject.GetComponent<ResourceManager>();
+
+        resourceManager.IncreaseMana(EnemyManaReward);
     }
 
     public void ReportEnemyDeath()

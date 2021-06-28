@@ -6,10 +6,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 
-
 public class ResourceManager : MonoBehaviour
 {
     private static readonly int MaxManaNumber = 999;
+    private static readonly int StartManaNumber = 100;
     private static readonly int MinManaNumber = 0;
     private static int _currentManaNumber;
     private static int _consumedManaNumber;
@@ -18,6 +18,8 @@ public class ResourceManager : MonoBehaviour
     private static float _elapsedTime75; // in seconds
     private static float _elapsedTime50; // in seconds
     private static float _elapsedTime25; // in seconds
+
+    private float _manaTimeRewardCounter;
 
     private Tower _tower;
     private bool _tower75HPflag;
@@ -36,8 +38,9 @@ public class ResourceManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
             _elapsedTime = 0;
-            _currentManaNumber = MinManaNumber;
+            _currentManaNumber = StartManaNumber;
             _consumedManaNumber = 0;
+            _manaTimeRewardCounter = 0;
             GameObject manaCounter = GameObject.Find("ManaCounter").gameObject;
             _manaCounterText = manaCounter.GetComponent<Text>();
             GameObject timeCounter = GameObject.Find("TimeCounter").gameObject;
@@ -71,7 +74,15 @@ public class ResourceManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
             _elapsedTime += Time.deltaTime;
+            _manaTimeRewardCounter += Time.deltaTime;
             UpdateTimeCounterDisplay();
+
+            // Time reward mana. Give 10 mana per 10 second
+            if (_manaTimeRewardCounter > 10)
+            {
+                IncreaseMana(10);
+                _manaTimeRewardCounter = 0;
+            }
 
             // check tower health for analytics
             int towerHP = _tower.GetHealthPoint();
@@ -97,12 +108,12 @@ public class ResourceManager : MonoBehaviour
         // check keyboard input. for testing
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            IncreaseMana(1);
+            IncreaseMana(5);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            DecreaseMana(1);
+            DecreaseMana(5);
         }
     }
 
@@ -123,6 +134,11 @@ public class ResourceManager : MonoBehaviour
             _consumedManaNumber += number;
             UpdateManaCounterDisplay();
         }
+    }
+
+    public int GetManaCount()
+    {
+        return _currentManaNumber;
     }
 
     private void UpdateManaCounterDisplay()
