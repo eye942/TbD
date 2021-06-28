@@ -110,7 +110,7 @@ public class EnemyWave : MonoBehaviour
 				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
-					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
 					Debug.Log("lets go");
 					timer = 0.0f;
 					//go = enemy.gameObject;
@@ -127,9 +127,9 @@ public class EnemyWave : MonoBehaviour
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(MiniEnemy, new Vector3(-9f, -3, 0), Quaternion.identity);
-					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(MiniEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x - 1, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x + 1, -3, 0), Quaternion.identity);
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
 					clusterMode = false;
 					totalNonClusterSpawned = 0;
@@ -159,7 +159,7 @@ public class EnemyWave : MonoBehaviour
 				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
-					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
 					Debug.Log("lets go");
 					timer = 0.0f;
 					//go = enemy.gameObject;
@@ -176,9 +176,9 @@ public class EnemyWave : MonoBehaviour
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(MiniEnemy, new Vector3(-9f, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(MiniEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x - 1, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x + 1, -3, 0), Quaternion.identity);
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
 					clusterMode = false;
 					totalNonClusterSpawned = 0;
@@ -201,7 +201,7 @@ public class EnemyWave : MonoBehaviour
 				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
-					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
 					Debug.Log("lets go");
 					timer = 0.0f;
 					//go = enemy.gameObject;
@@ -218,9 +218,9 @@ public class EnemyWave : MonoBehaviour
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-9f, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(MiniEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x - 1, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x + 1, -3, 0), Quaternion.identity);
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
 					clusterMode = false;
 					totalNonClusterSpawned = 0;
@@ -260,9 +260,9 @@ public class EnemyWave : MonoBehaviour
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-9f, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x - 1, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x + 1, -3, 0), Quaternion.identity);
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
 					clusterMode = false;
 					totalNonClusterSpawned = 0;
@@ -285,7 +285,7 @@ public class EnemyWave : MonoBehaviour
 				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
-					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
 					Debug.Log("lets go");
 					timer = 0.0f;
 					//go = enemy.gameObject;
@@ -302,9 +302,9 @@ public class EnemyWave : MonoBehaviour
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(Slinger, new Vector3(-9f, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					Instantiate(Slinger, new Vector3(this.transform.position.x - 1, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x + 1, -3, 0), Quaternion.identity);
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
 					clusterMode = false;
 					totalNonClusterSpawned = 0;
@@ -327,7 +327,7 @@ public class EnemyWave : MonoBehaviour
 				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
-					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
+					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
 					Debug.Log("lets go");
 					timer = 0.0f;
 					//go = enemy.gameObject;
@@ -344,9 +344,9 @@ public class EnemyWave : MonoBehaviour
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(Slinger, new Vector3(-9f, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
-					Instantiate(BigEnemy, new Vector3(-7f, -3, 0), Quaternion.identity);
+					Instantiate(Slinger, new Vector3(this.transform.position.x - 1, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
+					Instantiate(BigEnemy, new Vector3(this.transform.position.x + 1, -3, 0), Quaternion.identity);
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
 					clusterMode = false;
 					totalNonClusterSpawned = 0;
