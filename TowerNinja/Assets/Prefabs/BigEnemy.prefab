@@ -49,8 +49,10 @@ MonoBehaviour:
   MaxHealthPoint: 250
   damageTime: 1.5
   damageTimer: 0
+  _elapsedTime: 0
   damage: 20
   Velocity: 0.75
+  EnemyManaReward: 20
 --- !u!50 &3535970992855479724
 Rigidbody2D:
   serializedVersion: 4

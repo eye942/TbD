@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Analytics;
 
-
 public class ResourceManager : MonoBehaviour
 {
     private static readonly int MaxManaNumber = 999;
+    private static readonly int StartManaNumber = 100;
     private static readonly int MinManaNumber = 0;
     private static int _currentManaNumber;
     private static int _consumedManaNumber;
@@ -17,6 +18,8 @@ public class ResourceManager : MonoBehaviour
     private static float _elapsedTime75; // in seconds
     private static float _elapsedTime50; // in seconds
     private static float _elapsedTime25; // in seconds
+
+    private float _manaTimeRewardCounter;
 
     private Tower _tower;
     private bool _tower75HPflag;
@@ -27,14 +30,17 @@ public class ResourceManager : MonoBehaviour
     private Text _timeCounterText;
     private Text _elapsedTimeText; // gameover screen
 
+    private readonly Dictionary<string, int> _projectileDamage = new Dictionary<string, int>();
+
     // Start is called before the first frame update
     void Start()
     {
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
             _elapsedTime = 0;
-            _currentManaNumber = MinManaNumber;
+            _currentManaNumber = StartManaNumber;
             _consumedManaNumber = 0;
+            _manaTimeRewardCounter = 0;
             GameObject manaCounter = GameObject.Find("ManaCounter").gameObject;
             _manaCounterText = manaCounter.GetComponent<Text>();
             GameObject timeCounter = GameObject.Find("TimeCounter").gameObject;
@@ -57,6 +63,7 @@ public class ResourceManager : MonoBehaviour
             ReportElapsedTime();
             ReportRemainingMana(_currentManaNumber);
             ReportConsumedMana(_consumedManaNumber);
+            ReportProjectileDamage();
             UpdateElapsedTimeDisplay();
         }
     }
@@ -67,7 +74,15 @@ public class ResourceManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
             _elapsedTime += Time.deltaTime;
+            _manaTimeRewardCounter += Time.deltaTime;
             UpdateTimeCounterDisplay();
+
+            // Time reward mana. Give 10 mana per 10 second
+            if (_manaTimeRewardCounter > 10)
+            {
+                IncreaseMana(10);
+                _manaTimeRewardCounter = 0;
+            }
 
             // check tower health for analytics
             int towerHP = _tower.GetHealthPoint();
@@ -76,11 +91,13 @@ public class ResourceManager : MonoBehaviour
                 _tower75HPflag = true;
                 _elapsedTime75 = _elapsedTime;
             }
+
             if (towerHP <= 50 && _tower50HPflag == false)
             {
                 _tower50HPflag = true;
                 _elapsedTime50 = _elapsedTime;
             }
+
             if (towerHP <= 25 && _tower25HPflag == false)
             {
                 _tower25HPflag = true;
@@ -91,11 +108,12 @@ public class ResourceManager : MonoBehaviour
         // check keyboard input. for testing
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            IncreaseMana(1);
+            IncreaseMana(5);
         }
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            DecreaseMana(1);
+            DecreaseMana(5);
         }
     }
 
@@ -118,6 +136,11 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    public int GetManaCount()
+    {
+        return _currentManaNumber;
+    }
+
     private void UpdateManaCounterDisplay()
     {
         _manaCounterText.text = $"Mana: {_currentManaNumber}";
@@ -125,22 +148,22 @@ public class ResourceManager : MonoBehaviour
 
     private void UpdateTimeCounterDisplay()
     {
-        _timeCounterText.text = $"Time: {(int)_elapsedTime}";
+        _timeCounterText.text = $"Time: {(int) _elapsedTime}";
     }
 
     private void UpdateElapsedTimeDisplay()
     {
-        _elapsedTimeText.text = $"Elapsed Time: {(int)_elapsedTime}";
+        _elapsedTimeText.text = $"Elapsed Time: {(int) _elapsedTime}";
     }
 
     public void ReportElapsedTime()
     {
         AnalyticsEvent.Custom("elapsed_times", new Dictionary<string, object>
         {
-            { "elapsed_time0", _elapsedTime },
-            { "elapsed_time75", _elapsedTime75 },
-            { "elapsed_time50", _elapsedTime50 },
-            { "elapsed_time25", _elapsedTime25 }
+            {"elapsed_time0", _elapsedTime},
+            {"elapsed_time75", _elapsedTime75},
+            {"elapsed_time50", _elapsedTime50},
+            {"elapsed_time25", _elapsedTime25}
         });
         Debug.Log("Analytics - ReportElapsedTime()");
     }
@@ -149,7 +172,7 @@ public class ResourceManager : MonoBehaviour
     {
         AnalyticsEvent.Custom("remaining_mana", new Dictionary<string, object>
         {
-            { "remaining_mana", number }
+            {"remaining_mana", number}
         });
         Debug.Log("Analytics - ReportRemainingMana()");
     }
@@ -158,9 +181,24 @@ public class ResourceManager : MonoBehaviour
     {
         AnalyticsEvent.Custom("consumed_mana", new Dictionary<string, object>
         {
-            { "consumed_mana", number }
+            {"consumed_mana", number}
         });
         Debug.Log("Analytics - ReportConsumedMana()");
     }
 
+    public void ReportProjectileDamage()
+    {
+        var projectileDictionary = _projectileDamage.ToDictionary(item => item.Key, value => (object) value);
+        AnalyticsEvent.Custom("passive_damage", projectileDictionary);
+    }
+
+    public void UpdateProjectileDamage(string type, int damage)
+    {
+        if (!_projectileDamage.ContainsKey(type))
+        {
+            _projectileDamage.Add(type,0);
+        }
+       
+        _projectileDamage[type] += damage;
+    }
 }

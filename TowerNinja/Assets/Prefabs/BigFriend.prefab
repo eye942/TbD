@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18801cab9decd94eb5508348bfccce4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  friendType: BigFriend
   MaxHealthPoint: 250
   damageTime: 1.5
   damageTimer: 0

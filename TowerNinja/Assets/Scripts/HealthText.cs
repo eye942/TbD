@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class HealthText : MonoBehaviour
 {
 
 	private Tower tbs;
 	private int _healthPoints; 
+	public Text _healthText;
+
     // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
     	GameObject _tower = GameObject.Find("Tower");
 		tbs = _tower.GetComponent<Tower>();
-
+    	_healthText = GameObject.Find("HealthText").GetComponent<Text>();
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
-        float _fullHealth = 100;
-
         _healthPoints = tbs.GetHealthPoint();
-     //   Debug.Log("health=" + _healthPoints/_fullHealth);
-        GetComponent<Renderer>().material.color = new Color(_healthPoints/_fullHealth, 0, 0);
-    }	
+        _healthText.text = _healthPoints + " / 100";
+    }
+
 }
