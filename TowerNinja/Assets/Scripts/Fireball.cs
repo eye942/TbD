@@ -37,7 +37,7 @@ public class Fireball : MonoBehaviour
 
         // TODO revise max and min based on difficulty
         //health = Random.Range(1, 3);
-        health = 2;
+        health = 3;
 
         // TODO revise max and min based on difficulty
         damage = Random.Range(1, 3);
@@ -66,14 +66,14 @@ public class Fireball : MonoBehaviour
         Debug.Log("Click event");
         health -= 1;
 
+        if (health == 2)
+        {
+            gameObject.GetComponent<Renderer>().material.color = new Color32(255, 99, 71, 170);
+        }
+
         if (health == 1)
         {
-
-
-            //GetComponent<Renderer>().material.color = new Color(255, 99, 71);128,0, 255, 51
-           // gameObject.GetComponent<Renderer>().material.color = new Color(0, 255, 0);
-            gameObject.GetComponent<Renderer>().material.color = new Color32(255, 99, 71, 150);
-
+            gameObject.GetComponent<Renderer>().material.color = new Color32(255, 71, 71, 80);
         }
 
         if (health <= 0)
@@ -81,10 +81,6 @@ public class Fireball : MonoBehaviour
             Die();
         }
     }
-
-
-
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
