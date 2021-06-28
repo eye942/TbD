@@ -15,7 +15,7 @@ public class CameraMover : MonoBehaviour
 	void Update () {
         if(Input.GetMouseButtonDown(0)){
             Vector3 mousePos=Input.mousePosition;
-            if(mousePos.y<=30.0f)
+            if(mousePos.y<=68.0f)
                 cameraPan=true;
             else
                 cameraPan=false;
