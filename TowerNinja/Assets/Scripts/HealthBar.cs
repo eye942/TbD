@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour
         float _fullHealth = 100;
 
         _healthPoints = tbs.GetHealthPoint();
-        Debug.Log("health=" + _healthPoints/_fullHealth);
+     //   Debug.Log("health=" + _healthPoints/_fullHealth);
         GetComponent<Renderer>().material.color = new Color(_healthPoints/_fullHealth, 0, 0);
     }	
 }
