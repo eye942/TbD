@@ -80,8 +80,26 @@ public class Fireball : MonoBehaviour
 
         if (health <= 0)
         {
+            GiveManaReward();
             Die();
         }
+    }
+
+    private void OnMouseDrag()
+    {
+        Debug.Log("Drag event");
+        health -= 1;
+        if (health <= 0)
+        {
+            GiveManaReward();
+            Die();
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        Debug.Log("Mouse Over");
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
