@@ -21,11 +21,16 @@ public class enemyDmgHitbox : MonoBehaviour
     private Vector2 velocity;
     private int totalCollisions;
     public float Velocity;
+    // health text
+    private TextMesh _healthText;
 
     public int EnemyManaReward;
 
     void Start()
     {
+    	_healthText = this.GetComponent<TextMesh>();
+
+
         _elapsedTime += Time.deltaTime;
 
         totalCollisions = 0;
@@ -43,9 +48,16 @@ public class enemyDmgHitbox : MonoBehaviour
         thisRB = this.GetComponent<Rigidbody2D>();
         thisRB.velocity = new Vector2(Velocity, 0);
         EnemyWave.spawnedEnemy++;
+
+        // is this line broken?
+        _healthText.text = "test";
+        Debug.Log(" in here in start");
+        
     }
     void Update()
     {
+
+
         _elapsedTime += Time.deltaTime;
 
         if (damageBool)
@@ -112,9 +124,11 @@ public class enemyDmgHitbox : MonoBehaviour
     {
 
         _healthPoint -= damage;
+        Debug.Log("some damage took place to enemy" + _healthPoint + ", " + damage);
         //Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
+        	_healthText.text = "0 / " + MaxHealthPoint;
             EnemyWave.spawnedEnemy--;
 
             // give mana reward
@@ -123,6 +137,8 @@ public class enemyDmgHitbox : MonoBehaviour
             //Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
             ReportEnemyDeath();
+        } else {
+        	_healthText.text = _healthPoint + " / " + MaxHealthPoint;
         }
     }
 
