@@ -546,7 +546,7 @@ MonoBehaviour:
   m_Text: "Goal: Stay alive as long as possible!\nInstructions:\n* Prevent the projectiles
     from hitting you -- tap or swipe on them!\n* Prevent the enemies from reaching
     you -- deploy your own troops!\n  * <Q> deploys a normal unit\n  * <W> deploys
-    a heavy unit\n"
+    a heavy unit\n  * <E> deploys a ranged unit\n"
 --- !u!222 &1528289719
 CanvasRenderer:
   m_ObjectHideFlags: 0
