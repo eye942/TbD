@@ -963,17 +963,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1122914440762010235, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
+      propertyPath: m_Name
+      value: Fireball_Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122914440762010235, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
+      propertyPath: m_TagString
+      value: fireball_spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 1743384375676869914, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1743384375676869914, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 1743384375676869914, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1743384375676869914, guid: 6905335d5ad7e064db030d32a68b576c, type: 3}
       propertyPath: m_LocalPosition.z

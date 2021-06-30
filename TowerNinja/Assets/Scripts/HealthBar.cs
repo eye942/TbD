@@ -23,5 +23,6 @@ public class HealthBar : MonoBehaviour
         _healthPoints = tbs.GetHealthPoint();
      //   Debug.Log("health=" + _healthPoints/_fullHealth);
         GetComponent<Renderer>().material.color = new Color(_healthPoints/_fullHealth, 0, 0);
+   
     }	
 }
