@@ -110,8 +110,9 @@ public class Fireball : MonoBehaviour
         spawner.BroadcastMessage("killEnemy", spawnerID);
         Debug.Log("Fireball - Die()");
         //this.gameObject.SetActive(false);
-        Destroy(gameObject);
         ReportEnemyDeath();
+        Destroy(gameObject);
+        
     }
 
     private void GiveManaReward()
