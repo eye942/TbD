@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using UnityEngine.Analytics;
 
 public class Fireball : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Fireball : MonoBehaviour
     private int damage;
 
     public int FireballManaReward;
+    public float _elapsedTime = 0;
 
     private void Start()
     {
@@ -48,6 +50,7 @@ public class Fireball : MonoBehaviour
     private void Update()
     {
         var dy = rigidBody.position.y - initialPosition.y;
+        _elapsedTime += Time.deltaTime;
 
         // Modify k -- spring constant
         // k *= Random.Range(1.0f, 1.3f);
@@ -107,7 +110,9 @@ public class Fireball : MonoBehaviour
         spawner.BroadcastMessage("killEnemy", spawnerID);
         Debug.Log("Fireball - Die()");
         //this.gameObject.SetActive(false);
+        ReportEnemyDeath();
         Destroy(gameObject);
+        
     }
 
     private void GiveManaReward()
@@ -131,6 +136,18 @@ public class Fireball : MonoBehaviour
         enabled = false;
         this.gameObject.SetActive(false);
         Die();
+    }
+
+    public void ReportEnemyDeath()
+    {
+        int timeOfDeath = (int)_elapsedTime % 60;
+        Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
+        {
+            { "FireballDiedPosition", this.gameObject.transform.position.x.ToString("F")},
+            { "FireballTimeOfDeath", timeOfDeath }
+        });
+        Debug.Log("Fireball Position of Death: " + this.gameObject.transform.position.x.ToString("F"));
+        Debug.Log("Fireball Time of Death: " + timeOfDeath);
     }
 
 }
