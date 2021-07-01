@@ -1,7 +1,8 @@
 name: Publish game
 on: 
   push:
-    - main
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
       - name: cache
         uses: actions/cache@v2
         with:
-          path: TbD/Library
+          path: TbD/TowerNinja/Library
           key: Library-TowerNinja-WebGL
           restore-keys: |
             Library-TowerNinja-
@@ -31,5 +32,5 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          projectPath: ${{github.workspace}}/TowerNinja
+          projectPath: ${{ github.workspace }}/TowerNinja
           targetPlatform: WebGL
