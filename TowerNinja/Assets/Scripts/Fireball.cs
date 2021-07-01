@@ -22,7 +22,7 @@ public class Fireball : MonoBehaviour
     private int damage;
 
     public int FireballManaReward;
-    public int _elapsedTime;
+    public float _elapsedTime = 0;
 
     private void Start()
     {
@@ -50,6 +50,7 @@ public class Fireball : MonoBehaviour
     private void Update()
     {
         var dy = rigidBody.position.y - initialPosition.y;
+        _elapsedTime += Time.deltaTime;
 
         // Modify k -- spring constant
         // k *= Random.Range(1.0f, 1.3f);
