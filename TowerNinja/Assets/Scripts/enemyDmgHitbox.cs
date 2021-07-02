@@ -31,8 +31,8 @@ public class enemyDmgHitbox : MonoBehaviour
         totalCollisions = 0;
         if (EnemyWave.numWaves > 5)
         {
-            _healthPoint = Mathf.RoundToInt(MaxHealthPoint * (EnemyWave.numWaves - 5) * 1.1f);
-            damage = Mathf.RoundToInt(damage * (EnemyWave.numWaves - 5) * 1.1f);
+            _healthPoint = Mathf.RoundToInt(MaxHealthPoint * (EnemyWave.numWaves - 5) * 1.2f);
+            damage = Mathf.RoundToInt(damage * (EnemyWave.numWaves - 5) * 1.2f);
         }
         else
         {
