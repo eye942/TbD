@@ -107,7 +107,7 @@ public class EnemyWave : MonoBehaviour
 			{
 				//Loop below thrice then increment wave counter
 				// 5 minis
-				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				if ((timer >= 3.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
 					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
@@ -123,7 +123,7 @@ public class EnemyWave : MonoBehaviour
 					clusterMode = true;
 				}
 
-				if ((timer >= 5.5f) && (clusterMode == true))
+				if ((timer >= 3.5f) && (clusterMode == true))
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
@@ -156,7 +156,7 @@ public class EnemyWave : MonoBehaviour
 			{
 				//Loop below thrice then increment wave counter
 				// 5 minis
-				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				if ((timer >= 3.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
 					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
@@ -172,7 +172,7 @@ public class EnemyWave : MonoBehaviour
 					clusterMode = true;
 				}
 
-				if ((timer >= 5.5f) && (clusterMode == true))
+				if ((timer >= 3.5f) && (clusterMode == true))
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
@@ -198,7 +198,7 @@ public class EnemyWave : MonoBehaviour
 			{
 				//Loop below thrice then increment wave counter
 				// 5 minis
-				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				if ((timer >= 3.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
 					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
@@ -214,7 +214,7 @@ public class EnemyWave : MonoBehaviour
 					clusterMode = true;
 				}
 
-				if ((timer >= 5.5f) && (clusterMode == true))
+				if ((timer >= 3.5f) && (clusterMode == true))
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
@@ -240,7 +240,7 @@ public class EnemyWave : MonoBehaviour
 			{
 				//Loop below thrice then increment wave counter
 				// 5 minis
-				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				if ((timer >= 3.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
 					Instantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
@@ -256,7 +256,7 @@ public class EnemyWave : MonoBehaviour
 					clusterMode = true;
 				}
 
-				if ((timer >= 5.5f) && (clusterMode == true))
+				if ((timer >= 3.5f) && (clusterMode == true))
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
@@ -282,7 +282,7 @@ public class EnemyWave : MonoBehaviour
 			{
 				//Loop below thrice then increment wave counter
 				// 5 minis
-				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				if ((timer >= 3.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
 					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
@@ -298,7 +298,7 @@ public class EnemyWave : MonoBehaviour
 					clusterMode = true;
 				}
 
-				if ((timer >= 5.5f) && (clusterMode == true))
+				if ((timer >= 3.5f) && (clusterMode == true))
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
@@ -324,7 +324,7 @@ public class EnemyWave : MonoBehaviour
 			{
 				//Loop below thrice then increment wave counter
 				// 5 minis
-				if ((timer >= 5.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
+				if ((timer >= 3.5f) && (3 > totalNonClusterSpawned) && (clusterMode == false))
 				{
 					totalNonClusterSpawned++;
 					Instantiate(MiniEnemy, new Vector3(this.transform.position.x, -3, 0), Quaternion.identity);
@@ -340,7 +340,7 @@ public class EnemyWave : MonoBehaviour
 					clusterMode = true;
 				}
 
-				if ((timer >= 5.5f) && (clusterMode == true))
+				if ((timer >= 3.5f) && (clusterMode == true))
 				{
 					timer = 0.0f;
 					//stantiate(MiniEnemy, new Vector3(-8, -3, 0), Quaternion.identity);
