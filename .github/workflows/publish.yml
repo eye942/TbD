@@ -10,29 +10,32 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
         with:
-          ref: build
           lfs: true
-      - name: merge to build
-        uses: devmasx/merge-branch@v1.3.1
+      - uses: actions/cache@v2
         with:
-          type: now
-          from_branch: master
-          target_branch: build
-          github_token: ${{ github.token }}
-      - name: cache
-        uses: actions/cache@v2
-        with:
-          path: TbD/TowerNinja/Library
+          path: TowerNinja/Library
           key: Library-TowerNinja-WebGL
           restore-keys: |
             Library-TowerNinja-
             Library-
-      - name: build
-        uses: game-ci/unity-builder@v2
+      - uses: game-ci/unity-builder@v2
         env:
           UNITY_EMAIL: ${{ secrets.UNITY_USERNAME }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
           UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
-          projectPath: ${{ github.workspace }}/TowerNinja
+          projectPath: TowerNinja
           targetPlatform: WebGL
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: build/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: |
+      #   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #   git config --local user.name "github-actions[bot]"
+      #   git commit -m "Add changes" -a
+      # - uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: build
