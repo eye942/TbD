@@ -8,9 +8,19 @@ public class BalanceManager : MonoBehaviour
     public static readonly int ManaStartNumber = 100;
     public static readonly int ManaMinNumber = 0;
     public static readonly int ManaMaxNumber = 999;
+
     public static readonly int ManaTimeRewardInterval = 10; // give reward every ? seconds
     public static readonly int ManaTimeRewardAmount = 10; // give ? mana every interval
+
     public static readonly int ManaFireballReward = 2;
+    public static readonly int ManaEnemyReward = 15;
+    public static readonly int ManaBigEnemyReward = 20;
+    public static readonly int ManaEnemySlingerReward = 25;
+
+    public static readonly int ManaFriendCost = 20;
+    public static readonly int ManaBigFriendCost = 25;
+    public static readonly int ManaFriendSlingerCost = 30;
+
     public static readonly int ManaTestKeyboardValue = 5; // increase/decrease ? mana
 
     // Tower-related
