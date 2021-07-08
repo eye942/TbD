@@ -10,7 +10,6 @@ public class Fireball : MonoBehaviour
     private GameObject spawner;
     private int spawnerID;
     public Color color = Color.green;
-    private static readonly int maxHealth = 50;
 
     private Vector2 initialPosition;
     private Rigidbody2D rigidBody;
@@ -23,7 +22,6 @@ public class Fireball : MonoBehaviour
 
     private int damage;
 
-    public int FireballManaReward;
     public float _elapsedTime = 0;
 
     private void Start()
@@ -43,11 +41,11 @@ public class Fireball : MonoBehaviour
 
         // TODO revise max and min based on difficulty
         //health = Random.Range(1, 3);
-        health = maxHealth;
-        click = 3;
+        health = BalanceManager.FireballMaxHealthPoint;
+        click = BalanceManager.FireballMaxClicks;
 
         // TODO revise max and min based on difficulty
-        damage = Random.Range(1, 3);
+        damage = Random.Range(BalanceManager.FireballMinDamage, BalanceManager.FireballMaxDamage);
     }
 
     private void Update()
@@ -70,34 +68,27 @@ public class Fireball : MonoBehaviour
 
     private void Reset()
     {
-        health = maxHealth;
+        health = BalanceManager.FireballMaxHealthPoint;
     }
 
     // Click on fireball to decrease health
     private void OnMouseDown()
     {
-        Debug.Log("Click event");
+        // Debug.Log("Click event");
         click -= 1;
 
-        if (click == 2)
+        if (click > 0)
         {
-            gameObject.GetComponent<Renderer>().material.color = new Color32(255, 99, 71, 170);
-            health -= 25;
-            Debug.Log($"Fireball health is {health}");
-        }
-
-        if (click == 1)
-        {
-            gameObject.GetComponent<Renderer>().material.color = new Color32(255, 71, 71, 80);
-            health -= 15;
-            Debug.Log($"Fireball health is {health}");
+            float new_R = gameObject.GetComponent<Renderer>().material.color.r - (0.75f / BalanceManager.FireballMaxClicks);
+            gameObject.GetComponent<Renderer>().material.color = new Color(new_R, 15/255, 15/255, 1);
+            health = (int)((float)click / BalanceManager.FireballMaxClicks * BalanceManager.FireballMaxHealthPoint);
+            // Debug.Log($"Fireball health is {health}");
         }
 
         if (click <= 0)
         {
-            health -= 10;
-            Debug.Log($"Fireball health is {health}");
-
+            health = 0;
+            // Debug.Log($"Fireball health is {health}");
             GiveManaReward();
             Die();
         }
@@ -107,7 +98,7 @@ public class Fireball : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Fireball collision");
+        // Debug.Log("Fireball collision");
 
         if (other.gameObject.CompareTag("friendly"))
         {
@@ -123,7 +114,7 @@ public class Fireball : MonoBehaviour
     private void Die()
     {
         spawner.BroadcastMessage("killEnemy", spawnerID);
-        Debug.Log("Fireball - Die()");
+        // Debug.Log("Fireball - Die()");
         //this.gameObject.SetActive(false);
         ReportEnemyDeath();
         Destroy(gameObject);
@@ -133,9 +124,9 @@ public class Fireball : MonoBehaviour
 
     private void GiveManaReward()
     {
-        GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
+        GameObject resourceManagerObject = GameObject.Find("ResourceManager");
         ResourceManager resourceManager = resourceManagerObject.GetComponent<ResourceManager>();
-        resourceManager.IncreaseMana(FireballManaReward);
+        resourceManager.IncreaseMana(BalanceManager.ManaFireballReward);
     }
 
     // add explosion effect
@@ -149,7 +140,7 @@ public class Fireball : MonoBehaviour
     void OnBecameInvisible()
     {
        
-        Debug.Log("Fireball died after screenview");
+        // Debug.Log("Fireball died after screenview");
         Destroy(gameObject);
         //enabled = false;
         //this.gameObject.SetActive(false);
