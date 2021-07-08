@@ -30,9 +30,11 @@ public class BalanceManager : MonoBehaviour
 
     // Arrow-related
     public static readonly int ArrowDamage = 25;
+    public static readonly int ArrowSpawnCooldown = 1;
 
     // Bomb-related
     public static readonly int BombDamage = 50;
+    public static readonly int BombSpawnCooldown = 3;
 
     // Fireball-related
     public static readonly int FireballMaxHealthPoint = 50;

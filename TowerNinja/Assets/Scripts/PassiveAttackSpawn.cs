@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class PassiveAttackSpawn : MonoBehaviour
 {
-    private static readonly int ArrowSpawnCooldown = 1;
-    private static readonly int BombSpawnCooldown = 3;
+    
 
     private float _arrowLastSpawnTime;
     private float _bombLastSpawnTime;
@@ -21,8 +20,8 @@ public class PassiveAttackSpawn : MonoBehaviour
 
     void Start()
     {
-        _arrowLastSpawnTime = ArrowSpawnCooldown;
-        _bombLastSpawnTime = BombSpawnCooldown;
+        _arrowLastSpawnTime = BalanceManager.ArrowSpawnCooldown;
+        _bombLastSpawnTime = BalanceManager.BombSpawnCooldown;
         _arrowSpawnPosition = DefaultArrowSpawnPosition;
         _bombSpawnPosition = DefaultBombSpawnPosition;
     }
@@ -32,7 +31,7 @@ public class PassiveAttackSpawn : MonoBehaviour
         if (_spawnArrow)
         {
             _arrowLastSpawnTime += Time.deltaTime;
-            if (_arrowLastSpawnTime > ArrowSpawnCooldown)
+            if (_arrowLastSpawnTime > BalanceManager.ArrowSpawnCooldown)
             {
                 SpawnArrow();
                 _arrowLastSpawnTime = 0;
@@ -42,7 +41,7 @@ public class PassiveAttackSpawn : MonoBehaviour
         if (_spawnBomb)
         {
             _bombLastSpawnTime += Time.deltaTime;
-            if (_bombLastSpawnTime > BombSpawnCooldown)
+            if (_bombLastSpawnTime > BalanceManager.BombSpawnCooldown)
             {
                 SpawnBomb();
                 _bombLastSpawnTime = 0;
