@@ -10,6 +10,7 @@ public class Fireball : MonoBehaviour
     private GameObject spawner;
     private int spawnerID;
     public Color color = Color.green;
+    private static readonly int maxHealth = 50;
 
     private Vector2 initialPosition;
     private Rigidbody2D rigidBody;
@@ -18,6 +19,7 @@ public class Fireball : MonoBehaviour
 
     private float forceX = 0f;
     private int health;
+    private int click;
 
     private int damage;
 
@@ -41,7 +43,8 @@ public class Fireball : MonoBehaviour
 
         // TODO revise max and min based on difficulty
         //health = Random.Range(1, 3);
-        health = 3;
+        health = maxHealth;
+        click = 3;
 
         // TODO revise max and min based on difficulty
         damage = Random.Range(1, 3);
@@ -65,24 +68,36 @@ public class Fireball : MonoBehaviour
 
     }
 
+    private void Reset()
+    {
+        health = maxHealth;
+    }
+
     // Click on fireball to decrease health
     private void OnMouseDown()
     {
         Debug.Log("Click event");
-        health -= 1;
+        click -= 1;
 
-        if (health == 2)
+        if (click == 2)
         {
             gameObject.GetComponent<Renderer>().material.color = new Color32(255, 99, 71, 170);
+            health -= 25;
+            Debug.Log($"Fireball health is {health}");
         }
 
-        if (health == 1)
+        if (click == 1)
         {
             gameObject.GetComponent<Renderer>().material.color = new Color32(255, 71, 71, 80);
+            health -= 15;
+            Debug.Log($"Fireball health is {health}");
         }
 
-        if (health <= 0)
+        if (click <= 0)
         {
+            health -= 10;
+            Debug.Log($"Fireball health is {health}");
+
             GiveManaReward();
             Die();
         }
@@ -115,6 +130,7 @@ public class Fireball : MonoBehaviour
         
     }
 
+
     private void GiveManaReward()
     {
         GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
@@ -132,10 +148,12 @@ public class Fireball : MonoBehaviour
     }
     void OnBecameInvisible()
     {
-        //Destroy(gameObject);
-        enabled = false;
-        this.gameObject.SetActive(false);
-        Die();
+       
+        Debug.Log("Fireball died after screenview");
+        Destroy(gameObject);
+        //enabled = false;
+        //this.gameObject.SetActive(false);
+        //Kill();
     }
 
     public void ReportEnemyDeath()
