@@ -60,7 +60,7 @@ public class ResourceManager : MonoBehaviour
         {
             GameObject elapsedTime = GameObject.Find("ElapsedTime").gameObject;
             _elapsedTimeText = elapsedTime.GetComponent<Text>();
-            ReportElapsedTime();
+            ReportElapsedTime("elapsedTime0", _elapsedTime);
             ReportRemainingMana(_currentManaNumber);
             ReportConsumedMana(_consumedManaNumber);
             ReportProjectileDamage();
@@ -90,18 +90,21 @@ public class ResourceManager : MonoBehaviour
             {
                 _tower75HPflag = true;
                 _elapsedTime75 = _elapsedTime;
+                ReportElapsedTime("elapsedTime75", _elapsedTime75);
             }
 
             if (towerHP <= 50 && _tower50HPflag == false)
             {
                 _tower50HPflag = true;
                 _elapsedTime50 = _elapsedTime;
+                ReportElapsedTime("elapsedTime50", _elapsedTime50);
             }
 
             if (towerHP <= 25 && _tower25HPflag == false)
             {
                 _tower25HPflag = true;
                 _elapsedTime25 = _elapsedTime;
+                ReportElapsedTime("elapsedTime25", _elapsedTime25);
             }
         }
 
@@ -156,16 +159,13 @@ public class ResourceManager : MonoBehaviour
         _elapsedTimeText.text = $"Elapsed Time: {(int) _elapsedTime}";
     }
 
-    public void ReportElapsedTime()
+    public void ReportElapsedTime(string elapsedTimeEventName, float time)
     {
-        AnalyticsEvent.Custom("elapsed_times", new Dictionary<string, object>
+        AnalyticsEvent.Custom(elapsedTimeEventName, new Dictionary<string, object>
         {
-            {"elapsed_time0", _elapsedTime},
-            {"elapsed_time75", _elapsedTime75},
-            {"elapsed_time50", _elapsedTime50},
-            {"elapsed_time25", _elapsedTime25}
+            {elapsedTimeEventName, time}
         });
-        Debug.Log("Analytics - ReportElapsedTime()");
+        Debug.Log($"Analytics - ReportElapsedTime({elapsedTimeEventName})");
     }
 
     public void ReportRemainingMana(int number)
