@@ -1,0 +1,24 @@
+name: Verify Pull Request
+on: 
+  pull_request
+jobs:
+  buildforWebGL:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: TowerNinja/Library
+          key: Library-TowerNinja
+          restore-keys: Library-
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_USERNAME }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          projectPath: TowerNinja
+          targetPlatform: WebGL
+  

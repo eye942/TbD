@@ -1,0 +1,41 @@
+name: Publish game
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: TowerNinja/Library
+          key: Library-TowerNinja-WebGL
+          restore-keys: |
+            Library-TowerNinja-
+            Library-
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_USERNAME }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
+        with:
+          projectPath: TowerNinja
+          targetPlatform: WebGL
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: build/**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - run: |
+      #   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #   git config --local user.name "github-actions[bot]"
+      #   git commit -m "Add changes" -a
+      # - uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: build

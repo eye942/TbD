@@ -1,22 +1,17 @@
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.SceneManagement;
 
 public class SceneChanger: MonoBehaviour
 {
-    public void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-    
-    public void PlayGame()
+    public static void PlayGame()
     {
         SceneManager.LoadScene("Scenes/MainGame");
+        AnalyticsEvent.GameStart();
     }
-
-    public void LoadScene()
+    public static void GameOver()
     {
-        Debug.Log("Clicked play game!");
-
-        SceneManager.LoadScene("Scenes/MainGame");
+        SceneManager.LoadScene("GameOverScreen");
+        AnalyticsEvent.GameOver();
     }
 }
