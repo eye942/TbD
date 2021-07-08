@@ -3,8 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
-    private static readonly int MaxHealthPoint = 100;
-    private static readonly int MinHealthPoint = 0;
+    
     private int _healthPoint;
     private GameObject _tower;
     private GameObject[] _levels;
@@ -18,7 +17,7 @@ public class Tower : MonoBehaviour
     public void Start()
     {
         // initialize tower HP to the max value
-        _healthPoint = MaxHealthPoint;
+        _healthPoint = BalanceManager.TowerMaxHealthPoint;
 
         // Find tower game object
         _tower = gameObject;// GameObject.Find("Tower");
@@ -54,7 +53,7 @@ public class Tower : MonoBehaviour
         // check keyboard input. for testing
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            DamageTower(3);
+            DamageTower(BalanceManager.TowerTestKeyboardValue);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -73,7 +72,7 @@ public class Tower : MonoBehaviour
         UpdateTopSectionSpriteColor(damage);
         Debug.Log($"Tower took damage {damage}, HP becomes {_healthPoint}");
 
-        if (_healthPoint <= MinHealthPoint)
+        if (_healthPoint <= BalanceManager.TowerMinHealthPoint)
         {
             GameOver();
             Debug.Log("GameOver");
@@ -85,7 +84,7 @@ public class Tower : MonoBehaviour
     /// </summary>
     public void ResetTower()
     {
-        _healthPoint = MaxHealthPoint;
+        _healthPoint = BalanceManager.TowerMaxHealthPoint;
         ResetTowerSpriteColor();
         UpdateTowerAppearance();
         Debug.Log($"Reset Tower, HP becomes {_healthPoint}");
@@ -97,7 +96,7 @@ public class Tower : MonoBehaviour
     private void UpdateTowerAppearance()
     {
         // set visibility of each level
-        if (_healthPoint > 90)
+        if (_healthPoint > (0.9 * BalanceManager.TowerMaxHealthPoint))
         {
             _leftTurret.SetActive(true);
             _rightTurret.SetActive(true);
@@ -110,63 +109,63 @@ public class Tower : MonoBehaviour
             _passiveAttackSpawn.SendMessage("EnableArrowSpawn");
             _passiveAttackSpawn.SendMessage("EnableBombSpawn");
         }
-        if (_healthPoint <= 90)
+        if (_healthPoint <= (0.9 * BalanceManager.TowerMaxHealthPoint))
         {
             _leftTurret.SetActive(false);
             _topSection = _rightTurret;
             UpdateTowerColliderShape(9, -3f);
         }
-        if (_healthPoint <= 80)
+        if (_healthPoint <= (0.8 * BalanceManager.TowerMaxHealthPoint))
         {
             _rightTurret.SetActive(false);
             _topSection = _levels[7];
             UpdateTowerColliderShape(8, -3.5f);
         }
-        if (_healthPoint <= 70)
+        if (_healthPoint <= (0.7 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[7].SetActive(false);
             _topSection = _levels[6];
             UpdateTowerColliderShape(7, -4f);
             _passiveAttackSpawn.SendMessage("DisableArrowSpawn");
         }
-        if (_healthPoint <= 60)
+        if (_healthPoint <= (0.6 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[6].SetActive(false);
             _topSection = _levels[5];
             UpdateTowerColliderShape(6, -4.5f);
         }
-        if (_healthPoint <= 50)
+        if (_healthPoint <= (0.5 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[5].SetActive(false);
             _topSection = _levels[4];
             UpdateTowerColliderShape(5, -5f);
         }
-        if (_healthPoint <= 40)
+        if (_healthPoint <= (0.4 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[4].SetActive(false);
             _topSection = _levels[3];
             UpdateTowerColliderShape(4, -5.5f);
             _passiveAttackSpawn.SendMessage("DisableBombSpawn");
         }
-        if (_healthPoint <= 30)
+        if (_healthPoint <= (0.3 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[3].SetActive(false);
             _topSection = _levels[2];
             UpdateTowerColliderShape(3, -6f);
         }
-        if (_healthPoint <= 20)
+        if (_healthPoint <= (0.2 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[2].SetActive(false);
             _topSection = _levels[1];
             UpdateTowerColliderShape(2, -6.5f);
         }
-        if (_healthPoint <= 10)
+        if (_healthPoint <= (0.1 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[1].SetActive(false);
             _topSection = _levels[0];
             UpdateTowerColliderShape(1, -7f);
         }
-        if (_healthPoint <= 0)
+        if (_healthPoint <= BalanceManager.TowerMinHealthPoint)
         {
             _levels[0].SetActive(false);
             UpdateTowerColliderShape(0, -7.5f);

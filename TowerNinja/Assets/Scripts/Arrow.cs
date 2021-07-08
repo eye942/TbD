@@ -6,7 +6,6 @@ public class Arrow : MonoBehaviour
     private static readonly float ForceY = 0.0f;
     private static readonly float VelocityX = -7.0f;
     private static readonly float VelocityY = 4.0f;
-    public int damage = 25;
     
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
@@ -34,13 +33,13 @@ public class Arrow : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            var managerObject = GameObject.Find("ResourceManager").gameObject;
+            var managerObject = GameObject.Find("ResourceManager");
             var manager = managerObject.GetComponent<ResourceManager>();
             Debug.LogError("Enemy Collision");
             Debug.Log(collision.gameObject);
             var parent = collision.gameObject.transform.parent;
-            parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(damage);
-            manager.UpdateProjectileDamage(this.GetType().Name,damage);
+            parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(BalanceManager.ArrowDamage);
+            manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.ArrowDamage);
             Die();
         }
     }
