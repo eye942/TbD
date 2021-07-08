@@ -6,7 +6,6 @@ public class Bomb : MonoBehaviour
     private static readonly float ForceY = 0.0f;
     private static readonly float VelocityX = -3.0f;
     private static readonly float VelocityY = 0.0f;
-    public int damage = 50;
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
 
@@ -32,12 +31,12 @@ public class Bomb : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            var managerObject = GameObject.Find("ResourceManager").gameObject;
+            var managerObject = GameObject.Find("ResourceManager");
             var manager = managerObject.GetComponent<ResourceManager>();
             Debug.LogError("Enemy Collision");
             Debug.Log(collision.gameObject);
-            collision.gameObject.SendMessage("DamageEnemy", damage);
-            manager.UpdateProjectileDamage(this.GetType().Name,damage);
+            collision.gameObject.SendMessage("DamageEnemy", BalanceManager.BombDamage);
+            manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.BombDamage);
             Die();
         }
     }

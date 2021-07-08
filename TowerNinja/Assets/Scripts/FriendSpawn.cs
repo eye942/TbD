@@ -13,13 +13,18 @@ public class FriendSpawn : MonoBehaviour
     public KeyCode activateKey;
 
     private ResourceManager resourceManager;
-    public int FriendManaCost;
+    private int _friendManaCost;
 
     void Start()
     {
         // Get resource manager
-        GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
+        GameObject resourceManagerObject = GameObject.Find("ResourceManager");
         resourceManager = resourceManagerObject.GetComponent<ResourceManager>();
+
+        // set mana cost for this spawner
+        if (prefab.name == "BigFriend") _friendManaCost = BalanceManager.ManaBigFriendCost;
+        else if (prefab.name == "FriendSlinger") _friendManaCost = BalanceManager.ManaFriendSlingerCost;
+        else _friendManaCost = BalanceManager.ManaFriendCost;
 
         /*
         friend = Instantiate(prefab, this.transform.position, Quaternion.identity) ;
@@ -44,7 +49,7 @@ public class FriendSpawn : MonoBehaviour
             if (HaveEnoughMana())
             {
                 friend = Instantiate(prefab, this.transform.position, Quaternion.identity);
-                resourceManager.DecreaseMana(FriendManaCost);
+                resourceManager.DecreaseMana(_friendManaCost);
                 //Debug.Log("lets go");
                 go = friend.gameObject;
                 go.GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -55,7 +60,7 @@ public class FriendSpawn : MonoBehaviour
 
     private bool HaveEnoughMana()
     {
-        if (resourceManager.GetManaCount() >= FriendManaCost) return true;
+        if (resourceManager.GetManaCount() >= _friendManaCost) return true;
         return false;
     }
 }

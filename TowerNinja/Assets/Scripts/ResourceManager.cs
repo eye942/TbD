@@ -8,9 +8,6 @@ using UnityEngine.Analytics;
 
 public class ResourceManager : MonoBehaviour
 {
-    private static readonly int MaxManaNumber = 999;
-    private static readonly int StartManaNumber = 100;
-    private static readonly int MinManaNumber = 0;
     private static int _currentManaNumber;
     private static int _consumedManaNumber;
 
@@ -38,12 +35,12 @@ public class ResourceManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainGame")
         {
             _elapsedTime = 0;
-            _currentManaNumber = StartManaNumber;
+            _currentManaNumber = BalanceManager.ManaStartNumber;
             _consumedManaNumber = 0;
             _manaTimeRewardCounter = 0;
-            GameObject manaCounter = GameObject.Find("ManaCounter").gameObject;
+            GameObject manaCounter = GameObject.Find("ManaCounter");
             _manaCounterText = manaCounter.GetComponent<Text>();
-            GameObject timeCounter = GameObject.Find("TimeCounter").gameObject;
+            GameObject timeCounter = GameObject.Find("TimeCounter");
             _timeCounterText = timeCounter.GetComponent<Text>();
             UpdateManaCounterDisplay();
 
@@ -58,7 +55,7 @@ public class ResourceManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "GameOverScreen")
         {
-            GameObject elapsedTime = GameObject.Find("ElapsedTime").gameObject;
+            GameObject elapsedTime = GameObject.Find("ElapsedTime");
             _elapsedTimeText = elapsedTime.GetComponent<Text>();
             ReportElapsedTime("elapsedTime0", _elapsedTime);
             ReportRemainingMana(_currentManaNumber);
@@ -77,10 +74,10 @@ public class ResourceManager : MonoBehaviour
             _manaTimeRewardCounter += Time.deltaTime;
             UpdateTimeCounterDisplay();
 
-            // Time reward mana. Give 10 mana per 10 second
-            if (_manaTimeRewardCounter > 10)
+            // Time reward mana. Give ? mana per ? second
+            if (_manaTimeRewardCounter > BalanceManager.ManaTimeRewardInterval)
             {
-                IncreaseMana(10);
+                IncreaseMana(BalanceManager.ManaTimeRewardAmount);
                 _manaTimeRewardCounter = 0;
             }
 
@@ -111,18 +108,18 @@ public class ResourceManager : MonoBehaviour
         // check keyboard input. for testing
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            IncreaseMana(5);
+            IncreaseMana(BalanceManager.ManaTestKeyboardValue);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            DecreaseMana(5);
+            DecreaseMana(BalanceManager.ManaTestKeyboardValue);
         }
     }
 
     public void IncreaseMana(int number)
     {
-        if ((_currentManaNumber + number) <= MaxManaNumber)
+        if ((_currentManaNumber + number) <= BalanceManager.ManaMaxNumber)
         {
             _currentManaNumber += number;
             UpdateManaCounterDisplay();
@@ -131,7 +128,7 @@ public class ResourceManager : MonoBehaviour
 
     public void DecreaseMana(int number)
     {
-        if ((_currentManaNumber - number) >= MinManaNumber)
+        if ((_currentManaNumber - number) >= BalanceManager.ManaMinNumber)
         {
             _currentManaNumber -= number;
             _consumedManaNumber += number;

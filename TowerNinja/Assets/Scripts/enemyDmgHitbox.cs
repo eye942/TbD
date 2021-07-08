@@ -22,12 +22,9 @@ public class enemyDmgHitbox : MonoBehaviour
     private int totalCollisions;
     public float Velocity;
 
-    public int EnemyManaReward;
-
     void Start()
     {
         _elapsedTime += Time.deltaTime;
-
         totalCollisions = 0;
         if (EnemyWave.numWaves > 5)
         {
@@ -131,7 +128,9 @@ public class enemyDmgHitbox : MonoBehaviour
         GameObject resourceManagerObject = GameObject.Find("ResourceManager").gameObject;
         ResourceManager resourceManager = resourceManagerObject.GetComponent<ResourceManager>();
 
-        resourceManager.IncreaseMana(EnemyManaReward);
+        if (gameObject.name == "BigEnemy") resourceManager.IncreaseMana(BalanceManager.ManaBigEnemyReward);
+        else if (gameObject.name == "EnemySlinger") resourceManager.IncreaseMana(BalanceManager.ManaEnemySlingerReward);
+        else resourceManager.IncreaseMana(BalanceManager.ManaEnemyReward);
     }
 
     public void ReportEnemyDeath()
