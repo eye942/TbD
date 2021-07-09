@@ -42,7 +42,7 @@ jobs:
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
       - name: 'Upload artifact'
-      - run: |
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add build
