@@ -12,10 +12,12 @@ jobs:
         with:
           lfs: true
           path: main
+      - run: pwd
       - uses: actions/checkout@v2
         with:
           ref: build
           lfs: true
+      - run: pwd
       - uses: actions/cache@v2
         with:
           path: main/TowerNinja/Library
