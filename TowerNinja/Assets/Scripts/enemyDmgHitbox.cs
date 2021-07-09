@@ -1,7 +1,9 @@
+using UnityEngine;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Analytics;
+
 
 // Instantiate a rigidbody then set the velocity
 
@@ -22,15 +24,23 @@ public class enemyDmgHitbox : MonoBehaviour
     private int totalCollisions;
     public float Velocity;
     // health text
-    private TextMesh _healthText;
+    public TMPro.TextMeshPro _healthText;
+    GameObject textobj;
 
     public int EnemyManaReward;
 
     void Start()
     {
-    	_healthText = this.GetComponent<TextMesh>();
-
-
+        textobj = this.gameObject.transform.GetChild (0).gameObject;
+        _healthText = textobj.GetComponent<TextMeshPro>();
+        _healthText.text = MaxHealthPoint + "/" + MaxHealthPoint;
+        // textmeshpro and textmeshprougui
+    	
+        /*_healthText = AddComponent<TMPro.TextMeshPro>();
+    	if (_healthText == null) {
+    		Debug.Log("ehealth - IS NULL");
+    	}
+        */
         _elapsedTime += Time.deltaTime;
 
         totalCollisions = 0;
@@ -48,16 +58,10 @@ public class enemyDmgHitbox : MonoBehaviour
         thisRB = this.GetComponent<Rigidbody2D>();
         thisRB.velocity = new Vector2(Velocity, 0);
         EnemyWave.spawnedEnemy++;
-
-        // is this line broken?
-        _healthText.text = "test";
-        Debug.Log(" in here in start");
         
     }
     void Update()
     {
-
-
         _elapsedTime += Time.deltaTime;
 
         if (damageBool)
