@@ -30,7 +30,7 @@ jobs:
       - uses: softprops/action-gh-release@master
         with:
           files: build/**
-          tag: ${{ steps.build.outputs.buildVersion }}
+          tag_name: ${{ steps.build.outputs.buildVersion }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - run: |
