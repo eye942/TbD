@@ -27,17 +27,24 @@ jobs:
         with:
           projectPath: TowerNinja
           targetPlatform: WebGL
-      - uses: softprops/action-gh-release@master
+      - uses: actions/upload-artifact@v2
         with:
-          files: build
-          tag_name: ${{ steps.build.outputs.buildVersion }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - run: |
-      #   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #   git config --local user.name "github-actions[bot]"
-      #   git commit -m "Add changes" -a
-      # - uses: ad-m/github-push-action@master
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: build
+          name: my-webgl-build
+          path: build # or path/to/artifact
+      - uses: actions/checkout@v2
+        with:
+          ref: build
+          lfs: true
+      - uses: actions/download-artifact@v2
+        id: download
+        with:
+          name: my-webgl-build
+      - name: 'Echo download path'
+        run: echo ${{steps.download.outputs.download-path}}
+      - name: 'Upload artifact'
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add build
+          git commit -m "generated"
+          git push
