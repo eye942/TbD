@@ -29,7 +29,7 @@ jobs:
           targetPlatform: WebGL
       - uses: softprops/action-gh-release@master
         with:
-          files: build/**
+          files: build
           tag_name: ${{ steps.build.outputs.buildVersion }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
