@@ -233,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 344067562}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -12.7523, y: -5, z: 0}
-  m_LocalScale: {x: 45.5052, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -300,11 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ReferenceResolution: {x: 960, y: 600}
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -507,7 +507,6 @@ MonoBehaviour:
   friend: {fileID: 6489104057373868827, guid: 916a8bd7af689a74087417397ee87647, type: 3}
   go: {fileID: 6489104057373868826, guid: 916a8bd7af689a74087417397ee87647, type: 3}
   activateKey: 119
-  FriendManaCost: 25
 --- !u!1001 &692013427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -779,7 +778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &983799470
 GameObject:
@@ -971,6 +970,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 220
       objectReference: {fileID: 0}
+    - target: {fileID: 7078330208269211930, guid: 1b9cc8ce44b7fc7438ded358d38a0c53, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078330208269211930, guid: 1b9cc8ce44b7fc7438ded358d38a0c53, type: 3}
+      propertyPath: m_ScreenMatchMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7078330208269211930, guid: 1b9cc8ce44b7fc7438ded358d38a0c53, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 960
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b9cc8ce44b7fc7438ded358d38a0c53, type: 3}
 --- !u!1 &1311722206 stripped
@@ -1161,7 +1172,6 @@ MonoBehaviour:
   friend: {fileID: 2988850555736927627, guid: dede33c01720a7e468532f4bed6d6a20, type: 3}
   go: {fileID: 2988850555736927626, guid: dede33c01720a7e468532f4bed6d6a20, type: 3}
   activateKey: 101
-  FriendManaCost: 30
 --- !u!1 &1815108193
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1220,6 @@ MonoBehaviour:
   friend: {fileID: 4578063422005607031, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
   go: {fileID: 4578063422005607030, guid: 90ef8cb25b6363e43bcceb56774d8052, type: 3}
   activateKey: 113
-  FriendManaCost: 15
 --- !u!1001 &2035411595
 PrefabInstance:
   m_ObjectHideFlags: 0
