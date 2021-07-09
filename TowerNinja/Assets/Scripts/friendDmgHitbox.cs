@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Analytics;
+using TMPro;
 
 // Instantiate a rigidbody then set the velocity
 
@@ -22,9 +23,15 @@ public class friendDmgHitbox : MonoBehaviour
     private bool damageBool = false;
     private Vector2 velocity;
     private int totalCollisions;
+    public TMPro.TextMeshPro _healthText;
+    GameObject textobj;
     
     void Start()
     {
+        textobj = this.gameObject.transform.GetChild (2).gameObject;
+        _healthText = textobj.GetComponent<TextMeshPro>();
+        _healthText.text = MaxHealthPoint + "/" + MaxHealthPoint;
+
         AnalyticsEvent.ItemAcquired(AcquisitionType.Soft,"Mana Store",1, friendType, "Unit", $"{Time.fixedTime}");
         thisRB = this.GetComponent<Rigidbody2D>();
         totalCollisions = 0;
@@ -97,10 +104,13 @@ public class friendDmgHitbox : MonoBehaviour
         Debug.Log($"Friendly took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
+            _healthText.text = "0/" + MaxHealthPoint;
             Debug.Log(this.gameObject + "is destroyed.");
             AnalyticsEvent.ItemSpent(AcquisitionType.Soft,"Mana Store",1, friendType, "Unit", $"{Time.fixedTime}");
             Destroy(this.gameObject);
             ReportFriendlyDeath();
+        } else {
+            _healthText.text = _healthPoint + "/" + MaxHealthPoint;
         }
     }
 

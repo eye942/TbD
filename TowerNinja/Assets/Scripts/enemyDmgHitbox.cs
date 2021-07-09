@@ -132,7 +132,7 @@ public class enemyDmgHitbox : MonoBehaviour
         //Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
-        	_healthText.text = "0 / " + MaxHealthPoint;
+        	_healthText.text = "0/" + MaxHealthPoint;
             EnemyWave.spawnedEnemy--;
 
             // give mana reward
@@ -142,7 +142,7 @@ public class enemyDmgHitbox : MonoBehaviour
             Destroy(this.gameObject);
             ReportEnemyDeath();
         } else {
-        	_healthText.text = _healthPoint + " / " + MaxHealthPoint;
+        	_healthText.text = _healthPoint + "/" + MaxHealthPoint;
         }
     }
 
