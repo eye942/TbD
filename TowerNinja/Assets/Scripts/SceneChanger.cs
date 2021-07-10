@@ -14,4 +14,12 @@ public class SceneChanger: MonoBehaviour
         SceneManager.LoadScene("GameOverScreen");
         AnalyticsEvent.GameOver();
     }
+    public static void Settings()
+    {
+        SceneManager.LoadScene("SettingsScreen");
+    }
+    public static void Entry()
+    {
+        SceneManager.LoadScene("EntryScreen");
+    }
 }
