@@ -7,8 +7,6 @@ public class Tower : MonoBehaviour
     private int _healthPoint;
     private GameObject _tower;
     private GameObject[] _levels;
-    private GameObject _leftTurret;
-    private GameObject _rightTurret;
     private GameObject _passiveAttackSpawn;
     private BoxCollider2D _towerBoxCollider;
     private GameObject _topSection;
@@ -24,19 +22,14 @@ public class Tower : MonoBehaviour
         if (_tower == null) Debug.LogError("Can't find tower");
 
         // Find levels
-        _levels = new GameObject[8];
-        for (int i = 0; i < 8; ++i)
+        _levels = new GameObject[10];
+        for (int i = 0; i < 10; ++i)
         {
             _levels[i] = _tower.transform.Find($"Level{i}").gameObject;
             if (_levels[i] == null) Debug.LogError($"Can't find Level{i}");
         }
 
-        // Find turrets
-        _leftTurret = _tower.transform.Find("LeftTurret").gameObject;
-        if (_leftTurret == null) Debug.LogError("Can't find LeftTurret");
-        _rightTurret = _tower.transform.Find("RightTurret").gameObject;
-        if (_rightTurret == null) Debug.LogError("Can't find RightTurret");
-        _topSection = _leftTurret;
+        _topSection = _levels[9];
 
         // Get towerBoxCollider
         _towerBoxCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -69,7 +62,6 @@ public class Tower : MonoBehaviour
     {
         _healthPoint -= damage;
         UpdateTowerAppearance();
-        UpdateTopSectionSpriteColor(damage);
         Debug.Log($"Tower took damage {damage}, HP becomes {_healthPoint}");
 
         if (_healthPoint <= BalanceManager.TowerMinHealthPoint)
@@ -85,7 +77,6 @@ public class Tower : MonoBehaviour
     public void ResetTower()
     {
         _healthPoint = BalanceManager.TowerMaxHealthPoint;
-        ResetTowerSpriteColor();
         UpdateTowerAppearance();
         Debug.Log($"Reset Tower, HP becomes {_healthPoint}");
     }
@@ -98,106 +89,84 @@ public class Tower : MonoBehaviour
         // set visibility of each level
         if (_healthPoint > (0.9 * BalanceManager.TowerMaxHealthPoint))
         {
-            _leftTurret.SetActive(true);
-            _rightTurret.SetActive(true);
-            _topSection = _leftTurret;
+            _topSection = _levels[9];
             foreach (GameObject level in _levels)
             {
                 level.SetActive(true);
             }
-            UpdateTowerColliderShape(9, -3f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 0), -3.4f - (0.375f * 0));
             _passiveAttackSpawn.SendMessage("EnableArrowSpawn");
             _passiveAttackSpawn.SendMessage("EnableBombSpawn");
         }
         if (_healthPoint <= (0.9 * BalanceManager.TowerMaxHealthPoint))
         {
-            _leftTurret.SetActive(false);
-            _topSection = _rightTurret;
-            UpdateTowerColliderShape(9, -3f);
+            _levels[9].SetActive(false);
+            _topSection = _levels[8];
+            UpdateTowerColliderShape(8.2f - (0.75f * 1), -3.4f - (0.375f * 1));
         }
         if (_healthPoint <= (0.8 * BalanceManager.TowerMaxHealthPoint))
         {
-            _rightTurret.SetActive(false);
+            _levels[8].SetActive(false);
             _topSection = _levels[7];
-            UpdateTowerColliderShape(8, -3.5f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 2), -3.4f - (0.375f * 2));
+            _passiveAttackSpawn.SendMessage("DisableArrowSpawn");
         }
         if (_healthPoint <= (0.7 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[7].SetActive(false);
             _topSection = _levels[6];
-            UpdateTowerColliderShape(7, -4f);
-            _passiveAttackSpawn.SendMessage("DisableArrowSpawn");
+            UpdateTowerColliderShape(8.2f - (0.75f * 3), -3.4f - (0.375f * 3));
         }
         if (_healthPoint <= (0.6 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[6].SetActive(false);
             _topSection = _levels[5];
-            UpdateTowerColliderShape(6, -4.5f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 4), -3.4f - (0.375f * 4));
         }
         if (_healthPoint <= (0.5 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[5].SetActive(false);
             _topSection = _levels[4];
-            UpdateTowerColliderShape(5, -5f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 5), -3.4f - (0.375f * 5));
         }
         if (_healthPoint <= (0.4 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[4].SetActive(false);
             _topSection = _levels[3];
-            UpdateTowerColliderShape(4, -5.5f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 6), -3.4f - (0.375f * 6));
             _passiveAttackSpawn.SendMessage("DisableBombSpawn");
         }
         if (_healthPoint <= (0.3 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[3].SetActive(false);
             _topSection = _levels[2];
-            UpdateTowerColliderShape(3, -6f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 7), -3.4f - (0.375f * 7));
         }
         if (_healthPoint <= (0.2 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[2].SetActive(false);
             _topSection = _levels[1];
-            UpdateTowerColliderShape(2, -6.5f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 8), -3.4f - (0.375f * 8));
         }
         if (_healthPoint <= (0.1 * BalanceManager.TowerMaxHealthPoint))
         {
             _levels[1].SetActive(false);
             _topSection = _levels[0];
-            UpdateTowerColliderShape(1, -7f);
+            UpdateTowerColliderShape(8.2f - (0.75f * 9), -3.4f - (0.375f * 9));
         }
         if (_healthPoint <= BalanceManager.TowerMinHealthPoint)
         {
             _levels[0].SetActive(false);
-            UpdateTowerColliderShape(0, -7.5f);
             Destroy(this.gameObject);
         }
     }
 
-    private void UpdateTowerColliderShape(int sizeY, float offsetY)
+    private void UpdateTowerColliderShape(float sizeY, float offsetY)
     {
-        _towerBoxCollider.size = new Vector2(3, sizeY);
-        _towerBoxCollider.offset = new Vector2(-1, offsetY);
+        _towerBoxCollider.size = new Vector2(2.2f, sizeY);
+        _towerBoxCollider.offset = new Vector2(-3.6f, offsetY);
     }
 
-    private void UpdateTopSectionSpriteColor(int damage)
-    {
-        Color newColor = _topSection.GetComponent<SpriteRenderer>().color;
-        float colorOffset = 0.05f * damage;
-        newColor.r -= colorOffset;
-        newColor.g -= colorOffset;
-        newColor.b -= colorOffset;
-        _topSection.GetComponent<SpriteRenderer>().color = newColor;
-    }
-
-    private void ResetTowerSpriteColor()
-    {
-        for (int i = 0; i < 8; ++i)
-        {
-            _levels[i].GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
-        }
-        _leftTurret.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
-        _rightTurret.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
-    }
 
     public int GetHealthPoint()
     {

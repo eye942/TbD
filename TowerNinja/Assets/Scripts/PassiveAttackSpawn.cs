@@ -9,8 +9,8 @@ public class PassiveAttackSpawn : MonoBehaviour
     private bool _spawnArrow = true;
     private bool _spawnBomb = true;
 
-    private static readonly Vector2 DefaultArrowSpawnPosition = new Vector2(7, 3);
-    private static readonly Vector2 DefaultBombSpawnPosition = new Vector2(7, 0);
+    private static readonly Vector2 DefaultArrowSpawnPosition = new Vector2(5, 2);
+    private static readonly Vector2 DefaultBombSpawnPosition = new Vector2(5, -1);
 
     private Vector2 _arrowSpawnPosition;
     private Vector2 _bombSpawnPosition;

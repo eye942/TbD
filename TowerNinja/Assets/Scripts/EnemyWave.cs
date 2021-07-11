@@ -99,7 +99,7 @@ public class EnemyWave : MonoBehaviour
 	}
 	void Update()
 	{
-		Debug.Log("Wave Number: " + numWaves);
+		// Debug.Log("Wave Number: " + numWaves);
 		timer += Time.deltaTime;
 		if (numWaves == 1)
 		{
