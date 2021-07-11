@@ -50,6 +50,7 @@ public class Fireball : MonoBehaviour
 
     private void Update()
     {
+        transform.Rotate(0, 0, -300 * Time.deltaTime);
         var dy = rigidBody.position.y - initialPosition.y;
         _elapsedTime += Time.deltaTime;
 
