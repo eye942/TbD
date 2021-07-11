@@ -9422,7 +9422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5597701531091602082, guid: f784a08d2ef2bf74bad11f4b81c3f3f5, type: 3}
       propertyPath: m_Name
-      value: Pagoda
+      value: Tower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f784a08d2ef2bf74bad11f4b81c3f3f5, type: 3}
