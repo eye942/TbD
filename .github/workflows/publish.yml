@@ -40,9 +40,12 @@ jobs:
         run: echo ${{steps.download.outputs.download-path}}
       - name: 'Upload artifact'
         run: |
+          ls -a
+          pwd
+          cd build_repo
+          ls -a
           git config user.name github-actions
           git config user.email github-actions@github.com
-          cd build_repo
           git add build/
           git commit -m "Updated Build"
           git push
