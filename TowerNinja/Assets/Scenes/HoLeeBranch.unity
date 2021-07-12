@@ -9458,6 +9458,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1629231003829839369, guid: f784a08d2ef2bf74bad11f4b81c3f3f5, type: 3}
+      propertyPath: Bomb
+      value: 
+      objectReference: {fileID: 273217136250304024, guid: 16d783cd71c0aa249bc2f23fdef4c2a5, type: 3}
+    - target: {fileID: 1629231003829839369, guid: f784a08d2ef2bf74bad11f4b81c3f3f5, type: 3}
+      propertyPath: Arrow
+      value: 
+      objectReference: {fileID: 8521051777691831617, guid: ba196997166484d4abd0f3d52527be39, type: 3}
     - target: {fileID: 5597701531091602077, guid: f784a08d2ef2bf74bad11f4b81c3f3f5, type: 3}
       propertyPath: m_RootOrder
       value: 6

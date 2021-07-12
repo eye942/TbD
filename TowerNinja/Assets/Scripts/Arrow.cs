@@ -15,6 +15,7 @@ public class Arrow : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _initialPosition = transform.position;
+        transform.localEulerAngles = new Vector3(0, 0, -142);
 
         float randomOffsetVelocityX =  Random.Range(-1, 2);
         float randomOffsetVelocityY = Random.Range(-2, 2);
