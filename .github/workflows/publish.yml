@@ -36,16 +36,12 @@ jobs:
           targetPlatform: WebGL
           buildName: build
           buildsPath: build_repo/
-      - name: 'Echo download path'
-        run: echo ${{steps.download.outputs.download-path}}
       - name: 'Upload artifact'
         run: |
           cd build_repo
-          ls -a WebGL
           git config user.name github-actions
           git config user.email github-actions@github.com
-          mv -f WebGL/build build
-          rm -rf WebGL
+          ln WebGL/build/* build && rm -rf WebGL
           git add build
           git commit -m "Updated Build"
           git push
