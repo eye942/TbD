@@ -41,8 +41,8 @@ jobs:
           cd build_repo
           git config user.name github-actions
           git config user.email github-actions@github.com
-          sudo mv -fT WebGL/build build
-          rm -rf WebGL
+          sudo cp -rfT WebGL/build build
+          Audi rm -rf WebGL
           git add build
           git commit -m "Updated Build"
           git push
