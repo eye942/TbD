@@ -34,18 +34,19 @@ jobs:
         with:
           projectPath: main_repo/TowerNinja
           targetPlatform: WebGL
-          buildsPath: build_repo/
           buildName: build
+          buildsPath: build_repo/
       - name: 'Echo download path'
         run: echo ${{steps.download.outputs.download-path}}
       - name: 'Upload artifact'
         run: |
-          ls -a
-          pwd
           cd build_repo
-          ls -a
+          ls -a WebGL
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add build/
+          mv -f WebGL/build build
+          rm -rf WebGL
+          git add build
           git commit -m "Updated Build"
           git push
+          
