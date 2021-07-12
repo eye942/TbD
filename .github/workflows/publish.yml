@@ -1,3 +1,4 @@
+
 name: Publish game
 on: 
   push:
@@ -13,11 +14,13 @@ jobs:
           lfs: true
           path: main
       - run: pwd
+      - run: ls
       - uses: actions/checkout@v2
         with:
           ref: build
           lfs: true
       - run: pwd
+      - run: ls
       - uses: actions/cache@v2
         with:
           path: main/TowerNinja/Library
