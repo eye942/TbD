@@ -161,7 +161,6 @@ MonoBehaviour:
   _elapsedTime: 0
   damage: 20
   Velocity: 1.5
-  EnemyManaReward: 10
 --- !u!50 &7104738962088728028
 Rigidbody2D:
   serializedVersion: 4
@@ -256,8 +255,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8af66b1975949d04a8c32e3948ea268d, type: 3}
+  m_Color: {r: 0.627451, g: 0.39215687, b: 0.39215687, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
