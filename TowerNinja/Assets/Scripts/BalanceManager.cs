@@ -38,7 +38,12 @@ public class BalanceManager : MonoBehaviour
 
     // Fireball-related
     public static readonly int FireballMaxHealthPoint = 50;
-    public static readonly int FireballMaxClicks = 5; // ? clicks to eliminate the fireball
+
+    public static int FireballMaxClicks = 5; // ? clicks to eliminate the fireball. Set by difficulty slider
+    public static readonly int FireballMaxClicksEasy = 1;
+    public static readonly int FireballMaxClicksNormal = 5;
+    public static readonly int FireballMaxClicksHard = 10;
+    
     public static readonly int FireballMaxDamage = 3;
     public static readonly int FireballMinDamage = 1;
 
