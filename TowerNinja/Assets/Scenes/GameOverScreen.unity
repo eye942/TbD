@@ -950,7 +950,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 182481371}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: ReplayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
