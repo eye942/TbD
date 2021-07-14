@@ -1,7 +1,9 @@
+using UnityEngine;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Analytics;
+
 
 // Instantiate a rigidbody then set the velocity
 
@@ -21,9 +23,22 @@ public class enemyDmgHitbox : MonoBehaviour
     private Vector2 velocity;
     private int totalCollisions;
     public float Velocity;
+    // health text
+    public TMPro.TextMeshPro _healthText;
+    GameObject textobj;
 
     void Start()
     {
+        textobj = this.gameObject.transform.GetChild (0).gameObject;
+        _healthText = textobj.GetComponent<TextMeshPro>();
+        _healthText.text = MaxHealthPoint + "/" + MaxHealthPoint;
+        // textmeshpro and textmeshprougui
+    	
+        /*_healthText = AddComponent<TMPro.TextMeshPro>();
+    	if (_healthText == null) {
+    		Debug.Log("ehealth - IS NULL");
+    	}
+        */
         _elapsedTime += Time.deltaTime;
         totalCollisions = 0;
         if (EnemyWave.numWaves > 5)
@@ -40,6 +55,7 @@ public class enemyDmgHitbox : MonoBehaviour
         thisRB = this.GetComponent<Rigidbody2D>();
         thisRB.velocity = new Vector2(Velocity, 0);
         EnemyWave.spawnedEnemy++;
+        
     }
     void Update()
     {
@@ -109,9 +125,11 @@ public class enemyDmgHitbox : MonoBehaviour
     {
 
         _healthPoint -= damage;
+        Debug.Log("some damage took place to enemy" + _healthPoint + ", " + damage);
         //Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
+        	_healthText.text = "0/" + MaxHealthPoint;
             EnemyWave.spawnedEnemy--;
 
             // give mana reward
@@ -120,6 +138,8 @@ public class enemyDmgHitbox : MonoBehaviour
             //Debug.Log(this.gameObject + "is destroyed.");
             Destroy(this.gameObject);
             ReportEnemyDeath();
+        } else {
+        	_healthText.text = _healthPoint + "/" + MaxHealthPoint;
         }
     }
 
