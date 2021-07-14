@@ -28,8 +28,8 @@ public class SceneChanger: MonoBehaviour
     public static void ReplayGame()
     {
         if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksEasy) PlayEasyGame();
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal) PlayHardGame();
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksHard) PlayNormalGame();
+        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal) PlayNormalGame();
+        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksHard) PlayHardGame();
     }
     public static void GameOver()
     {
