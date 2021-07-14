@@ -24,7 +24,9 @@ public class friendDmgHitbox : MonoBehaviour
     private int totalCollisions;
     public TMPro.TextMeshPro _healthText;
     GameObject textobj;
-    
+
+    private float origY;
+    bool animationStarted = false;
     void Start()
     {
         textobj = this.gameObject.transform.GetChild (2).gameObject;
@@ -37,6 +39,8 @@ public class friendDmgHitbox : MonoBehaviour
         _healthPoint = MaxHealthPoint;
         damageTimer = 0.0f;
         velocity = thisRB.velocity;
+        origY = this.transform.position.y;
+        //origY = -3.3f;
     }
     void Update()
     {
@@ -78,17 +82,27 @@ public class friendDmgHitbox : MonoBehaviour
             damageTimer = 0;
             Debug.Log(collision.gameObject);
             collision.gameObject.transform.parent.SendMessage("DamageEnemy", damage);
+            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 0.2f);
+            animationStarted = true; 
+        }
+        if (animationStarted & damageTimer >= 0.2)
+        {
+            Debug.Log(this.name);
+            this.transform.position = new Vector2(this.transform.position.x, origY);
+            animationStarted = false;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "enemy")
         {
+
             totalCollisions--;
             Debug.Log("leave");
             //set collision check
             if (totalCollisions == 0)
             {
+                this.transform.position = new Vector2(this.transform.position.x, origY);
                 damageBool = false;
                 thisRB.velocity = velocity;
             }
