@@ -11,6 +11,10 @@ public class Fireball : MonoBehaviour
     private int spawnerID;
     public Color color = Color.green;
 
+
+    private AudioSource[] clickSounds;
+    private int soundIndex;
+
     private Vector2 initialPosition;
     private Rigidbody2D rigidBody;
     // spring constant
@@ -29,6 +33,9 @@ public class Fireball : MonoBehaviour
         spawner = GameObject.FindWithTag("fireball_spawn");
 
         rigidBody = GetComponent<Rigidbody2D>();
+        clickSounds = GetComponents<AudioSource>();
+        soundIndex=0;
+       
         // TODO revise spring constant based on difficulty
         k = Random.Range(2, 5);
 
@@ -80,6 +87,9 @@ public class Fireball : MonoBehaviour
 
         if (click > 0)
         {
+           
+            AudioSource.PlayClipAtPoint(clickSounds[soundIndex%6].clip, transform.position);
+            soundIndex+=1;
             float new_R = gameObject.GetComponent<Renderer>().material.color.r - (0.75f / BalanceManager.FireballMaxClicks);
             gameObject.GetComponent<Renderer>().material.color = new Color(new_R, 15/255, 15/255, 1);
             health = (int)((float)click / BalanceManager.FireballMaxClicks * BalanceManager.FireballMaxHealthPoint);
@@ -118,7 +128,14 @@ public class Fireball : MonoBehaviour
         // Debug.Log("Fireball - Die()");
         //this.gameObject.SetActive(false);
         ReportEnemyDeath();
+       
+        AudioSource.PlayClipAtPoint(clickSounds[4].clip, transform.position);
+     
+         AudioSource.PlayClipAtPoint(clickSounds[5].clip, transform.position);
+
+
         Destroy(gameObject);
+       
         
     }
 
