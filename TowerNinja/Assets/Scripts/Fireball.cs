@@ -13,6 +13,7 @@ public class Fireball : MonoBehaviour
 
     private Vector2 initialPosition;
     private Rigidbody2D rigidBody;
+    private AudioSource FireballDestroy;
     // spring constant
     private float k;
 
@@ -29,6 +30,7 @@ public class Fireball : MonoBehaviour
         spawner = GameObject.FindWithTag("fireball_spawn");
 
         rigidBody = GetComponent<Rigidbody2D>();
+        FireballDestroy = GetComponent<AudioSource> ();
         // TODO revise spring constant based on difficulty
         k = Random.Range(2, 5);
 
@@ -83,12 +85,14 @@ public class Fireball : MonoBehaviour
             float new_R = gameObject.GetComponent<Renderer>().material.color.r - (0.75f / BalanceManager.FireballMaxClicks);
             gameObject.GetComponent<Renderer>().material.color = new Color(new_R, 15/255, 15/255, 1);
             health = (int)((float)click / BalanceManager.FireballMaxClicks * BalanceManager.FireballMaxHealthPoint);
+            FireballDestroy.Play();
             // Debug.Log($"Fireball health is {health}");
         }
 
         if (click <= 0)
         {
             health = 0;
+            FireballDestroy.Play();
             // Debug.Log($"Fireball health is {health}");
             GiveManaReward();
             Die();

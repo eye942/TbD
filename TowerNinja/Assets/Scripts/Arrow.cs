@@ -9,13 +9,20 @@ public class Arrow : MonoBehaviour
     
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
+    private AudioSource ArrowHit;
+    private AudioClip Pop;
 
     // Start is called before the first frame update
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _initialPosition = transform.position;
+
         transform.localEulerAngles = new Vector3(0, 0, -142);
+
+        ArrowHit = GetComponent<AudioSource>();
+        
+
 
         float randomOffsetVelocityX =  Random.Range(-1, 2);
         float randomOffsetVelocityY = Random.Range(-2, 2);
@@ -36,19 +43,31 @@ public class Arrow : MonoBehaviour
         {
             var managerObject = GameObject.Find("ResourceManager");
             var manager = managerObject.GetComponent<ResourceManager>();
-            Debug.LogError("Enemy Collision");
-            Debug.Log(collision.gameObject);
+           // Debug.LogError("Enemy Collision");
+           // Debug.Log(collision.gameObject);
             var parent = collision.gameObject.transform.parent;
-            parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(BalanceManager.ArrowDamage);
-            manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.ArrowDamage);
-            Die();
+            if(parent)
+            {
+                parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(BalanceManager.ArrowDamage);
+                manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.ArrowDamage);
+                Die();
+            }
+           
         }
     }
 
     private void Die()
     {
         // Debug.Log("Arrow - Die()");
+        if(transform.position.y < -4.5)
+        {
+             gameObject.SetActive(false);
+             Destroy(gameObject );
+             return;
+        }
+        AudioSource.PlayClipAtPoint(ArrowHit.clip, transform.position);
         gameObject.SetActive(false);
-        Destroy(gameObject);
+        
+        Destroy(gameObject, GetComponent<AudioSource>().clip.length );
     }
 }
