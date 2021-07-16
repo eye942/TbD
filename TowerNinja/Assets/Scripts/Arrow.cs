@@ -6,6 +6,7 @@ public class Arrow : MonoBehaviour
     private static readonly float ForceY = 0.0f;
     private static readonly float VelocityX = -11.0f;
     private static readonly float VelocityY = 6.0f;
+    private AudioSource ArrowHit;
     
     private Rigidbody2D _rigidBody;
     private Vector2 _initialPosition;
@@ -14,6 +15,7 @@ public class Arrow : MonoBehaviour
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        ArrowHit   = GetComponent<AudioSource>();
         _initialPosition = transform.position;
         transform.localEulerAngles = new Vector3(0, 0, -142);
 
@@ -36,11 +38,15 @@ public class Arrow : MonoBehaviour
         {
             var managerObject = GameObject.Find("ResourceManager");
             var manager = managerObject.GetComponent<ResourceManager>();
-            Debug.LogError("Enemy Collision");
-            Debug.Log(collision.gameObject);
             var parent = collision.gameObject.transform.parent;
-            parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(BalanceManager.ArrowDamage);
-            manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.ArrowDamage);
+            if(parent)
+            {
+                parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(BalanceManager.ArrowDamage);
+            }
+            if(manager)
+            {
+                manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.ArrowDamage);
+            }
             Die();
         }
     }
@@ -48,7 +54,15 @@ public class Arrow : MonoBehaviour
     private void Die()
     {
         // Debug.Log("Arrow - Die()");
+       if(transform.position.y < -4.5)
+        {
+             gameObject.SetActive(false);
+             Destroy(gameObject );
+             return;
+        }
+        AudioSource.PlayClipAtPoint(ArrowHit.clip, transform.position);
         gameObject.SetActive(false);
-        Destroy(gameObject);
+
+        Destroy(gameObject, ArrowHit.clip.length );
     }
 }
