@@ -4223,7 +4223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &692071071
 Transform:
   m_ObjectHideFlags: 0
@@ -12936,14 +12936,6 @@ PrefabInstance:
     - target: {fileID: 9172444732905294306, guid: 4129e2c824b25ac41abaa42fb3ce67b8, type: 3}
       propertyPath: m_Name
       value: _Portal_
-      objectReference: {fileID: 0}
-    - target: {fileID: 9172444732905294306, guid: 4129e2c824b25ac41abaa42fb3ce67b8, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9172444732905294307, guid: 4129e2c824b25ac41abaa42fb3ce67b8, type: 3}
-      propertyPath: m_Color.a
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4129e2c824b25ac41abaa42fb3ce67b8, type: 3}
