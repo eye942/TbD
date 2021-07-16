@@ -4,8 +4,8 @@ public class Arrow : MonoBehaviour
 {
     private static readonly float ForceX = 0.0f;
     private static readonly float ForceY = 0.0f;
-    private static readonly float VelocityX = -7.0f;
-    private static readonly float VelocityY = 4.0f;
+    private static readonly float VelocityX = -11.0f;
+    private static readonly float VelocityY = 6.0f;
     private AudioSource ArrowHit;
     
     private Rigidbody2D _rigidBody;
