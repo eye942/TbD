@@ -32,7 +32,7 @@ public class ResourceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name == "MainGame")
+        if (SceneManager.GetActiveScene().name == "MainGame" || SceneManager.GetActiveScene().name == "HoLeeBranch")
         {
             _elapsedTime = 0;
             _currentManaNumber = BalanceManager.ManaStartNumber;

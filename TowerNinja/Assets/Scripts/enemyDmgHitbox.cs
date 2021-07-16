@@ -27,6 +27,8 @@ public class enemyDmgHitbox : MonoBehaviour
     public TMPro.TextMeshPro _healthText;
     GameObject textobj;
 
+    private float origY;
+    bool animationStarted = false;
     void Start()
     {
         textobj = this.gameObject.transform.GetChild (0).gameObject;
@@ -55,7 +57,7 @@ public class enemyDmgHitbox : MonoBehaviour
         thisRB = this.GetComponent<Rigidbody2D>();
         thisRB.velocity = new Vector2(Velocity, 0);
         EnemyWave.spawnedEnemy++;
-        
+        origY = this.transform.position.y;
     }
     void Update()
     {
@@ -102,10 +104,19 @@ public class enemyDmgHitbox : MonoBehaviour
     {
         if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "friendly")
         {
+
             damageBool = true;
             damageTimer = 0;
             collision.gameObject.SendMessage("DamageTower", damage);
             collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 0.2f);
+            animationStarted = true;
+        }
+        if (animationStarted & damageTimer >= 0.2)
+        {
+            Debug.Log(this.name);
+            this.transform.position = new Vector2(this.transform.position.x, origY);
+            animationStarted = false;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
