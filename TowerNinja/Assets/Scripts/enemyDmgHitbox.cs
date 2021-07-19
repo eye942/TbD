@@ -92,7 +92,7 @@ public class enemyDmgHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log(collision.tag);
-        if (collision.tag == "friendly")
+        if (collision.gameObject.CompareTag("friendly") || collision.gameObject.CompareTag("tower"))
         {
             totalCollisions++;
             damageBool = true;
@@ -102,15 +102,21 @@ public class enemyDmgHitbox : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "friendly")
+        if (damageTimer >= damageTime && totalCollisions > 0)
         {
-
-            damageBool = true;
-            damageTimer = 0;
-            collision.gameObject.SendMessage("DamageTower", damage);
-            collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
-            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 0.2f);
-            animationStarted = true;
+            if (collision.gameObject.CompareTag("friendly"))
+            {
+                damageBool = true;
+                damageTimer = 0;
+                collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+                this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 0.2f);
+                animationStarted = true;
+            }else if (collision.gameObject.CompareTag("tower"))
+            {
+                collision.gameObject.SendMessage("DamageTower", damage);
+                animationStarted = true;
+                Destroy(this.gameObject);
+            }
         }
         if (animationStarted & damageTimer >= 0.2)
         {
@@ -121,7 +127,7 @@ public class enemyDmgHitbox : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "friendly")
+        if (collision.CompareTag("friendly"))
         {
             totalCollisions--;
             if (totalCollisions == 0)
