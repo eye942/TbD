@@ -111,7 +111,7 @@ public class Fireball : MonoBehaviour
     {
         // Debug.Log("Fireball collision");
 
-        if (other.gameObject.CompareTag("friendly"))
+        if (other.gameObject.CompareTag("tower"))
         {
             other.gameObject.SendMessage("DamageTower", damage);
             GameObject e = Instantiate(explosion) as GameObject;
