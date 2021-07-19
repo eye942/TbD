@@ -14016,7 +14016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gizmoColor: {r: 1, g: 0, b: 0, a: 1}
   enemyLevel: 0
-  MiniEnemy: {fileID: 7159664208758710218, guid: 34c037938c8413a48a2b138b74295a59, type: 3}
+  MiniEnemy: {fileID: 7159664208758710218, guid: f50864bf4271a42ab91a2053b6aba540, type: 3}
   BigEnemy: {fileID: 3519400628805009338, guid: 0661a978b90a7114d81e728c40d1ee16, type: 3}
   Slinger: {fileID: 3065122155297073270, guid: 7516c975d6f68574b98db3de29a6d8c4, type: 3}
   totalEnemy: 10
