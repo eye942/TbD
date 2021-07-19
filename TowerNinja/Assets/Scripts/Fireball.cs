@@ -52,7 +52,7 @@ public class Fireball : MonoBehaviour
         click = BalanceManager.FireballMaxClicks;
 
         // TODO revise max and min based on difficulty
-        damage = Random.Range(BalanceManager.FireballMinDamage, BalanceManager.FireballMaxDamage);
+        damage = Random.Range(BalanceManager.FireballMinDamage, BalanceManager.FireballMaxDamage+(int) ResourceManager._elapsedTime/30);
     }
 
     private void Update()
