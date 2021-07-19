@@ -33,10 +33,15 @@ public class Bomb : MonoBehaviour
         {
             var managerObject = GameObject.Find("ResourceManager");
             var manager = managerObject.GetComponent<ResourceManager>();
-            Debug.LogError("Enemy Collision");
-            Debug.Log(collision.gameObject);
-            collision.gameObject.SendMessage("DamageEnemy", BalanceManager.BombDamage);
-            manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.BombDamage);
+            var parent = collision.gameObject.transform.parent;
+            if(parent)
+            {
+                parent.GetComponent<enemyDmgHitbox>()?.DamageEnemy(BalanceManager.BombDamage);
+            }
+            if(manager)
+            {
+                manager.UpdateProjectileDamage(this.GetType().Name, BalanceManager.BombDamage);
+            }
             Die();
         }
     }
