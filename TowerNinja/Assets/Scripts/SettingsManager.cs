@@ -21,8 +21,16 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
+        if (scenesWithGameMuteButton.Contains(SceneManager.GetActiveScene().name))
+        {
+            Text text = GameObject.Find("GameMuteButtonText").GetComponent<Text>();
+            if (AudioStateOn) text.text = "Mute";
+            else text.text = "Unmute";
+        }
+
         UpdateBackgroundAudio();
     }
+
     private static void UpdateBackgroundAudio()
     {
         if (scenesWithBackgroundMusic.Contains(SceneManager.GetActiveScene().name))
