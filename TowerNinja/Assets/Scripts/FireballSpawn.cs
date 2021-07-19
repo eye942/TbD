@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
- 
+using UnityEngine.Serialization;
+
 public class FireballSpawn : MonoBehaviour
 {
 	// Color of the gizmo
@@ -17,29 +18,11 @@ public class FireballSpawn : MonoBehaviour
 		Wave,
 		TimedWave
     }
-	// The different Enemy levels
-	public enum EnemyLevels
-    {
-		Easy,
-		Medium,
-		Hard,
-		Boss
-    }
-	//---------------------------------
-	// End of the Enums
-	//---------------------------------
- 
-	// Enemy level to be spawnedEnemy
-	public EnemyLevels enemyLevel = EnemyLevels.Easy;
- 
+
 	//----------------------------------
 	// Enemy Prefabs
 	//----------------------------------
-	public GameObject EasyEnemy;
-	public GameObject MediumEnemy;
-	public GameObject HardEnemy;
-	public GameObject BossEnemy;
-	private Dictionary<EnemyLevels, GameObject> Enemies = new Dictionary<EnemyLevels, GameObject>(4);
+	[FormerlySerializedAs("EasyEnemy")] public GameObject fireBall;
 
 	private float lastSpawnTime;
 	//----------------------------------
@@ -79,10 +62,6 @@ public class FireballSpawn : MonoBehaviour
 	{
 		// sets a random number for the id of the spawner
 		SpawnID = Random.Range(1, 500);
-		Enemies.Add(EnemyLevels.Easy, EasyEnemy);
-		Enemies.Add(EnemyLevels.Boss, BossEnemy);
-		Enemies.Add(EnemyLevels.Medium, MediumEnemy);
-		Enemies.Add(EnemyLevels.Hard, HardEnemy);
 		lastSpawnTime = 3f;
 	}
 	// Draws a cube to show where the spawn point is... Useful if you don't have a object that show the spawn point
@@ -189,8 +168,8 @@ public class FireballSpawn : MonoBehaviour
 	// spawns an enemy based on the enemy level that you selected
 	private void spawnEnemy()
 	{
-		GameObject Enemy = (GameObject) Instantiate(Enemies[enemyLevel], gameObject.transform.position, Quaternion.identity);
-		Enemy.SendMessage("setName", SpawnID);
+		GameObject enemy = (GameObject) Instantiate(fireBall, gameObject.transform.position, Quaternion.identity);
+		enemy.SendMessage("setName", SpawnID);
 		// Increase the total number of enemies spawned and the number of spawned enemies
 		numEnemy++;
 		spawnedEnemy++;
