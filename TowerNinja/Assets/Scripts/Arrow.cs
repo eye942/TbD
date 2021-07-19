@@ -60,7 +60,7 @@ public class Arrow : MonoBehaviour
              Destroy(gameObject );
              return;
         }
-        AudioSource.PlayClipAtPoint(ArrowHit.clip, transform.position);
+        if (SettingsManager.AudioStateOn)  AudioSource.PlayClipAtPoint(ArrowHit.clip, transform.position);
         gameObject.SetActive(false);
 
         Destroy(gameObject, ArrowHit.clip.length );

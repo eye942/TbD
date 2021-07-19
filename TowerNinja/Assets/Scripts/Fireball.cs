@@ -87,8 +87,8 @@ public class Fireball : MonoBehaviour
 
         if (click > 0)
         {
-           
-            AudioSource.PlayClipAtPoint(clickSounds[soundIndex%6].clip, transform.position);
+
+            if (SettingsManager.AudioStateOn) AudioSource.PlayClipAtPoint(clickSounds[soundIndex%6].clip, transform.position);
             soundIndex+=1;
             float new_R = gameObject.GetComponent<Renderer>().material.color.r - (0.75f / BalanceManager.FireballMaxClicks);
             gameObject.GetComponent<Renderer>().material.color = new Color(new_R, 15/255, 15/255, 1);
@@ -128,10 +128,10 @@ public class Fireball : MonoBehaviour
         // Debug.Log("Fireball - Die()");
         //this.gameObject.SetActive(false);
         ReportEnemyDeath();
-       
-        AudioSource.PlayClipAtPoint(clickSounds[4].clip, transform.position);
-     
-         AudioSource.PlayClipAtPoint(clickSounds[5].clip, transform.position);
+
+        if (SettingsManager.AudioStateOn) AudioSource.PlayClipAtPoint(clickSounds[4].clip, transform.position);
+
+        if (SettingsManager.AudioStateOn) AudioSource.PlayClipAtPoint(clickSounds[5].clip, transform.position);
 
 
         Destroy(gameObject);
