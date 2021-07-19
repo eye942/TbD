@@ -92,7 +92,7 @@ public class enemyDmgHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log(collision.tag);
-        if (collision.tag == "friendly")
+        if (collision.CompareTag("friendly") || collision.CompareTag("tower"))
         {
             totalCollisions++;
             damageBool = true;
@@ -102,26 +102,38 @@ public class enemyDmgHitbox : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (damageTimer >= damageTime && totalCollisions > 0 && collision.gameObject.tag == "friendly")
+        var position = transform.position;
+        if (damageTimer >= damageTime && totalCollisions > 0)
         {
-
-            damageBool = true;
-            damageTimer = 0;
-            collision.gameObject.SendMessage("DamageTower", damage);
-            collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
-            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y - 0.2f);
-            animationStarted = true;
+            if (collision.gameObject.CompareTag("friendly"))
+            {
+                damageBool = true;
+                damageTimer = 0;
+                collision.gameObject.transform.parent.SendMessage("DamageFriendly", damage);
+                position += new Vector3(0, -0.2f,0);
+                animationStarted = true;
+            }else if (collision.gameObject.CompareTag("tower"))
+            {
+                damageBool = true;
+                damageTimer = 0;
+                collision.gameObject.SendMessage("DamageTower", damage);
+                position += new Vector3(0, -0.2f,0);
+                animationStarted = true;
+                Destroy(this.gameObject);
+            }
         }
         if (animationStarted & damageTimer >= 0.2)
         {
             Debug.Log(this.name);
-            this.transform.position = new Vector2(this.transform.position.x, origY);
+            position = new Vector2(position.x, origY);
             animationStarted = false;
         }
+
+        transform.position = position;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "friendly")
+        if (collision.CompareTag("friendly") || collision.CompareTag("tower"))
         {
             totalCollisions--;
             if (totalCollisions == 0)
@@ -132,11 +144,10 @@ public class enemyDmgHitbox : MonoBehaviour
         }
     }
 
-    public void DamageEnemy(int damage)
+    public void DamageEnemy(int damagePoints)
     {
-
-        _healthPoint -= damage;
-        Debug.Log("some damage took place to enemy" + _healthPoint + ", " + damage);
+        _healthPoint -= damagePoints;
+        Debug.Log("some damage took place to enemy" + _healthPoint + ", " + damagePoints);
         //Debug.Log($"Enemy took damage {damage}, HP becomes {_healthPoint}");
         if (_healthPoint <= MinHealthPoint)
         {
@@ -147,7 +158,7 @@ public class enemyDmgHitbox : MonoBehaviour
             GiveManaReward();
 
             //Debug.Log(this.gameObject + "is destroyed.");
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             ReportEnemyDeath();
         } else {
         	_healthText.text = _healthPoint + "/" + MaxHealthPoint;
@@ -167,12 +178,13 @@ public class enemyDmgHitbox : MonoBehaviour
     public void ReportEnemyDeath()
     {
         int timeOfDeath = (int)_elapsedTime % 60;
+        var xPosition = gameObject.transform.position.x.ToString("F");
         Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
         {
-            { "EnemyDiedPosition", this.gameObject.transform.position.x.ToString("F")},
+            { "EnemyDiedPosition", xPosition},
             { "TimeOfDeath", timeOfDeath }
         });
-        Debug.Log("Enemy Position of Death: " + this.gameObject.transform.position.x.ToString("F"));
+        Debug.Log("Enemy Position of Death: " + xPosition);
         Debug.Log("Enemy Time of Death: " + timeOfDeath);
     }
 }
