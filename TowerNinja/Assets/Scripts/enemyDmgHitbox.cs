@@ -178,12 +178,13 @@ public class enemyDmgHitbox : MonoBehaviour
     public void ReportEnemyDeath()
     {
         int timeOfDeath = (int)_elapsedTime % 60;
+        var xPosition = gameObject.transform.position.x.ToString("F");
         Analytics.CustomEvent("EnemyDiedPosition", new Dictionary<string, object>
         {
-            { "EnemyDiedPosition", this.gameObject.transform.position.x.ToString("F")},
+            { "EnemyDiedPosition", xPosition},
             { "TimeOfDeath", timeOfDeath }
         });
-        Debug.Log("Enemy Position of Death: " + this.gameObject.transform.position.x.ToString("F"));
+        Debug.Log("Enemy Position of Death: " + xPosition);
         Debug.Log("Enemy Time of Death: " + timeOfDeath);
     }
 }
