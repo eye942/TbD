@@ -47,7 +47,7 @@ public class SceneChanger: MonoBehaviour
 
     public static void PlayTutorial()
     {
-        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksEasy;
+        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksNormal;
         Debug.Log("Set difficulty to - Easy");
         SceneManager.LoadScene("Scenes/Tutorial");
         AnalyticsEvent.GameStart();
