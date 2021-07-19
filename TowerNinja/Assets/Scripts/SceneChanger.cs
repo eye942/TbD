@@ -44,4 +44,12 @@ public class SceneChanger: MonoBehaviour
     {
         SceneManager.LoadScene("EntryScreen");
     }
+
+    public static void PlayTutorial()
+    {
+        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksEasy;
+        Debug.Log("Set difficulty to - Easy");
+        SceneManager.LoadScene("Scenes/Tutorial");
+        AnalyticsEvent.GameStart();
+    }
 }
