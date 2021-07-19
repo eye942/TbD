@@ -11,7 +11,11 @@ public class ResourceManager : MonoBehaviour
     private static int _currentManaNumber;
     private static int _consumedManaNumber;
 
-    private static float _elapsedTime; // in seconds
+    public static float _elapsedTime   // in seconds
+    {
+        get;
+        private set;
+    } 
     private static float _elapsedTime75; // in seconds
     private static float _elapsedTime50; // in seconds
     private static float _elapsedTime25; // in seconds
