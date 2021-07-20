@@ -22,7 +22,6 @@ public class SceneChanger: MonoBehaviour
         BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksNormal;
         Debug.Log("Set difficulty to - Normal");
         SceneManager.LoadScene("Scenes/MainGame");
-        SetBackgroundSprite();
         AnalyticsEvent.GameStart();
     }
     public static void PlayHardGame()
