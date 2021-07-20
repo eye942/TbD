@@ -934,7 +934,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Settings
+  m_Text: Audio Settings
 --- !u!222 &990879569
 CanvasRenderer:
   m_ObjectHideFlags: 0
