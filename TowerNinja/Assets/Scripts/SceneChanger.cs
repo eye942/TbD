@@ -68,21 +68,21 @@ public class SceneChanger: MonoBehaviour
 
         if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksEasy) // easy
         {
-            backgroundEasy.SetActive(true);
-            backgroundNormal.SetActive(false);
-            backgroundHard.SetActive(false);
+            backgroundEasy?.SetActive(true);
+            backgroundNormal?.SetActive(false);
+            backgroundHard?.SetActive(false);
         }
         else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal) // normal
         {
-            backgroundEasy.SetActive(false);
-            backgroundNormal.SetActive(true);
-            backgroundHard.SetActive(false);
+            backgroundEasy?.SetActive(false);
+            backgroundNormal?.SetActive(true);
+            backgroundHard?.SetActive(false);
         }
         else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksHard) // hard
         {
-            backgroundEasy.SetActive(false);
-            backgroundNormal.SetActive(false);
-            backgroundHard.SetActive(true);
+            backgroundEasy?.SetActive(false);
+            backgroundNormal?.SetActive(false);
+            backgroundHard?.SetActive(true);
         }
     }
 }
