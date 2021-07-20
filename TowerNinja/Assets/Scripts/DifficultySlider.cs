@@ -9,18 +9,13 @@ public class DifficultySlider : MonoBehaviour
     {
         Text text = GameObject.Find("DifficultyOptionText").GetComponent<Text>();
 
-        if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksEasy)
+        mainSlider.value = BalanceManager.Difficulty switch
         {
-            mainSlider.value = 0;
-        }
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal)
-        {
-            mainSlider.value = 1;
-        }
-        else
-        {
-            mainSlider.value = 2;
-        }
+            BalanceManager.Level.Easy => 0,
+            BalanceManager.Level.Medium => 1,
+            BalanceManager.Level.Hard => 2,
+            _ => 1
+        };
     }
 
     // Invoked when the value of the slider changes.
@@ -31,22 +26,22 @@ public class DifficultySlider : MonoBehaviour
         switch (mainSlider.value)
         { 
             case 0: // easy
-                BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksEasy;
+                BalanceManager.Difficulty = BalanceManager.Level.Easy;
                 Debug.Log("Set difficulty to - Easy");
                 text.text = "Easy";
                 break;
             case 1: // normal
-                BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksNormal;
+                BalanceManager.Difficulty = BalanceManager.Level.Medium;
                 Debug.Log("Set difficulty to - Normal");
                 text.text = "Normal";
                 break;
             case 2: // hard
-                BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksHard;
+                BalanceManager.Difficulty = BalanceManager.Level.Hard;
                 Debug.Log("Set difficulty to - Hard");
                 text.text = "Hard";
                 break;
             default: // normal
-                BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksNormal;
+                BalanceManager.Difficulty = BalanceManager.Level.Medium;
                 break;
         }
                 
