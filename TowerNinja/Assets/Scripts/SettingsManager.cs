@@ -11,12 +11,14 @@ public class SettingsManager : MonoBehaviour
         {
             "EntryScreen",
             "MainGame",
-            "GameOverScreen"
+            "GameOverScreen",
+            "Tutorial"
         };
 
     private static readonly HashSet<string> scenesWithGameMuteButton = new HashSet<string>()
         {
-            "MainGame"
+            "MainGame",
+            "Tutorial"
         };
 
     void Start()
