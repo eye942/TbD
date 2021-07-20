@@ -91,7 +91,7 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator WaitForAllEnemiesDie()
     {
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(22);
         enemySpawner.SetActive(false);
         Debug.Log("Enmemy De-activated.");
     }
