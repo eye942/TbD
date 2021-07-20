@@ -20572,7 +20572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -143.13017, y: 141.20157}
+  m_AnchoredPosition: {x: -135, y: 200}
   m_SizeDelta: {x: 641.4542, y: 82.7968}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1413021015
@@ -34904,10 +34904,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 738734532, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -135
+      objectReference: {fileID: 0}
+    - target: {fileID: 738734532, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 220
+      objectReference: {fileID: 0}
     - target: {fileID: 738734533, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
       propertyPath: m_Text
       value: "Here comes the enemy! \nYou need to summon friendly units\nTry \"Q\"
         , \"W\" or \"E\" "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192175968, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798248424083520, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798248612765735, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -185
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798248612765735, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 220
       objectReference: {fileID: 0}
     - target: {fileID: 6275798248709970768, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
       propertyPath: m_RootOrder
@@ -34957,6 +34981,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopUps
       objectReference: {fileID: 0}
+    - target: {fileID: 6275798248880190895, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249012511454, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249062297765, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249062297765, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 220
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249174719328, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249174719328, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 240
+      objectReference: {fileID: 0}
     - target: {fileID: 6275798249174719335, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
       propertyPath: m_Text
       value: 'Here comes the Shuriken! Click on it to destroy it!
@@ -34964,9 +35012,21 @@ PrefabInstance:
         It''s
         quite tough to destroy.'
       objectReference: {fileID: 0}
+    - target: {fileID: 6275798249235700164, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249235700164, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 220
+      objectReference: {fileID: 0}
     - target: {fileID: 6275798249235700171, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
       propertyPath: m_Text
       value: Left-click to step through this tutorial.
+      objectReference: {fileID: 0}
+    - target: {fileID: 6275798249717423726, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 778e4548aadb84ba2832f33456fa55d2, type: 3}
