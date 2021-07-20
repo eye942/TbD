@@ -4,6 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger: MonoBehaviour
 {
+    public void Start()
+    {
+        if(SceneManager.GetActiveScene().name == "MainGame")
+            SetBackgroundSprite();
+    }
+
     public static void PlayEasyGame()
     {
         BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksEasy;
@@ -51,5 +57,31 @@ public class SceneChanger: MonoBehaviour
         Debug.Log("Set difficulty to - Easy");
         SceneManager.LoadScene("Scenes/Tutorial");
         AnalyticsEvent.GameStart();
+    }
+
+    private static void SetBackgroundSprite()
+    {
+        GameObject backgroundEasy = GameObject.Find("BackgroundEasy");
+        GameObject backgroundNormal = GameObject.Find("BackgroundNormal");
+        GameObject backgroundHard = GameObject.Find("BackgroundHard");
+
+        if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksEasy) // easy
+        {
+            backgroundEasy?.SetActive(true);
+            backgroundNormal?.SetActive(false);
+            backgroundHard?.SetActive(false);
+        }
+        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal) // normal
+        {
+            backgroundEasy?.SetActive(false);
+            backgroundNormal?.SetActive(true);
+            backgroundHard?.SetActive(false);
+        }
+        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksHard) // hard
+        {
+            backgroundEasy?.SetActive(false);
+            backgroundNormal?.SetActive(false);
+            backgroundHard?.SetActive(true);
+        }
     }
 }
