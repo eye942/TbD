@@ -27,26 +27,50 @@ public class ResourceManager : MonoBehaviour
     private bool _tower50HPflag;
     private bool _tower25HPflag;
 
+
+    private float _friendlyLastTime;
+    private float _slingerFriendlyLastTime;
+    private float _bigFriendlyLastTime;
+
+    private float _friendlyTime;
+    private float _slingerFriendlyTime;
+    private float _bigFriendlyTime;
+
     private Text _manaCounterText;
     private Text _timeCounterText;
     private Text _elapsedTimeText; // gameover screen
+    private Text _timeGateCounterText;
 
     private readonly Dictionary<string, int> _projectileDamage = new Dictionary<string, int>();
 
     // Start is called before the first frame update
     void Start()
     {
+
+
+        _friendlyLastTime = -1;
+        _slingerFriendlyLastTime = -1;
+        _bigFriendlyLastTime = -1;
+
         if (SceneManager.GetActiveScene().name == "MainGame" || SceneManager.GetActiveScene().name == "HoLeeBranch")
         {
             _elapsedTime = 0;
             _currentManaNumber = BalanceManager.ManaStartNumber;
+
+            _friendlyTime = BalanceManager.FriendlyTimeGate;
+            _slingerFriendlyTime = BalanceManager.SlingerFriendlyTimeGate;
+            _bigFriendlyTime = BalanceManager.BigFriendlyTimeGate;
+
             _consumedManaNumber = 0;
             _manaTimeRewardCounter = 0;
             GameObject manaCounter = GameObject.Find("ManaCounter");
             _manaCounterText = manaCounter.GetComponent<Text>();
             GameObject timeCounter = GameObject.Find("TimeCounter");
             _timeCounterText = timeCounter.GetComponent<Text>();
+            GameObject timeGateCounter = GameObject.Find("TimeGateCounter");
+            _timeGateCounterText = timeGateCounter.GetComponent<Text>();
             UpdateManaCounterDisplay();
+            UpdateTimeGateCounterDisplay();
 
             GameObject towerObject = GameObject.Find("Tower");
             _tower = towerObject.GetComponent<Tower>();
@@ -77,7 +101,7 @@ public class ResourceManager : MonoBehaviour
             _elapsedTime += Time.deltaTime;
             _manaTimeRewardCounter += Time.deltaTime;
             UpdateTimeCounterDisplay();
-
+            UpdateTimeGateCounterDisplay();
             // Time reward mana. Give ? mana per ? second
             if (_manaTimeRewardCounter > BalanceManager.ManaTimeRewardInterval)
             {
@@ -152,7 +176,13 @@ public class ResourceManager : MonoBehaviour
 
     private void UpdateTimeCounterDisplay()
     {
+        
         _timeCounterText.text = $"Time: {(int) _elapsedTime}";
+    }
+    
+    private void UpdateTimeGateCounterDisplay()
+    {
+        _timeGateCounterText.text = $"Standard: {(string) RemainingFriendlyPercent()}     Big: {(string) RemainingBigFriendlyPercent()}     Slinger: {(string) RemainingSlingerFriendlyPercent()}";
     }
 
     private void UpdateElapsedTimeDisplay()
@@ -201,5 +231,116 @@ public class ResourceManager : MonoBehaviour
         }
        
         _projectileDamage[type] += damage;
+    }
+
+    public bool SpawnFriendly(){
+        if(!CanSpawnFriendly())
+            return false;
+        _friendlyLastTime = Time.time;  
+        return true;
+    }
+    public bool SpawnBigFriendly(){
+        if(!CanSpawnBigFriendly())
+            return false;
+        _bigFriendlyLastTime = Time.time;
+        return true;
+        
+    }
+    public bool SpawnSlingerFriendly(){
+        if(!CanSpawnSlingerFriendly())
+            return false;
+        _slingerFriendlyLastTime = Time.time;
+        return true;
+    }
+
+
+     public float RemainingFriendly(){
+        if(CanSpawnFriendly())
+            return _friendlyTime;
+ 
+        return Time.time - _friendlyLastTime;
+    }
+    public float RemainingBigFriendly(){
+        if(CanSpawnBigFriendly())
+            return _bigFriendlyTime;
+ 
+        return Time.time - _bigFriendlyLastTime;
+        
+    }
+    public float RemainingSlingerFriendly(){
+        if(CanSpawnSlingerFriendly())
+            return _slingerFriendlyTime;
+
+        return Time.time - _slingerFriendlyLastTime;
+    }
+
+     public string RemainingFriendlyPercent(){
+        if(CanSpawnFriendly())
+            return "100%";
+         int ret = Mathf.CeilToInt( (Time.time - _friendlyLastTime)/_friendlyTime * 100.0f );
+         string retstr;
+         if(ret>100)
+            retstr = "100%";
+        else if (ret<10) {
+            retstr =  ret + "%" + "  ";
+        }
+        else
+        {
+            retstr =  ret + "%" + " ";
+        }
+         
+
+        return retstr;
+    }
+    public string RemainingBigFriendlyPercent(){
+        if(CanSpawnBigFriendly())
+            return "100%";
+        
+        int ret = Mathf.CeilToInt( (Time.time - _bigFriendlyLastTime)/_bigFriendlyTime * 100.0f );
+        string retstr;
+         if(ret>100)
+            retstr = "100%";
+        else if (ret<10) {
+            retstr =  ret + "%" + "  ";
+        }
+        else
+        {
+            retstr =  ret + "%" + " ";
+        }
+         
+
+        return retstr;
+        
+    }
+    public string RemainingSlingerFriendlyPercent(){
+        if(CanSpawnSlingerFriendly())
+            return "100%";
+
+        int ret = Mathf.CeilToInt( (Time.time - _slingerFriendlyLastTime)/_slingerFriendlyTime * 100.0f );
+        string retstr;
+         if(ret>100)
+            retstr = "100%";
+        else if (ret<10) {
+            retstr =  ret + "%" + "  ";
+        }
+        else
+        {
+            retstr =  ret + "%" + " ";
+        }
+         
+
+        return retstr;
+    }
+
+
+    public bool CanSpawnFriendly(){
+        return _friendlyLastTime == -1 || Time.time - _friendlyLastTime > _friendlyTime;
+    }
+    public bool CanSpawnBigFriendly(){
+        return _bigFriendlyLastTime == -1 || Time.time - _bigFriendlyLastTime > _bigFriendlyTime;
+        
+    }
+    public bool CanSpawnSlingerFriendly(){
+        return _slingerFriendlyLastTime == -1  || Time.time - _slingerFriendlyLastTime > _slingerFriendlyTime;
     }
 }
