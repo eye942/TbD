@@ -1,42 +1,60 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using PathCreation;
+using PathCreation.Utility;
+using UnityEditor.SceneManagement;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(PathCreator))]
 public class Follower : MonoBehaviour
 {
     private PathCreator pathCreator;
+    private VertexPath path;
     public float speed = 1;
     float distanceTravelled;
-    VertexPath path;
 
     void Start()
     {
-        Vector2[] points;
-        points = new Vector2[7];
-        points[0] = (Vector2)gameObject.transform; //starting-point
-        //points[0] = gameObject.transform; //starting-point
-        points[6] = new Vector2(9, 1); //ending-point
-        points[1] = new Vector2(Random.Range(-17, -11), Random.Range(2, 7));
-        points[2] = new Vector2(Random.Range(-11, -6), Random.Range(2, 7));
-        points[3] = new Vector2(Random.Range(-6, -1), Random.Range(2, 7));
-        points[4] = new Vector2(Random.Range(-1, 3), Random.Range(2, 7));
-        points[5] = new Vector2(Random.Range(3, 8), Random.Range(2, 7));
+        IEnumerable<Vector2> points = new List<Vector2>
+        {
+            new Vector2( -17,0),
+            new Vector2(Random.Range(-17, -11.5f), Random.Range(2, 7)),
+            new Vector2(Random.Range(-11.5f, -6.4f), Random.Range(2, 7)),
+            new Vector2(Random.Range(-6.4f, -1.3f), Random.Range(2, 7)),
+            new Vector2(Random.Range(-1.3f, 3.8f), Random.Range(2, 7)),
+            new Vector2(Random.Range(3.8f, 8.9f), Random.Range(2, 7)),
+            new Vector2(9.0f, -3.0f),
+    
+        };
+        //points = points.Select(p => p + new Vector2(17, 0));
 
-        BezierPath bezierPath = new BezierPath(points, false, PathSpace.xy);
         pathCreator = GetComponent<PathCreator>();
-        pathCreator.bezierPath = bezierPath;
+        print(pathCreator.transform.position);
 
+
+        BezierPath bezierPath = new BezierPath(points, false);
+        path = new VertexPath(bezierPath, GameObject.Find("ORIGIN").transform);
         //path = GeneratePath(points, false);
+        transform.position = pathCreator.path.GetPoint(0);
+        print(path.NumPoints);
+    }
 
+    private void OnDrawGizmos()
+    {
+        var bounds = pathCreator.path.bounds;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(bounds.center,bounds.size);
     }
 
 
     void Update()
     {
+        //pathCreator.path.UpdateTransform(pathCreator.transform);
+        print($"{transform.position}:{pathCreator.transform.position}");
         distanceTravelled += speed * Time.deltaTime;
-        transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
+        transform.position = path.GetPointAtDistance(distanceTravelled);
     }
-
 }

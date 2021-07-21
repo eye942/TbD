@@ -1144,7 +1144,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 0
+    vertexPathUpToDate: 1
     vertexPathMaxAngleError: 0
     vertexPathMinVertexSpacing: 0
     showTransformTool: 1
@@ -1163,7 +1163,7 @@ MonoBehaviour:
     showVertexPathOptions: 1
     showNormals: 0
     showNormalsHelpInfo: 0
-    tabIndex: 1
+    tabIndex: 0
   initialized: 1
 --- !u!4 &1591106992
 Transform:
@@ -1335,8 +1335,8 @@ GameObject:
   - component: {fileID: 1910246211}
   - component: {fileID: 1910246210}
   - component: {fileID: 1910246209}
-  - component: {fileID: 1910246208}
   - component: {fileID: 1910246207}
+  - component: {fileID: 1910246208}
   - component: {fileID: 1910246212}
   m_Layer: 0
   m_Name: Cube
@@ -1357,20 +1357,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e4cf786078abc48ab33779c0c79674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
---- !u!65 &1910246208
-BoxCollider:
+  speed: 5
+--- !u!61 &1910246208
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910246206}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!23 &1910246209
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1427,8 +1440,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910246206}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.37, y: 4.85, z: -1.7623179}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -17, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1450,12 +1463,12 @@ MonoBehaviour:
     _bezierPath:
       points:
       - {x: -2, y: 0, z: 0}
-      - {x: -1, y: 0.5, z: 0}
-      - {x: 1, y: -0.5, z: 0}
+      - {x: -1, y: 0, z: 0}
+      - {x: 1, y: 0, z: 0}
       - {x: 2, y: 0, z: 0}
       isClosed: 0
       space: 1
-      controlMode: 0
+      controlMode: 3
       autoControlLength: 0.3
       boundsUpToDate: 0
       bounds:
