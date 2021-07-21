@@ -4,15 +4,58 @@ using UnityEngine;
 
 public class BalanceManager : MonoBehaviour
 {
+    public enum Level
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+    public static Level Difficulty  = Level.Medium;
     // Mana-related
-    public static readonly int ManaStartNumber = 100;
+    public static int ManaStartNumber
+    {
+        get
+        {
+            return Difficulty switch
+            {
+                Level.Hard => 50,
+                _ => 100
+            };
+        }
+    }
     public static readonly int ManaMinNumber = 0;
     public static readonly int ManaMaxNumber = 999;
 
     public static readonly int ManaTimeRewardInterval = 10; // give reward every ? seconds
-    public static readonly int ManaTimeRewardAmount = 10; // give ? mana every interval
 
-    public static readonly int ManaFireballReward = 2;
+    public static int ManaTimeRewardAmount // give ? mana every interval
+    {
+        get
+        {
+            return Difficulty switch
+            {
+                Level.Easy => 10,
+                Level.Medium => 5,
+                Level.Hard => 1,
+                _ => 5
+            };
+        }
+    }
+
+    public static int ManaFireballReward
+    {
+        get
+        {
+            return Difficulty switch
+            {
+                Level.Easy => 5,
+                Level.Medium => 3,
+                Level.Hard => 5,
+                _ => 5
+            };
+        }
+    }
+    
     public static readonly int ManaEnemyReward = 15;
     public static readonly int ManaBigEnemyReward = 20;
     public static readonly int ManaEnemySlingerReward = 25;
@@ -39,12 +82,34 @@ public class BalanceManager : MonoBehaviour
     // Fireball-related
     public static readonly int FireballMaxHealthPoint = 50;
 
-    public static int FireballMaxClicks = 5; // ? clicks to eliminate the fireball. Set by difficulty slider
-    public static readonly int FireballMaxClicksEasy = 1;
-    public static readonly int FireballMaxClicksNormal = 5;
-    public static readonly int FireballMaxClicksHard = 10;
+    public static int FireballMaxClicks // ? clicks to eliminate the fireball
+    {
+        get
+        {
+            return Difficulty switch
+            {
+                Level.Easy => 1,
+                Level.Medium => 5,
+                Level.Hard => 10,
+                _ => 5
+            };
+        }
+    } 
+
+    public static int FireballMaxDamage 
+    {
+        get
+        {
+            return Difficulty switch
+            {
+                Level.Easy => 3,
+                Level.Medium => 5,
+                Level.Hard => 10,
+                _ => 5
+            };
+        }
+    } 
     
-    public static readonly int FireballMaxDamage = 3;
     public static readonly int FireballMinDamage = 1;
 
     /*

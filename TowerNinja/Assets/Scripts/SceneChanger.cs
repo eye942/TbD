@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger: MonoBehaviour
 {
+    private delegate void PlayGameDelegate();
+
     public void Start()
     {
         if(SceneManager.GetActiveScene().name == "MainGame")
@@ -12,31 +14,41 @@ public class SceneChanger: MonoBehaviour
 
     public static void PlayEasyGame()
     {
-        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksEasy;
+        BalanceManager.Difficulty = BalanceManager.Level.Easy;
         Debug.Log("Set difficulty to - Easy");
         SceneManager.LoadScene("Scenes/MainGame");
         AnalyticsEvent.GameStart();
     }
     public static void PlayNormalGame()
     {
-        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksNormal;
+        BalanceManager.Difficulty = BalanceManager.Level.Medium;
         Debug.Log("Set difficulty to - Normal");
         SceneManager.LoadScene("Scenes/MainGame");
         AnalyticsEvent.GameStart();
     }
     public static void PlayHardGame()
     {
-        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksHard;
+        BalanceManager.Difficulty = BalanceManager.Level.Hard;
         Debug.Log("Set difficulty to - Hard");
         SceneManager.LoadScene("Scenes/MainGame");
         AnalyticsEvent.GameStart();
     }
     public static void ReplayGame()
     {
-        if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksEasy) PlayEasyGame();
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal) PlayNormalGame();
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksHard) PlayHardGame();
+
+        PlayGameDelegate play = BalanceManager.Difficulty switch
+        {
+            BalanceManager.Level.Easy =>
+                PlayEasyGame,
+            BalanceManager.Level.Medium =>
+                PlayNormalGame,
+            BalanceManager.Level.Hard =>
+                PlayHardGame,
+            _ => PlayNormalGame
+        };
+        play();
     }
+
     public static void GameOver()
     {
         SceneManager.LoadScene("GameOverScreen");
@@ -53,8 +65,8 @@ public class SceneChanger: MonoBehaviour
 
     public static void PlayTutorial()
     {
-        BalanceManager.FireballMaxClicks = BalanceManager.FireballMaxClicksNormal;
-        Debug.Log("Set difficulty to - Easy");
+        BalanceManager.Difficulty = BalanceManager.Level.Medium;
+        Debug.Log("Set difficulty to - Normal");
         SceneManager.LoadScene("Scenes/Tutorial");
         AnalyticsEvent.GameStart();
     }
@@ -65,23 +77,23 @@ public class SceneChanger: MonoBehaviour
         GameObject backgroundNormal = GameObject.Find("BackgroundNormal");
         GameObject backgroundHard = GameObject.Find("BackgroundHard");
 
-        if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksEasy) // easy
+        switch (BalanceManager.Difficulty) // easy
         {
-            backgroundEasy?.SetActive(true);
-            backgroundNormal?.SetActive(false);
-            backgroundHard?.SetActive(false);
-        }
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksNormal) // normal
-        {
-            backgroundEasy?.SetActive(false);
-            backgroundNormal?.SetActive(true);
-            backgroundHard?.SetActive(false);
-        }
-        else if (BalanceManager.FireballMaxClicks == BalanceManager.FireballMaxClicksHard) // hard
-        {
-            backgroundEasy?.SetActive(false);
-            backgroundNormal?.SetActive(false);
-            backgroundHard?.SetActive(true);
+            case BalanceManager.Level.Easy:
+                backgroundEasy.SetActive(true);
+                backgroundNormal.SetActive(false);
+                backgroundHard.SetActive(false);
+                break;
+            case BalanceManager.Level.Hard:
+                backgroundEasy.SetActive(false);
+                backgroundNormal.SetActive(false);
+                backgroundHard.SetActive(true);
+                break;
+            default:
+                backgroundEasy.SetActive(false);
+                backgroundNormal.SetActive(true);
+                backgroundHard.SetActive(false);
+                break;
         }
     }
 }
