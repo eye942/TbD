@@ -55,6 +55,10 @@ public class BalanceManager : MonoBehaviour
             };
         }
     }
+
+    public static readonly float FriendlyTimeGate = 3.0f;
+    public static readonly float BigFriendlyTimeGate = 7.0f;
+    public static readonly float SlingerFriendlyTimeGate = 5.0f;
     
     public static readonly int ManaEnemyReward = 15;
     public static readonly int ManaBigEnemyReward = 20;
