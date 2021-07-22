@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using PathCreation;
 using Random = UnityEngine.Random;
 using UnityEngine.Analytics;
 
@@ -11,7 +12,12 @@ public class Fireball : MonoBehaviour
     private int spawnerID;
     public Color color = Color.green;
 
-
+    // fireball pathing variables
+    public float speed = 5;
+    private PathCreator _pathCreator;
+    private VertexPath _path;
+    private float _distanceTravelled;
+    
     private AudioSource[] clickSounds;
     private int soundIndex;
 
@@ -37,14 +43,14 @@ public class Fireball : MonoBehaviour
         soundIndex=0;
        
         // TODO revise spring constant based on difficulty
-        k = Random.Range(2, 5);
-
-        var vX = Random.Range(3, 6);
-        // v = sqrt(2 / m * (-1/2) k x^2)
-        var vY = -Mathf.Sqrt(1 / rigidBody.mass * k * 2 * 3);
-        rigidBody.velocity = new Vector2(vX, vY / 1.5f);
-        initialPosition = transform.position;
-        rigidBody.AddForce(new Vector2(forceX, 0), ForceMode2D.Force);
+        // k = Random.Range(2, 5);
+        //
+        // var vX = Random.Range(3, 6);
+        // // v = sqrt(2 / m * (-1/2) k x^2)
+        // var vY = -Mathf.Sqrt(1 / rigidBody.mass * k * 2 * 3);
+        // rigidBody.velocity = new Vector2(vX, vY / 1.5f);
+        // initialPosition = transform.position;
+        // rigidBody.AddForce(new Vector2(forceX, 0), ForceMode2D.Force);
 
         // TODO revise max and min based on difficulty
         //health = Random.Range(1, 3);
@@ -53,23 +59,47 @@ public class Fireball : MonoBehaviour
 
         // TODO revise max and min based on difficulty
         damage = Random.Range(BalanceManager.FireballMinDamage, BalanceManager.FireballMaxDamage+(int) ResourceManager._elapsedTime/30);
+        GeneratePath();
     }
 
+    private void GeneratePath()
+    {
+        IEnumerable<Vector2> points = new List<Vector2>
+        {
+            spawner.transform.position,
+            new Vector2(Random.Range(-17, -11.5f), Random.Range(0, 7)),
+            new Vector2(Random.Range(-11.5f, -6.4f), Random.Range(0, 7)),
+            new Vector2(Random.Range(-6.4f, -1.3f), Random.Range(0, 7)),
+            new Vector2(Random.Range(-1.3f, 3.8f), Random.Range(0, 7)),
+            new Vector2(Random.Range(3.8f, 6f), Random.Range(0, 7)),
+            new Vector2(9.0f-3.6f, -3.0f),
+    
+        };
+        
+        _pathCreator = GetComponent<PathCreator>();
+
+        BezierPath bezierPath = new BezierPath(points, false);
+        _path = new VertexPath(bezierPath, GameObject.Find("ORIGIN").transform);
+        transform.position = _pathCreator.path.GetPoint(0);
+    }
+    
     private void Update()
     {
-        transform.Rotate(0, 0, -300 * Time.deltaTime);
-        var dy = rigidBody.position.y - initialPosition.y;
-        _elapsedTime += Time.deltaTime;
-
-        // Modify k -- spring constant
-        // k *= Random.Range(1.0f, 1.3f);
-        // k = k <= 0.01 ? k : 0.01f;
-        // f_k = -k * dX
-        var forceY = -k * dy;
-        forceX *= Random.Range(0.001f, 0.005f);
-        // Debug.Log($"{dy},{forceY}");
-
-        rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Force);
+        _distanceTravelled += speed * Time.deltaTime;
+        transform.position = _path.GetPointAtDistance(_distanceTravelled);
+        // transform.Rotate(0, 0, -300 * Time.deltaTime);
+        // var dy = rigidBody.position.y - initialPosition.y;
+        // _elapsedTime += Time.deltaTime;
+        //
+        // // Modify k -- spring constant
+        // // k *= Random.Range(1.0f, 1.3f);
+        // // k = k <= 0.01 ? k : 0.01f;
+        // // f_k = -k * dX
+        // var forceY = -k * dy;
+        // forceX *= Random.Range(0.001f, 0.005f);
+        // // Debug.Log($"{dy},{forceY}");
+        //
+        // rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Force);
 
 
     }
