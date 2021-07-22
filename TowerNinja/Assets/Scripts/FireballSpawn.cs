@@ -78,7 +78,7 @@ public class FireballSpawn : MonoBehaviour
 		{
 			lastSpawnTime += Time.deltaTime;
 			// Spawns enemies everytime one dies
-			if (spawnType == SpawnTypes.Normal && lastSpawnTime > 3)
+			if (spawnType == SpawnTypes.Normal && lastSpawnTime > BalanceManager.FireballSpawnTime)
 			{
 				// checks to see if the number of spawned enemies is less than the max num of enemies
 				if(numEnemy < totalEnemy)

@@ -113,6 +113,20 @@ public class BalanceManager : MonoBehaviour
             };
         }
     } 
+
+    public static float FireballSpawnTime 
+{
+    get
+    {
+        return Difficulty switch
+            {
+                Level.Easy => 3f,
+                Level.Medium => 2.7f,
+                Level.Hard => 2.7f,
+                _ => 2.7f
+            };
+}
+    }
     
     public static readonly int FireballMinDamage = 1;
 

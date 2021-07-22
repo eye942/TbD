@@ -71,6 +71,10 @@ public class Fireball : MonoBehaviour
 
         rigidBody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Force);
 
+        if(transform.position.x >= 15)
+        {
+            Die();
+        }
 
     }
 
@@ -154,15 +158,6 @@ public class Fireball : MonoBehaviour
     void setName(int sName)
     {
         spawnerID = sName;
-    }
-    void OnBecameInvisible()
-    {
-       
-        // Debug.Log("Fireball died after screenview");
-        Destroy(gameObject);
-        //enabled = false;
-        //this.gameObject.SetActive(false);
-        //Kill();
     }
 
     public void ReportEnemyDeath()
