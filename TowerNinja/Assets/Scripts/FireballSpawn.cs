@@ -181,7 +181,7 @@ public class FireballSpawn : MonoBehaviour
 				}
 				else
 				{
-					Spawn = false;
+					Spawn = true;
 				}
 			}
 		}
