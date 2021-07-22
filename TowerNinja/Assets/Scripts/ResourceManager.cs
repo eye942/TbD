@@ -39,7 +39,9 @@ public class ResourceManager : MonoBehaviour
     private Text _manaCounterText;
     private Text _timeCounterText;
     private Text _elapsedTimeText; // gameover screen
-    private Text _timeGateCounterText;
+    private Text _timeGateStandardCounterText;
+    private Text _timeGateBigCounterText;
+    private Text _timeGateSlingerCounterText;
 
     private readonly Dictionary<string, int> _projectileDamage = new Dictionary<string, int>();
 
@@ -67,8 +69,12 @@ public class ResourceManager : MonoBehaviour
             _manaCounterText = manaCounter.GetComponent<Text>();
             GameObject timeCounter = GameObject.Find("TimeCounter");
             _timeCounterText = timeCounter.GetComponent<Text>();
-            GameObject timeGateCounter = GameObject.Find("TimeGateCounter");
-            _timeGateCounterText = timeGateCounter.GetComponent<Text>();
+            GameObject timeGateStandardCounter = GameObject.Find("TimeGateStandardCounter");
+            _timeGateStandardCounterText = timeGateStandardCounter.GetComponent<Text>();
+            GameObject timeGateBigCounter = GameObject.Find("TimeGateBigCounter");
+            _timeGateBigCounterText = timeGateBigCounter.GetComponent<Text>();
+            GameObject timeGateSlingerCounter = GameObject.Find("TimeGateSlingerCounter");
+            _timeGateSlingerCounterText = timeGateSlingerCounter.GetComponent<Text>();
             UpdateManaCounterDisplay();
             UpdateTimeGateCounterDisplay();
 
@@ -182,7 +188,9 @@ public class ResourceManager : MonoBehaviour
     
     private void UpdateTimeGateCounterDisplay()
     {
-        _timeGateCounterText.text = $"Standard: {(string) RemainingFriendlyPercent()}     Big: {(string) RemainingBigFriendlyPercent()}     Slinger: {(string) RemainingSlingerFriendlyPercent()}";
+        _timeGateStandardCounterText.text = $"Standard: {(string) RemainingFriendlyPercent()}";
+        _timeGateBigCounterText.text = $"Big: {(string) RemainingBigFriendlyPercent()}";
+        _timeGateSlingerCounterText.text = $"Slinger: {(string)RemainingSlingerFriendlyPercent()}";
     }
 
     private void UpdateElapsedTimeDisplay()
